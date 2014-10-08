@@ -1,0 +1,11 @@
+= form_for @item, :as => :item, :layout => :horizontal, :remote => !@item.new_record? do |f|
+  - content_for_expert do
+    = f.text_field :name
+  = f.text_field :title
+  - if @item.new_record?
+    = f.maily_context_select
+
+  - if @item.new_record?
+    = f.buttons :create
+  - else
+    = f.buttons :save, :cancel

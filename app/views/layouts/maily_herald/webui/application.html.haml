@@ -1,0 +1,47 @@
+!!! 5
+%html
+  %head
+    %title MailyHerald
+    = stylesheet_link_tag    "maily_herald/application", :media => "all"
+    = csrf_meta_tags
+  %body
+    .container
+      .hero
+        .row
+          .col-sm-3.text-center
+            %h1= link_to image_tag("maily_herald/logo.svg", :class => "img-responsive logo"), root_path
+          .col-sm-6= render_breadcrumbs
+          .col-sm-3
+            .dropdown.pull-right
+              %a{:href => '#', :data => { toggle: 'dropdown'}, :class => 'account'} 
+                %span= work_mode_t(work_mode)
+              %ul.dropdown-menu{'role' => 'menu'}
+                - if work_mode == :expert
+                  %li= link_to work_mode_t(:regular), switch_mode_path(:regular), :method => :post
+                - else
+                  %li= link_to work_mode_t(:expert), switch_mode_path(:expert), :method => :post
+
+      .section-wrapper
+        = render_main_menu
+
+        .content-container
+          = yield
+      
+      .footer.text-center 
+        %p 
+          = link_to "Maily Herald", "https://github.com/Sology/maily_herald"
+          = "v#{MailyHerald::VERSION}"
+          %br
+          %small
+            = t(".created_by")
+            = link_to "Sology", "http://www.sology.eu"
+    #popover-confirmation.fade{data: {title: t(".confirm")}}
+      %p.popover-msg
+      .popover-footer
+        %button.btn.btn-webui.confirm{:data => {:dismiss => "modal"}} OK
+        %button.btn.btn-link.cancel{:data => {:dismiss => "modal"}} Cancel
+    .modal#modal-context-variables.fade
+      .modal-dialog
+        .modal-content
+
+    = javascript_include_tag "maily_herald/application"

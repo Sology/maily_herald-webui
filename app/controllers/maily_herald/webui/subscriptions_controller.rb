@@ -1,0 +1,32 @@
+module MailyHerald
+	class Webui::SubscriptionsController < Webui::ResourcesController
+    add_breadcrumb :label_list_plural, Proc.new{ lists_path }
+    set_menu_item :lists
+
+    def show
+      super
+
+      @list = @item.list
+
+      add_breadcrumb @list.title || @list.name, list_path(@list)
+
+      add_breadcrumb view_context.tw("subscriptions.show.users_subscription", user: @item.entity.to_s)
+
+      @delivered_logs = smart_listing_create(:delivered_logs, @item.logs.delivered, :partial => "maily_herald/webui/logs/items")
+      @delivered_logs = smart_listing_create(:scheduled_logs, @item.logs.scheduled, :partial => "maily_herald/webui/logs/items")
+    end
+
+    def toggle
+      find_item
+      @item.toggle!
+    end
+
+    protected
+
+    def resource_spec
+      @resource_spec ||= Webui::ResourcesController::Spec.new.tap do |spec|
+        spec.klass = MailyHerald::Subscription
+      end
+    end
+  end
+end

@@ -1,0 +1,117 @@
+en:
+  activerecord:
+    attributes:
+      one_time_mailing: 
+        name: Name
+        context_name: Context
+        sequence: Sequence
+        conditions: Conditions
+        title: Title
+        from: Sender
+        relative_delay: Delay
+        template: Template
+      periodical_mailing: 
+        name: Name
+        context_name: Context
+        sequence: Sequence
+        conditions: Conditions
+        title: Title
+        from: Sender
+        relative_delay: Delay
+        template: Template
+      sequence: 
+        name: Name
+        context_name: Context
+        mode: Mode
+        start: Start date
+        start_var: Start variable (evaluated)
+        period: Period
+  layouts:
+    maily_herald:
+      webui:
+        application:
+          created_by: Created by
+          confirm: Confirm
+  maily_herald:
+    webui:
+      commons:
+        create: Create
+        save: Save
+        cancel: Cancel
+        edit: Edit
+        remove: Remove
+        active: Active
+        inactive: Inactive
+        enabled: Enabled
+        disabled: Disabled
+      attributes:
+        name: Name
+        title: Title
+        context: Context
+        context_name: Context name
+        context_model_name: Model name
+        email: E-mail
+        state: State
+        mailer: Mailer
+      work_modes:
+        regular: Regular Mode
+        expert: Expert Mode
+      lists:
+        subscribers: Subscribers
+        opt_outs: Opt-outs
+        potential_subscribers: Potential Subscribers
+        new:
+          label: Create new list
+        show:
+          help:
+            subscribers: "Entities subscribed to this list. They receive e-mails from this list."
+            opt_outs: "Entities unsubscribed from this list. They no longer receive e-mails from this list."
+            potential_subscribers: "Entities inside the list's context scope but never subscribed to this list."
+          sure_delete: Are you sure you want to remove this list?
+        items:
+          no_lists: No lists.
+        context_variables:
+          title: Context variables
+          syntax_help: Liquid syntax help
+          variables: "Variables in context '%{context}'"
+      subscribers:
+        list:
+          name: Name
+          email: E-mail
+          no_entities: No entities
+        item:
+          subscribe: Subscribe
+          unsubscribe: Unsubscribe
+      subscriptions:
+        show:
+          users_subscription: "%{user}'s subscription"
+          toggle_confirm: Are you sure you want to change subscription's status?
+      logs:
+        past_deliveries: Past deliveries
+        scheduled_deliveries: Scheduled deliveries
+        items:
+          no_logs: No logs
+      one_time_mailings:
+        new:
+          label: Add new One Time Mailing
+      mailings:
+        list:
+          no_mailings: No mailings.
+        archived:
+          label: Archived mailings
+      label_dashboard: Dashboard
+      label_list: List
+      label_list_plural: Lists
+      label_subscription: Subscription
+      label_subscription_plural: Subscriptions
+      label_one_time_mailing: One Time Mailing
+      label_one_time_mailing_plural: One Time Mailings
+      label_generic_mailer: Generic mailer
+
+      smart_listing:
+        actions:
+          show: Show
+          edit: Edit
+      views:
+        pagination:
+          total: Total

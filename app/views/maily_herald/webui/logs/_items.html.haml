@@ -1,0 +1,16 @@
+- unless smart_listing.empty?
+  %table.table.table-striped
+    %thead
+      %tr 
+        %th= tw("logs.delivery_at")
+        %th
+    %tbody
+      - smart_listing.collection.each do |log|
+        %tr
+          %td= log.delivery_at
+          %td.actions= smart_listing_item_actions [{:name => :show, :url => "#"}]
+
+  = smart_listing.paginate 
+  = smart_listing.pagination_per_page_links 
+- else
+  = t(".no_logs")

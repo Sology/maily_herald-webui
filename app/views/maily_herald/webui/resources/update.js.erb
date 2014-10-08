@@ -1,0 +1,5 @@
+<% if @item.valid? %>
+  $(".editable").editable("<%= escape_javascript(render(:partial => 'item')) %>");
+<% else %>
+  $(".editable").editable("<%= escape_javascript(render(:partial => 'form')) %>");
+<% end %>

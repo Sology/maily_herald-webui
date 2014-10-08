@@ -1,0 +1,13 @@
+- content_for :modal_title do
+  = t(".title")
+
+- if @context
+  %h4= t(".variables", context: @context.name)
+  = display_context_attributes @context.attributes_list
+
+%br
+%h4= t(".syntax_help")
+
+%ul
+  %li= link_to "Using Liquid Templates", "http://code.google.com/p/liquid-markup/wiki/UsingLiquidTemplates"
+  %li= link_to "Liquid Basics", "http://nationbuilder.com/liquid_basics"

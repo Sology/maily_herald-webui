@@ -1,0 +1,5 @@
+%h1
+  = link_to "<<", :action => :index
+  = tw("#{controller_name}.new.label", :action => :new)
+
+= render :partial => "form"

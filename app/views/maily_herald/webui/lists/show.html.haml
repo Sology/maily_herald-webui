@@ -1,0 +1,39 @@
+%h1
+  = friendly_name @item
+  = link_to edit_list_path(@item), :remote => true, :class => "link link-sm" do
+    = icon(:pencil)
+    = tw("commons.edit")
+  = link_to list_path(@item), :method => :delete, :data => {:confirm => t(".sure_delete")}, :class => "link link-sm" do
+    = icon(:"trash-o")
+    = tw("commons.remove")
+
+-#%h2.border 
+  -#Details
+  -#= link_to "Edit", "#", :class => "link"
+
+.box.noborder.editable
+  = render :partial => "item"
+
+%h2.border
+  = tw("lists.subscribers")
+  = display_help_icon :subscribers
+= smart_listing_controls_for :subscribers, :class => "context-menu" do
+  - if @subscribers.any?
+    %form{:action => ""}= filter_box "subscribers_filter"
+= smart_listing_render :subscribers
+
+%h2.border
+  = tw("lists.opt_outs")
+  = display_help_icon :opt_outs
+= smart_listing_controls_for :opt_outs, :class => "context-menu" do
+  - if @opt_outs.any?
+    %form{:action => ""}= filter_box "opt_outs_filter"
+= smart_listing_render :opt_outs
+
+%h2.border
+  = tw("lists.potential_subscribers")
+  = display_help_icon :potential_subscribers
+= smart_listing_controls_for :potential_subscribers, :class => "context-menu" do
+  - if @potential_subscribers.any?
+    %form{:action => ""}= filter_box "potential_subscribers_filter"
+= smart_listing_render :potential_subscribers
