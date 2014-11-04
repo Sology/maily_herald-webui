@@ -8,7 +8,7 @@ module MailyHerald
     before_filter :find_item, :only => [:show, :edit, :update, :destroy]
 
     class Spec
-      attr_accessor :klass, :scope, :filter_proc, :items_partial, :item_partial, :locale_prefix
+      attr_accessor :klass, :scope, :filter_proc, :items_partial, :item_partial, :locale_prefix, :params
 
       def filter scope, query
         @filter_proc.call(scope, query)
@@ -64,7 +64,11 @@ module MailyHerald
     end
 
     def item_params
-      params[:item]
+      if Rails::VERSION::MAJOR == 3
+        params[:item]
+      else 
+        params.require(:item).permit(*resource_spec.params)
+      end
     end
   end
 end

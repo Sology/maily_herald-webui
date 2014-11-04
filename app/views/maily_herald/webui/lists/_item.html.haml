@@ -7,7 +7,7 @@
   %dt= tw("attributes.context")
   %dd
     = friendly_name @item.context
-    = link_to context_variables_list_path(context: @item.context.name), data: {toggle: "modal", target: "#modal-context-variables"} do 
+    = link_to context_variables_list_path(context: @item.context.name), data: {toggle: "modal", target: "#modal-generic"} do 
       = icon(:list)
   - content_for_expert do
     %dt= tw("attributes.context_name")

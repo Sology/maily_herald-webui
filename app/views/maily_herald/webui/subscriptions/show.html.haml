@@ -8,7 +8,7 @@
     %dt= tw("attributes.name")
     %dd= @item.entity.to_s
     %dt= tw("attributes.email")
-    %dd= @list.context.destination.call(@item.entity)
+    %dd= @list.context.destination_for(@item.entity)
 
 %h2.border
   = tw("logs.past_deliveries")

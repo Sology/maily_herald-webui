@@ -50,6 +50,7 @@ module MailyHerald
           scope.where("name like ? or title like ?", "%#{query}%", "%#{query}%")
         end
         spec.items_partial = "items"
+        spec.params = [:name, :title]
       end
     end
   end

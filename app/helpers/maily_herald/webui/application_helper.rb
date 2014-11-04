@@ -53,6 +53,7 @@ module MailyHerald
       end
 
       def friendly_name obj
+        return unless obj
         obj.title.present? ? obj.title : obj.name
       end
 

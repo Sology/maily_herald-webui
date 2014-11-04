@@ -1,1 +1,7 @@
-Dashboard
+%h2.border
+  = tw("logs.past_deliveries")
+= smart_listing_render :logs
+
+%h2.border
+  = tw("logs.scheduled_deliveries")
+= smart_listing_render :scheduled_logs

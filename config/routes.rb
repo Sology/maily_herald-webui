@@ -1,5 +1,10 @@
 MailyHerald::Webui::Engine.routes.draw do
 	root to: 'dashboard#index'
+  resources "logs" do
+    member do
+      get "preview"
+    end
+  end
   resources "lists" do
     member do
       post "subscribe/:entity_id", action: :subscribe, as: :subscribe_to

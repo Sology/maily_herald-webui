@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 	s.add_dependency 'maily_herald'
 	s.add_dependency "smart_listing", "~>1.0.0"
 	s.add_dependency "haml"
-	s.add_dependency "coffee-rails", "~>3.2.1"
+	s.add_dependency "coffee-rails"
 	s.add_dependency 'sass-rails'
 
   s.add_development_dependency "sqlite3"

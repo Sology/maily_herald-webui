@@ -2,13 +2,23 @@
   %table.table.table-striped
     %thead
       %tr 
-        %th= tw("logs.delivery_at")
+        - unless @item
+          %th= tw("attributes.entity")
+          %th= tw("attributes.email")
+        %th= tw("attributes.mailing")
+        %th= smart_listing.sortable tw("logs.processing_at"), :processing_at
+        %th= tw("attributes.status")
         %th
     %tbody
       - smart_listing.collection.each do |log|
         %tr
-          %td= log.delivery_at
-          %td.actions= smart_listing_item_actions [{:name => :show, :url => "#"}]
+          - unless @item
+            %td= log.entity
+            %td= log.entity_email
+          %td= friendly_name log.mailing
+          %td= log.processing_at
+          %td= log.status
+          %td.actions= smart_listing_item_actions log_actions(log)
 
   = smart_listing.paginate 
   = smart_listing.pagination_per_page_links 

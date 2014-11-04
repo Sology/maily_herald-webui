@@ -7,7 +7,7 @@ module MailyHerald
 
       delegate :content_tag, :capture, :concat, :t, :tw, to: :@template
 
-      def initialize(object_name, object, template, options, proc)
+      def initialize(object_name, object, template, options, proc = nil)
         @layout = options[:layout]
         @label_col = options[:label_col] || default_label_col
         @control_col = options[:control_col] || default_control_col

@@ -1,5 +1,5 @@
 - content_for_expert do
   %td= item.id
 %td= item.to_s
-%td= @item.context.destination.call(item)
+%td= @item.context.destination_for(item)
 %td.actions= smart_listing_item_actions subscriber_actions(@item, item)

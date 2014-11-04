@@ -79,6 +79,10 @@ $ ->
   $(document).tooltip
     selector: 'a[data-toggle=tooltip]'
 
+  $(document).on 'hidden.bs.modal', (e) ->
+    $(e.target).removeData('bs.modal')
+
+
   # form ui
 
   $('input[type="radio"]').wrap '<span class="radio-btn"></span>'
@@ -107,6 +111,4 @@ $ ->
   $(".select-wrap").click ->
     $(this).toggleClass "select-btn"
   return
-
-
 

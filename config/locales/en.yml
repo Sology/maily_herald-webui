@@ -52,7 +52,10 @@ en:
         context_model_name: Model name
         email: E-mail
         state: State
+        status: Status
         mailer: Mailer
+        mailing: Mailing
+        entity: Entity
       work_modes:
         regular: Regular Mode
         expert: Expert Mode
@@ -89,8 +92,11 @@ en:
       logs:
         past_deliveries: Past deliveries
         scheduled_deliveries: Scheduled deliveries
+        processing_at: Processing at
         items:
           no_logs: No logs
+        preview:
+          title: Mailing log
       one_time_mailings:
         new:
           label: Add new One Time Mailing
