@@ -2,14 +2,14 @@
 %html
   %head
     %title MailyHerald
-    = stylesheet_link_tag    "maily_herald/application", :media => "all"
+    = stylesheet_link_tag    "maily_herald/webui/application", :media => "all"
     = csrf_meta_tags
   %body
     .container
       .hero
         .row
           .col-sm-3.text-center
-            %h1= link_to image_tag("maily_herald/logo.svg", :class => "img-responsive logo"), root_path
+            %h1= link_to image_tag("maily_herald/webui/logo.svg", :class => "img-responsive logo"), root_path
           .col-sm-6= render_breadcrumbs
           .col-sm-3
             .dropdown.pull-right
@@ -30,7 +30,7 @@
       .footer.text-center 
         %p 
           = link_to "Maily Herald", "https://github.com/Sology/maily_herald"
-          = "v#{MailyHerald::VERSION}"
+          = "v#{::MailyHerald::VERSION}"
           %br
           %small
             = t(".created_by")
@@ -44,4 +44,4 @@
       .modal-dialog
         .modal-content
 
-    = javascript_include_tag "maily_herald/application"
+    = javascript_include_tag "maily_herald/webui/application"

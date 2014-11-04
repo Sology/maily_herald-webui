@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require maily_herald/bootstrap.min
+//= require maily_herald/webui/bootstrap.min
 //= require smart_listing
 //= require_tree .
-//= require maily_herald/webui
