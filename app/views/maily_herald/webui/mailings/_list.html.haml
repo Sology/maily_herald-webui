@@ -11,7 +11,7 @@
       - smart_listing.collection.each do |mailing|
         %tr
           %td= link_to friendly_name(mailing), {:action => :show, :id => mailing}
-          %td= boolean_icon mailing.enabled, :toggle
+          %td= boolean_icon mailing.enabled?, :toggle
           %td= link_to friendly_name(mailing.list), list_path(mailing.list)
           %td= display_mailing_mailer mailing.mailer_name
           %td.actions= smart_listing_item_actions [{name: :show, url: {action: :show, id: mailing}}]
