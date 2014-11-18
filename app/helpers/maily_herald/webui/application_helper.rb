@@ -106,6 +106,10 @@ module MailyHerald
           end)
         end
       end
+
+      def smart_listing_config_profile
+        :maily_herald
+      end
     end
   end
 end

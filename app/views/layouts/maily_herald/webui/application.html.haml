@@ -4,7 +4,7 @@
     %title MailyHerald
     = stylesheet_link_tag    "maily_herald/webui/application", :media => "all"
     = csrf_meta_tags
-  %body
+  %body{data: {smart_listing_config: SmartListing.config(:maily_herald).to_json}}
     .container
       .hero
         .row

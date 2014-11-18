@@ -1,4 +1,4 @@
-SmartListing.configure do |config|
+SmartListing.configure(:maily_herald) do |config|
   config.global_options({
     #:param_names  => {                                              # param names
       #:page                         => :page,
@@ -44,10 +44,10 @@ SmartListing.configure do |config|
     #:icon_edit             => "glyphicon glyphicon-pencil",
     #:icon_trash            => "glyphicon glyphicon-trash",
     #:icon_inactive         => "glyphicon glyphicon-circle",
-    #:icon_show             => "fa fa-folder-open",
-    #:icon_sort_none        => "fa fa-caret-right",
-    #:icon_sort_up          => "fa fa-caret-up",
-    #:icon_sort_down        => "fa fa-caret-down",
+    :icon_show             => "fa fa-folder-open",
+    :icon_sort_none        => "fa fa-caret-right",
+    :icon_sort_up          => "fa fa-caret-up",
+    :icon_sort_down        => "fa fa-caret-down",
   }
 
   config.constants :data_attributes, {

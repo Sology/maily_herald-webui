@@ -72,6 +72,8 @@ $.fn.editable = (v) ->
     $(this).html(v)
 
 $ ->
+  SmartListing.config.merge()
+  
   $(document).on "click", ".editable button.cancel", ->
     $(this).closest(".editable").editable("cancel")
     false
