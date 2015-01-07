@@ -36,6 +36,13 @@
   font-weight: normal
   font-style: italic
 
+@font-face
+  font-family: 'FontAwesome'
+  src: asset-url('maily_herald/webui/fontawesome-webfont.eot?v=4.2.0')
+  src: asset-url('maily_herald/webui/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), asset-url('maily_herald/webui/fontawesome-webfont.woff?v=4.2.0') format('woff'), asset-url('maily_herald/webui/fontawesome-webfont.ttf?v=4.2.0') format('truetype'), asset-url('maily_herald/webui/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg')
+  font-weight: normal
+  font-style: normal
+
 // Variable
 $font_open: 'Open Sans', sans-serif
 
@@ -339,7 +346,7 @@ pre
     span 
       display: inline-block
       padding: 0 50px 0 20px
-      background: url(sprite-dropdown.png) no-repeat
+      background: asset-url('maily_herald/webui/sprite-dropdown.png') no-repeat
       background-position: 100% 0
       min-height: 40px
   &.open
@@ -420,7 +427,7 @@ form, .form-horizontal
   .select-wrap
     position: relative
     display: inline-block
-    background: url(sprite-dropdown.png) no-repeat
+    background: asset-url('maily_herald/webui/sprite-dropdown.png') no-repeat
     background-position: 100% 0
     height: 40px
     min-width: 202px
@@ -468,7 +475,7 @@ form, .form-horizontal
     height: 20px
     margin: 0 10px 0 0
     vertical-align: middle
-    background: url(sprite-form.png) no-repeat 0 0
+    background: asset-url('maily_herald/webui/sprite-form.png') no-repeat 0 0
     cursor: pointer
     outline: none
     &.checkedBox
@@ -493,16 +500,16 @@ form, .form-horizontal
     height: 20px
     margin: 0 10px 0 0
     vertical-align: middle
-    background: url(sprite-form.png) no-repeat 0 -45px
+    background: asset-url('maily_herald/webui/sprite-form.png') no-repeat 0 -45px
     cursor: pointer
     outline: none
     &.checkedRadio 
-      background: url(sprite-form.png) no-repeat -29px -45px
+      background: asset-url('maily_herald/webui/sprite-form.png') no-repeat -29px -45px
   &.field_with_errors, &.has-error
     > .radio-btn
       background-position: -60px -45px
       &.checkedRadio 
-        background: url(sprite-form.png) no-repeat -29px -45px
+        background: asset-url('maily_herald/webui/sprite-form.png') no-repeat -29px -45px
 
 
 // Modal
@@ -579,50 +586,50 @@ form, .form-horizontal
     bottom: 0
     left: 50%
     margin-left: -10px
-    background: url(arrow-top.png) no-repeat
+    background: asset-url('maily_herald/webui/arrow-top.png') no-repeat
   &.top-left .tooltip-arrow
     width: 10px
     height: 20px
     bottom: 0
     left: 10px
-    background: url(arrow-left.png) no-repeat
+    background: asset-url('maily_herald/webui/arrow-left.png') no-repeat
   &.top-right .tooltip-arrow
     width: 10px
     height: 20px
     right: 10px
     bottom: 0
-    background: url(arrow-right.png) no-repeat
+    background: asset-url('maily_herald/webui/arrow-right.png') no-repeat
   &.right .tooltip-arrow
     width: 10px
     height: 20px
     top: 50%
     left: 0
     margin-top: -10px
-    background: url(arrow-right.png) no-repeat
+    background: asset-url('maily_herald/webui/arrow-right.png') no-repeat
   &.left .tooltip-arrow
     width: 10px
     height: 20px
     top: 50%
     right: 0
     margin-top: -10px
-    background: url(arrow-left.png) no-repeat
+    background: asset-url('maily_herald/webui/arrow-left.png') no-repeat
   &.bottom .tooltip-arrow
     top: 0
     left: 50%
-    background: url(arrow-bottom.png) no-repeat
+    background: asset-url('maily_herald/webui/arrow-bottom.png') no-repeat
     margin-left: -10px
   &.bottom-left .tooltip-arrow
     width: 10px
     height: 20px
     top: 0
     left: 10px
-    background: url(arrow-left.png) no-repeat
+    background: asset-url('maily_herald/webui/arrow-left.png') no-repeat
   &.bottom-right .tooltip-arrow
     width: 10px
     height: 20px
     top: 0
     right: 10px
-    background: url(arrow-right.png) no-repeat
+    background: asset-url('maily_herald/webui/arrow-right.png') no-repeat
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 
   .tooltip.right .tooltip-inner, .popover-content
     font-family: $font_open
