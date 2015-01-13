@@ -6,6 +6,8 @@ module MailyHerald
     def show
       super
 
+      @list = @item
+
       add_breadcrumb @item.title || @item.name
 
       @subscribers = @item.subscribers

@@ -17,7 +17,17 @@ MailyHerald::Webui::Engine.routes.draw do
       post "toggle"
     end
   end
-  resources "one_time_mailings"
+  resources "one_time_mailings" do
+    collection do 
+      get "archived"
+      post "template"
+    end
+    member do
+      post "toggle"
+      get "edit_template"
+      get "preview/:entity_id", action: :preview, as: :preview
+    end
+  end
 
   post "switch_mode/:mode", to: "sessions#switch_mode", as: "switch_mode"
 

@@ -19,6 +19,10 @@ module MailyHerald
       scope = resource_spec.scope
       scope = resource_spec.filter(scope, params[:filter]) if params[:filter]
 
+      if block_given?
+        scope = yield(scope)
+      end
+
       @items = smart_listing_create(:items, scope, :partial => resource_spec.items_partial || "items")
     end
 

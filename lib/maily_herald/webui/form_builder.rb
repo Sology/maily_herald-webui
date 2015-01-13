@@ -1,7 +1,7 @@
 module MailyHerald
   module Webui
     class FormBuilder < ActionView::Helpers::FormBuilder
-      FIELD_HELPERS = %w{text_field}
+      FIELD_HELPERS = %w{text_field text_area}
 
       attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :acts_like_form_tag
 
@@ -40,17 +40,49 @@ module MailyHerald
 
       def select_with_maily(method, choices, options = {}, html_options = {})
         form_group_builder(method, options, html_options) do
-          select_without_maily(method, choices, options, html_options)
+          content_tag(:span, class: ["select-wrap", ("has-error" if has_error?(method))]) do
+            select_without_maily(method, choices, options, html_options)
+          end
+        end
+      end
+
+      def check_box_with_maily(method, options = {}, checked_value = "1", unchecked_value = "0")
+        form_group_builder(method, options.merge(hide_label: true)) do
+          content_tag(:div, class: "checkbox") do
+            label method do
+              concat(content_tag(:span, check_box_without_maily(method, options, checked_value, unchecked_value), class: "checkbox-wrap"))
+              concat(object.class.human_attribute_name(method))
+            end
+          end
         end
       end
 
       alias_method_chain :select, :maily
+      alias_method_chain :check_box, :maily
 
       def maily_context_select(options = {}, html_options = {})
         choices = MailyHerald.contexts.values.collect do |context|
           [@template.friendly_name(context), context.name]
         end
         select_with_maily :context_name, choices, options, html_options
+      end
+
+      def maily_mailer_select(options = {}, html_options = {})
+        choices = ObjectSpace.each_object(Class).select { |klass| klass < ActionMailer::Base }.collect do |mailer|
+          if mailer.name == "MailyHerald::Mailer"
+            ["Generic Mailer", "generic"]
+          else
+            [mailer.name, mailer.name]
+          end
+        end
+        select_with_maily :mailer_name, choices, options, html_options
+      end
+
+      def maily_list_select(options = {}, html_options = {})
+        choices = MailyHerald::List.all.collect do |list|
+          [@template.friendly_name(list), list.name]
+        end
+        select_with_maily :list, choices, options.merge(prompt: tw("commons.please_select")), html_options
       end
 
       def form_group(*args, &block)
@@ -168,7 +200,7 @@ module MailyHerald
       end
 
       def has_error?(name)
-        object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
+        object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty? || object.errors[name.to_s.chomp("_id").to_sym].empty?)
       end
 
       def generate_label(id, name, options, custom_label_col, group_layout)
@@ -191,7 +223,6 @@ module MailyHerald
       def generate_icon(icon)
         content_tag(:span, "", class: "glyphicon glyphicon-#{icon} form-control-feedback")
       end
-
     end
   end
 end

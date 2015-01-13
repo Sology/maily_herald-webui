@@ -40,6 +40,31 @@ module MailyHerald
         end
       end
 
+      def link_to_context_attributes_overview list
+        link_to context_variables_list_path(id: list, context: list.context_name), data: {toggle: "modal", target: "#modal-generic"}, class: "link link-help" do 
+          icon(:list)
+        end if list.try(:context_name)
+      end
+
+      def render_context_attributes_info list
+        render partial: "maily_herald/webui/shared/context_attributes", locals: {list: list}
+      end
+
+      def display_context_attributes attributes
+        content_tag(:ul) do
+          attributes.each do |k, v|
+            if v.is_a?(Hash)
+              concat(content_tag(:li) do
+                concat(k)
+                concat(display_context_attributes(v))
+              end)
+            else
+              concat(content_tag(:li, k))
+            end
+          end
+        end
+      end
+
       def content_for_expert
         yield if expert_mode?
       end
@@ -83,13 +108,29 @@ module MailyHerald
         html.html_safe
       end
 
-      def boolean_icon value, style = :check
-        case style
-        when :check
-          icon(value ? "check-square-o" : "check-o", value ? tw("commons.active") : tw("commons.inactive"))
-        when :toggle
-          icon(value ? "toggle-on" : "toggle-off", value ? tw("commons.enabled") : tw("commons.disabled"))
-        end
+      def boolean_icon value, options = {}
+        options = {
+          :style => :check,
+          :text => :active,
+        }.merge(options)
+
+        i = case options[:style]
+            when :check
+              value ? "check-square-o" : "square-o"
+            when :toggle
+              value ? "toggle-on" : "toggle-off"
+            end
+
+        text = case options[:text]
+               when :active
+                 value ? tw("commons.active") : tw("commons.inactive")
+               when :enabled
+                 value ? tw("commons.enabled") : tw("commons.disabled")
+               when :yes
+                 value ? tw("commons.positive") : tw("commons.negative")
+               end
+
+        icon(i, text)
       end
 
       def display_help_icon title

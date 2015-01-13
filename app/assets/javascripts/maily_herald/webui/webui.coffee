@@ -74,8 +74,8 @@ $.fn.editable = (v) ->
 $ ->
   SmartListing.config.merge()
   
-  $(document).on "click", ".editable button.cancel", ->
-    $(this).closest(".editable").editable("cancel")
+  $(document).on "click", ".resource-editable button.cancel", ->
+    $(this).closest(".resource-editable").editable("cancel")
     false
 
   $(document).tooltip
@@ -97,19 +97,17 @@ $ ->
     _this.find('input:radio').attr 'checked', true
     return
 
-  $('input[type="checkbox"]').wrap '<span class="check-box"></span>'
   $.fn.toggleCheckbox = ->
     @attr 'checked', not @attr('checked')
     return
 
-  $('.check-box').on 'click', ->
+  $('.checkbox-wrap').on 'click', ->
     $(this).find(':checkbox').toggleCheckbox()
     $(this).toggleClass 'checkedBox'
     return
 
   $('input[type="radio"]:checked').parent().addClass 'checkedRadio'
   $('input[type="checkbox"]:checked').parent().addClass 'checkedBox'
-  $('select').wrap '<span class="select-wrap"></span>'
   $(".select-wrap").click ->
     $(this).toggleClass "select-btn"
   return

@@ -42,8 +42,13 @@ en:
         remove: Remove
         active: Active
         inactive: Inactive
+        positive: "Yes"
+        negative: "No"
         enabled: Enabled
         disabled: Disabled
+        archived: Archived
+        archive: Archive
+        please_select: Please select
       attributes:
         name: Name
         title: Title
@@ -56,6 +61,9 @@ en:
         mailer: Mailer
         mailing: Mailing
         entity: Entity
+        override_subscription: Override subscription
+        conditions: Conditions
+        subject: Subject
       work_modes:
         regular: Regular Mode
         expert: Expert Mode
@@ -70,7 +78,7 @@ en:
             subscribers: "Entities subscribed to this list. They receive e-mails from this list."
             opt_outs: "Entities unsubscribed from this list. They no longer receive e-mails from this list."
             potential_subscribers: "Entities inside the list's context scope but never subscribed to this list."
-          sure_delete: Are you sure you want to remove this list?
+          sure_delete: Are you sure you want to remove this List?
         items:
           no_lists: No lists.
         context_variables:
@@ -100,19 +108,38 @@ en:
       one_time_mailings:
         new:
           label: Add new One Time Mailing
+        show:
+          confirm_delete: Are you sure you want to remove this One Time Mailing?
+          confirm_archive: Are you sure you want to archive this One Time Mailing?
+          enable_confirm: Are you sure you want to enable this Mailing?
+          disable_confirm: Are you sure you want to disable this Mailing?
+        archived:
+          label: Archived Mailings
+        item:
+          help:
+            override_subscription: Determines whether this mailing should be sent regardless of user subscription state.
       mailings:
+        general: General
+        template: Template
+        non_generic_mailer_info: This mailing uses Rails Mailer %{mailer} which means you can edit it only by coding. <br />In order to edit its template via this UI, choose %{generic_mailer}.
+        warning_disabled: This mailing is disabled and won't be delivered to entities. You can enable it using menu above.
         list:
-          no_mailings: No mailings.
+          no_mailings: No mailings
+          preview: Preview mailing for this entity
+          send: Send mailing to this entity
         archived:
           label: Archived mailings
       label_dashboard: Dashboard
       label_list: List
       label_list_plural: Lists
+      label_entity: Entity
+      label_entity_plural: Entities
       label_subscription: Subscription
       label_subscription_plural: Subscriptions
       label_one_time_mailing: One Time Mailing
       label_one_time_mailing_plural: One Time Mailings
       label_generic_mailer: Generic mailer
+      label_no_conditions: No conditions
 
       smart_listing:
         actions:

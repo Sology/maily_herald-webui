@@ -117,21 +117,6 @@ module MailyHeraldHelper
 		end
 	end
 
-	def display_context_attributes attributes
-		content_tag(:ul) do
-			attributes.each do |k, v|
-				if v.is_a?(Hash)
-					concat(content_tag(:li) do
-						concat(k)
-						concat(display_context_attributes(v))
-					end)
-				else
-					concat(content_tag(:li, k))
-				end
-			end
-		end
-	end
- 
 	def context_attributes_link options = {}
 		link_to context_attributes_webui_mailings_path(:context_name => options[:context]), :role => "button", :data => {:toggle => "modal", :target => "#context-attributes"}, :class => "show-context-attributes" do
        concat(content_tag(:i, "", :class => "glyphicon glyphicon-th-list"))

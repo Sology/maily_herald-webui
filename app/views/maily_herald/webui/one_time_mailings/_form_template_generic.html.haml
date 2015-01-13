@@ -1,0 +1,7 @@
+%h2
+  = tw("mailings.template")
+  = link_to_context_attributes_overview f.object.list
+
+= f.text_field :subject
+-#= f.text_field :sender
+= f.text_area :template, rows: 15, control_col: "col-sm-10"

@@ -1,4 +1,4 @@
-= form_for @item, :as => :item, :layout => :horizontal, :remote => !@item.new_record? do |f|
+= form_for @item, :as => :item, :layout => :horizontal, :remote => !@item.new_record?, :control_col => "col-sm-5" do |f|
   - content_for_expert do
     = f.text_field :name
   = f.text_field :title

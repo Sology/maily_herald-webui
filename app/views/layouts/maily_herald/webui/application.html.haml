@@ -3,6 +3,7 @@
   %head
     %title MailyHerald
     = stylesheet_link_tag    "maily_herald/webui/application", :media => "all"
+    = javascript_include_tag "maily_herald/webui/application"
     = csrf_meta_tags
   %body{data: {smart_listing_config: SmartListing.config(:maily_herald).to_json}}
     .container
@@ -44,4 +45,3 @@
       .modal-dialog
         .modal-content
 
-    = javascript_include_tag "maily_herald/webui/application"

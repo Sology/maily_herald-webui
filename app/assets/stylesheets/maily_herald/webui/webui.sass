@@ -82,11 +82,15 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
       left: -3px
       top: 0
     &.link-sm 
-      font-size: 60%
+      font-size: 70%
     &.link-help 
       color: #bbb
       &:hover
         color: #000
+h1, .h1
+  a.link 
+    &.link-sm 
+      font-size: 60%
 
 span.translation_missing
   color: #f00
@@ -440,7 +444,7 @@ form, .form-horizontal
     height: 38px
     border: none
     padding: 7px 0 6px 10px
-    width: 110%
+    width: 107%
     outline: none
     border-radius: 0
     overflow: hidden
@@ -454,7 +458,7 @@ form, .form-horizontal
     input
       &[type='text'], &[type='email'], &[type='password']
         border-color: #a51421
-    select 
+    select, .select-wrap
       border-color: #a51421
 
 .radio, .checkbox 
@@ -462,6 +466,8 @@ form, .form-horizontal
   .webui-input, .radio-btn, .check-box 
     display: inline-block
     float: left
+  > label
+    padding-left: 2px
 
 .checkbox 
   color: #4b4847
@@ -469,7 +475,7 @@ form, .form-horizontal
   cursor: pointer
   input[type='checkbox'] 
     visibility: hidden
-  > .check-box
+  .checkbox-wrap
     display: inline-block
     width: 20px
     height: 20px
@@ -481,7 +487,7 @@ form, .form-horizontal
     &.checkedBox
       background-position: -29px 0
   &.field_with_errors, &.has-error
-    > .check-box
+    .check-box
       background-position: -60px 0
       &.checkedBox
         background-position: -29px 0  
@@ -630,6 +636,7 @@ form, .form-horizontal
     top: 0
     right: 10px
     background: asset-url('maily_herald/webui/arrow-right.png') no-repeat
+
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 
   .tooltip.right .tooltip-inner, .popover-content
     font-family: $font_open
@@ -687,11 +694,43 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
     margin: 0 0 20px
   .pagination-per-page 
     text-align: right !important
-  td.actions
-    white-space: nowrap
-    text-align: right
-    a.show
-      display: inline !important
+  tr
+    td.actions
+      &:after
+        content: '·'
+        padding: 0 5px
+        //color: #b1b1b1
+        color: #e4554f
+        margin-left: -10px
+      .text-muted
+        color: #aaa
+    &:hover
+      td.actions
+        &:after
+          display: none
+      td
+        background-color: #f3f3f3 !important
+      td.actions
+        .action-group
+          visibility: visible
+          &:before
+            visibility: visible
+    td.actions
+      white-space: nowrap
+      text-align: right
+      a.show
+        display: inline !important
+      .action-group
+        display: inline-block
+        visibility: hidden
+        &:before
+          content: '·'
+          color: #e4554f
+          font-family: $font_nexa
+          padding: 0 5px
+          visibility: hidden
+        &:first-child:before
+          display: none
 
 // Search
 .filter-search 
@@ -715,4 +754,10 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
 
 .footer 
   margin: 0 0 40px
+
+
+.mailing-mailer
+  white-space: nowrap
+  i
+    margin-right: -5px
 
