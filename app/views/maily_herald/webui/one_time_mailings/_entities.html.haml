@@ -1,0 +1,7 @@
+%h2.border
+  = tw(:label_entity_plural)
+
+= smart_listing_controls_for :entities, :class => "context-menu" do
+  - if @entities.any?
+    %form{:action => ""}= filter_box "entities_filter"
+= smart_listing_render :entities

@@ -10,4 +10,8 @@
     %dt= tw("logs.processing_at")
     %dd= @log.processing_at
 
-%pre= @log.data[:content]
+- if @log.error?
+  .alert.alert-danger= tw("logs.error")
+  %pre= @log.data[:msg]
+- else
+  %pre= @log.data[:content]

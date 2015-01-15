@@ -24,22 +24,21 @@ module MailyHerald
       @item.attributes = item_params
     end
 
-    def edit_template
-      find_item
-    end
-
     def show
       super
 
       add_breadcrumb @item.title || @item.name, one_time_mailing_path(@item)
+    end
 
-      @mailing = @item
-      @list = @mailing.list
-      @logs = smart_listing_create(:logs, @item.logs.delivered, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
+    def update
+      super
 
-      @entities = @item.list.subscribers
-      @entities = @entities.merge(@item.list.context.scope_like(params[:entities_filter])) if params[:entities_filter]
-      @entities = smart_listing_create(:entities, @entities, :partial => "maily_herald/webui/subscribers/list")
+      case edited_container
+      when "details"
+        render_containers ["details", "template"]
+      when "template"
+        render_containers "template"
+      end
     end
 
     def destroy
@@ -58,6 +57,19 @@ module MailyHerald
       else
         @item.disable!
       end
+
+      render_containers ["details", "entities"]
+      render_update
+    end
+
+    def deliver
+      find_item
+
+      @e = @item.list.context.scope.find(params[:entity_id])
+      @log = @item.deliver_to @e
+
+      render_containers ["logs"]
+      render_update
     end
 
     protected
@@ -76,6 +88,29 @@ module MailyHerald
         spec.items_partial = "maily_herald/webui/mailings/list"
         spec.item_partial = "maily_herald/webui/mailings/mailing"
         spec.params = [:title, :mailer_name, :list, :conditions, :override_subscription, :subject, :template]
+        spec.update_containers = {
+          "template" => {editable: true},
+          "entities" => true,
+          "logs" => true
+        }
+      end
+    end
+
+    def action_dependencies *containers
+      containers.flatten!
+
+      @mailing = @item
+      @list = @mailing.list
+
+      containers.each do |container|
+        case container
+        when "logs"
+          @logs = smart_listing_create(:logs, @item.logs, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
+        when "entities"
+          @entities = @item.list.subscribers
+          @entities = @entities.merge(@item.list.context.scope_like(params[:entities_filter])) if params[:entities_filter]
+          @entities = smart_listing_create(:entities, @entities, :partial => "maily_herald/webui/subscribers/list")
+        end
       end
     end
   end

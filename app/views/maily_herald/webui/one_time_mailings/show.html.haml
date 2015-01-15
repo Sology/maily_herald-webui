@@ -1,5 +1,5 @@
 %h1
-  = friendly_name @item
+  %span.resource-name= friendly_name @item
   = link_to toggle_one_time_mailing_path(@item), :remote => true, :class => "link link-sm mailing-state", :confirm => @item.enabled? ? t(".disable_confirm") : t(".enable_confirm"), :method => :post do
     = display_mailing_state @item
   = link_to edit_one_time_mailing_path(@item), :remote => true, :class => "link link-sm" do
@@ -10,36 +10,14 @@
       = icon(:"archive")
       = tw("commons.archive")
 
-.box.noborder.resource-editable.details
-  = render :partial => "item"
+.box.noborder.resource-editable.container-details
+  = render :partial => "details"
 
-.resource-editable.template
-  - if @item.generic_mailer?
-    %h2.border
-      = tw("mailings.template")
-      = link_to edit_template_one_time_mailing_path(@item), :remote => true, :class => "link link-sm" do
-        = icon(:pencil)
-        = tw("commons.edit")
-    .dl-horizontal
-      %dt= tw("attributes.subject")
-      %dd= @item.subject
-    %br
-    %pre= @item.template
-    %br
-  - else
-    %h2.border
-      = tw("mailings.template")
-    %p= tw("mailings.non_generic_mailer_info", mailer: display_mailing_mailer(@item.mailer_name).html_safe, generic_mailer: display_mailing_mailer(:generic)).html_safe
+.resource-editable.container-template
+  = render :partial => "template"
 
-%h2.border
-  = tw(:label_entity_plural)
+.container-entities
+  = render :partial => "entities"
 
-= smart_listing_controls_for :entities, :class => "context-menu" do
-  - if @entities.any?
-    %form{:action => ""}= filter_box "entities_filter"
-= smart_listing_render :entities
-
-%h2.border
-  = tw("logs.past_deliveries")
-
-= smart_listing_render :logs
+.container-logs
+  = render :partial => "logs"

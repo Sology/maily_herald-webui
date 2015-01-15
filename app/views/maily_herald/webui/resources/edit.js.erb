@@ -1,1 +1,1 @@
-$(".details").editable("<%= escape_javascript(render(:partial => 'form')) %>");
+$(".container-<%= @edited_container %>").editable("<%= escape_javascript(render(:partial => "#{@edited_container}_form")) %>");

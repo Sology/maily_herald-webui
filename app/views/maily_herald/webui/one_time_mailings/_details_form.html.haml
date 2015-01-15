@@ -1,4 +1,4 @@
-= form_for @item, :as => :item, :layout => :horizontal, :remote => !@item.new_record?, :control_col => "col-sm-5", html: {class: @item.new_record? ? "new-mailing-form" : "edit-mailing-form"}, data: {template_path: template_one_time_mailings_path} do |f|
+= form_for @item, :as => :item, :layout => :horizontal, :remote => !@item.new_record?, :control_col => "col-sm-5", html: {class: @item.new_record? ? "new-mailing-form" : "edit-mailing-form"} do |f|
   - if f.object.new_record?
     %h2= tw("mailings.general")
 

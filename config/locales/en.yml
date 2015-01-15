@@ -101,6 +101,7 @@ en:
         past_deliveries: Past deliveries
         scheduled_deliveries: Scheduled deliveries
         processing_at: Processing at
+        error: An error occured and mailing was not sent
         items:
           no_logs: No logs
         preview:
@@ -115,18 +116,17 @@ en:
           disable_confirm: Are you sure you want to disable this Mailing?
         archived:
           label: Archived Mailings
-        item:
-          help:
-            override_subscription: Determines whether this mailing should be sent regardless of user subscription state.
       mailings:
         general: General
         template: Template
         non_generic_mailer_info: This mailing uses Rails Mailer %{mailer} which means you can edit it only by coding. <br />In order to edit its template via this UI, choose %{generic_mailer}.
         warning_disabled: This mailing is disabled and won't be delivered to entities. You can enable it using menu above.
+        help:
+          override_subscription: Determines whether this mailing should be sent regardless of user subscription state.
         list:
           no_mailings: No mailings
           preview: Preview mailing for this entity
-          send: Send mailing to this entity
+          deliver: Deliver mailing to this entity
         archived:
           label: Archived mailings
       label_dashboard: Dashboard

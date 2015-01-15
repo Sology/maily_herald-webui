@@ -20,7 +20,8 @@
             %td= friendly_name log.mailing
           %td= log.processing_at
           %td= log.status
-          %td.actions= smart_listing_item_actions log_actions(log)
+          %td.actions
+            .action-group= smart_listing_item_actions log_actions(log)
 
   = smart_listing.paginate 
   = smart_listing.pagination_per_page_links 

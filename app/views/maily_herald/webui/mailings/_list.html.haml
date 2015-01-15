@@ -14,7 +14,8 @@
           %td= display_mailing_state mailing
           %td= link_to friendly_name(mailing.list), list_path(mailing.list)
           %td= display_mailing_mailer mailing.mailer_name
-          %td.actions= smart_listing_item_actions [{name: :show, url: {action: :show, id: mailing}}]
+          %td.actions
+            .action-group= smart_listing_item_actions [{name: :show, url: {action: :show, id: mailing}}]
 
   = smart_listing.paginate 
   = smart_listing.pagination_per_page_links 

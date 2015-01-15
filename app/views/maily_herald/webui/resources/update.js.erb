@@ -1,5 +1,18 @@
 <% if @item.valid? %>
-  $(".details").editable("<%= escape_javascript(render(:partial => 'item')) %>");
+  <% @rendered_containers.each do |name, opts| %>
+    <% opts = resource_spec.update_containers[name] %>
+    <% editable = opts.is_a?(Hash) ? opts[:editable] : false %>
+
+    <% if editable %>
+      $(".container-<%= name %>").editable("<%= escape_javascript(render(:partial => name)) %>");
+    <% else %>
+      $(".container-<%= name %>").html("<%= escape_javascript(render(:partial => name)) %>");
+    <% end %>
+  <% end %>
+
+  $(".resource-name").html("<%= friendly_name(@item) %>");
 <% else %>
-  $(".details").editable("<%= escape_javascript(render(:partial => 'form')) %>");
+  $(".container-<%= @edited_container %>").editable("<%= escape_javascript(render(:partial => "#{@edited_container}_form")) %>");
 <% end %>
+
+<%= render(partial: action_name)  %>

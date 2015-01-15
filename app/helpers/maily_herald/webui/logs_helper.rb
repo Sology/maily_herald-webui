@@ -14,7 +14,6 @@ module MailyHerald
           name: :custom, 
           url: preview_log_path(log), 
           icon: "fa fa-file-o", 
-          if: log.delivered?, 
           data: {
             toggle: "modal", 
             target: "#modal-generic"

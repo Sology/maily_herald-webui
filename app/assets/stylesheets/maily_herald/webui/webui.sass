@@ -137,6 +137,17 @@ a
   &:active 
     color: #a51421
 
+a.disabled
+  color: #c8c8c8 !important
+  i.fa
+    animation: 2s linear 0s normal none infinite fa-spin
+  i.fa:before
+    content: "" !important
+a.error
+  color: #f00 !important
+  i.fa:before
+    content: "" !important
+
 em 
   font-style: italic
 
@@ -226,6 +237,9 @@ pre
 
 
 // Buttons
+button i
+  margin-right: 5px
+
 .btn
   border-radius: 2px
   position: relative
@@ -698,7 +712,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
     td.actions
       &:after
         content: '·'
-        padding: 0 5px
+        padding: 0 7px
         //color: #b1b1b1
         color: #e4554f
         margin-left: -10px

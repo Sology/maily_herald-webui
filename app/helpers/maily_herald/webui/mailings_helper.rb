@@ -28,10 +28,12 @@ module MailyHerald
         actions = []
         actions << {
           name:      :custom, 
-          url:       "#",
+          url:       deliver_one_time_mailing_path(mailing, entity),
           icon:      "fa fa-paper-plane",
-          title:     tw("mailings.list.send"),
+          title:     tw("mailings.list.deliver"),
           if:        mailing.processable?(entity),
+          remote:    true,
+          method:    :post
         }
         actions << {
           name:      :custom, 

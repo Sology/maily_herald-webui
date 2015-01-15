@@ -64,11 +64,14 @@ $('.btn-default a').click  (e) ->
 $.fn.editable = (v) ->
   if v == "cancel"
     if $(this).data("edit-bkp")
-      $(this).html($(this).data("edit-bkp"))
+      $(this).html("")
+      $(this).append($(this).data("edit-bkp"))
       $(this).removeData("edit-bkp")
   else
     $(this).editable("cancel")
-    $(this).data("edit-bkp", $(this).html())
+    children = $(this).children()
+    children.detach()
+    $(this).data("edit-bkp", children)
     $(this).html(v)
 
 $ ->
@@ -110,5 +113,32 @@ $ ->
   $('input[type="checkbox"]:checked').parent().addClass 'checkedBox'
   $(".select-wrap").click ->
     $(this).toggleClass "select-btn"
+
+  $(document).on "ajax:before", "a", (e) ->
+    dummy = () ->
+      false
+
+    target = $(e.target)
+    target.addClass("disabled")
+    target.bind "click", dummy
+
+    target.on "ajax:success", (e) ->
+      target.removeClass("disabled")
+      target.unbind "click", dummy
+
+    target.on "ajax:error", (e) ->
+      target.removeClass("disabled")
+      target.addClass("error")
+
+  $(document).on "ajax:before", "form", (e) ->
+    target = $(e.target)
+    button = target.find("button[type='submit']")
+    button.attr("disabled", "disabled")
+    button.prepend("<i class='fa fa-spinner fa-spin'></i>")
+
+    button.on "ajax:success", (e) ->
+      button.removeAttr("disabled")
+      button.find("i.fa-spinner").remove()
+
   return
 

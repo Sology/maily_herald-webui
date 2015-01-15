@@ -133,8 +133,8 @@ module MailyHerald
         icon(i, text)
       end
 
-      def display_help_icon title
-        link_to "#", class: "link link-help", data: {toggle: "tooltip", placement: "right"}, title: t(".help.#{title}")do
+      def display_help_icon title, options = {}
+        link_to "#", class: "link link-help", data: {toggle: "tooltip", placement: "right"}, title: (options[:scope] ? tw("#{options[:scope]}.help.#{title}") : t(".help.#{title}")) do
           icon(:question)
         end
       end

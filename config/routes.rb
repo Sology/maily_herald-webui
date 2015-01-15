@@ -20,11 +20,11 @@ MailyHerald::Webui::Engine.routes.draw do
   resources "one_time_mailings" do
     collection do 
       get "archived"
-      post "template"
+      #post "template"
     end
     member do
       post "toggle"
-      get "edit_template"
+      post "deliver/(:entity_id)", action: :deliver, as: :deliver
       get "preview/:entity_id", action: :preview, as: :preview
     end
   end
