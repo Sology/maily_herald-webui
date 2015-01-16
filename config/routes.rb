@@ -28,6 +28,7 @@ MailyHerald::Webui::Engine.routes.draw do
       get "preview/:entity_id", action: :preview, as: :preview
     end
   end
+  resources "sequence_mailings"
 
   post "switch_mode/:mode", to: "sessions#switch_mode", as: "switch_mode"
 

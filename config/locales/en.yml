@@ -49,6 +49,7 @@ en:
         archived: Archived
         archive: Archive
         please_select: Please select
+        run: Run
       attributes:
         name: Name
         title: Title
@@ -101,7 +102,14 @@ en:
         past_deliveries: Past deliveries
         scheduled_deliveries: Scheduled deliveries
         processing_at: Processing at
-        error: An error occured and mailing was not sent
+        infos:
+          error: An error occured and mailing was not sent
+          scheduled: This mailing hasn't been sent yet. Is is only scheduled for delivery.
+        status:
+          delivered: Delivered
+          error: Error
+          skipped: Skipped
+          scheduled: Scheduled
         items:
           no_logs: No logs
         preview:
@@ -109,18 +117,23 @@ en:
       one_time_mailings:
         new:
           label: Add new One Time Mailing
-        show:
+        header:
           confirm_delete: Are you sure you want to remove this One Time Mailing?
           confirm_archive: Are you sure you want to archive this One Time Mailing?
+          confirm_run: Are you sure you want to send this Mailing out to ALL users?
           enable_confirm: Are you sure you want to enable this Mailing?
           disable_confirm: Are you sure you want to disable this Mailing?
         archived:
           label: Archived Mailings
+        preview:
+          title: Mailing preview
+          info: This is preview only. Mailing hasn't been delivered to entity.
       mailings:
         general: General
         template: Template
         non_generic_mailer_info: This mailing uses Rails Mailer %{mailer} which means you can edit it only by coding. <br />In order to edit its template via this UI, choose %{generic_mailer}.
         warning_disabled: This mailing is disabled and won't be delivered to entities. You can enable it using menu above.
+        info_archived: This mailing is archived and won't be delivered to entities. You can bring it back using menu above.
         help:
           override_subscription: Determines whether this mailing should be sent regardless of user subscription state.
         list:

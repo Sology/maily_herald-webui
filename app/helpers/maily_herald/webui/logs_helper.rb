@@ -20,6 +20,18 @@ module MailyHerald
           }
         }
       end
+
+      def display_log_status log
+        case log.status
+        when :delivered
+          content_tag(:span, icon(:check, tw("logs.status.delivered")), class: "text-success")
+        when :skipped
+        when :error
+          content_tag(:span, icon(:exclamation, tw("logs.status.error")), class: "text-danger")
+        when :scheduled
+          content_tag(:span, icon(:"clock-o", tw("logs.status.scheduled")), class: "text-muted")
+        end
+      end
     end
   end
 end

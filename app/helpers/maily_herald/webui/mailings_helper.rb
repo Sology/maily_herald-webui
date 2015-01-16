@@ -46,6 +46,10 @@ module MailyHerald
           }
         }
       end
+
+      def link_to_mailing mailing
+        link_to friendly_name(mailing), mailing
+      end
     end
   end
 end

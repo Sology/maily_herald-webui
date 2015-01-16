@@ -1,15 +1,3 @@
-%h1
-  %span.resource-name= friendly_name @item
-  = link_to toggle_one_time_mailing_path(@item), :remote => true, :class => "link link-sm mailing-state", :confirm => @item.enabled? ? t(".disable_confirm") : t(".enable_confirm"), :method => :post do
-    = display_mailing_state @item
-  = link_to edit_one_time_mailing_path(@item), :remote => true, :class => "link link-sm" do
-    = icon(:pencil)
-    = tw("commons.edit")
-  - unless @item.archived?
-    = link_to one_time_mailing_path(@item), :method => :delete, :data => {:confirm => t(".confirm_archive")}, :class => "link link-sm" do
-      = icon(:"archive")
-      = tw("commons.archive")
-
 .box.noborder.resource-editable.container-details
   = render :partial => "details"
 

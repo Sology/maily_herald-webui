@@ -1,5 +1,9 @@
+= render partial: "header"
+
 - if @item.disabled?
   .alert.alert-warning= tw("mailings.warning_disabled")
+- elsif @item.archived?
+  .alert.alert-info= tw("mailings.info_archived")
 
 .dl-horizontal
   - content_for_expert do

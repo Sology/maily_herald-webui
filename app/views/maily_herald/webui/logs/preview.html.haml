@@ -11,7 +11,9 @@
     %dd= @log.processing_at
 
 - if @log.error?
-  .alert.alert-danger= tw("logs.error")
+  .alert.alert-danger= tw("logs.infos.error")
   %pre= @log.data[:msg]
+- elsif @log.scheduled?
+  .alert.alert-info= tw("logs.infos.scheduled")
 - else
   %pre= @log.data[:content]

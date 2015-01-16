@@ -44,9 +44,8 @@ module MailyHerald
     def destroy
       @item.archive!
 
-      flash[:notice] = "archived"
-
-      redirect_to :action => :show
+      render_containers ["details", "entities"]
+      render_update
     end
 
     def toggle
@@ -65,11 +64,25 @@ module MailyHerald
     def deliver
       find_item
 
-      @e = @item.list.context.scope.find(params[:entity_id])
-      @log = @item.deliver_to @e
+      if params[:entity_id]
+        @e = @item.list.context.scope.find(params[:entity_id])
+        @item.deliver_to @e
 
-      render_containers ["logs"]
-      render_update
+        render_containers ["logs"]
+        render_update
+      else
+        @item.run
+        head :ok
+      end
+    end
+
+    def preview
+      find_item
+
+      @e = @item.list.context.scope.find(params[:entity_id])
+      @mail = @item.build_mail @e
+
+      render layout: "maily_herald/webui/modal"
     end
 
     protected
