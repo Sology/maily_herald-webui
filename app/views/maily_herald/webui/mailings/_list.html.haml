@@ -2,7 +2,9 @@
   %table.table.table-striped
     %thead
       %tr 
-        %th.col-md-6= tw("attributes.title")
+        %th.col-md-3= tw("attributes.title")
+        - if @sequence
+          %th= MailyHerald::SequenceMailing.human_attribute_name(:absolute_delay)
         %th= tw("attributes.state")
         %th= tw(:label_list)
         %th= tw("attributes.mailer")
@@ -10,12 +12,14 @@
     %tbody
       - smart_listing.collection.each do |mailing|
         %tr
-          %td= link_to friendly_name(mailing), {:action => :show, :id => mailing}
-          %td= display_mailing_state mailing
+          %td= link_to_mailing mailing
+          - if @sequence
+            %td= distance_of_time_in_words(mailing.absolute_delay)
+          %td= display_dispatch_state mailing
           %td= link_to friendly_name(mailing.list), list_path(mailing.list)
           %td= display_mailing_mailer mailing.mailer_name
           %td.actions
-            .action-group= smart_listing_item_actions [{name: :show, url: {action: :show, id: mailing}}]
+            .action-group= smart_listing_item_actions [{name: :show, url: url_for_mailing(mailing)}]
 
   = smart_listing.paginate 
   = smart_listing.pagination_per_page_links 

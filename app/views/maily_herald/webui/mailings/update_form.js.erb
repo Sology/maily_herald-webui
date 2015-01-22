@@ -1,0 +1,33 @@
+<% if @item.generic_mailer? %>
+  $(".template-generic").show();
+  $(".template-mailer").hide();
+  var link = "<%= escape_javascript(link_to_context_attributes_overview(@item.list)) %>";
+  if(link) {
+    if($(".template-generic h2 a").length == 1) {
+      $(".template-generic h2 a").replaceWith(link);
+    } else {
+      $(".template-generic h2").append(link);
+    }
+  } else {
+    $(".template-generic h2 a").remove();
+  }
+<% else %>
+  $(".template-generic").hide();
+  $(".template-mailer").show();
+  $(".template-mailer p code:first-child").replaceWith("<%= escape_javascript(display_mailing_mailer(@item.mailer_name)) %>");
+<% end %>
+
+<% if @item.list.try(:context_name) %>
+  $(".context-name").html("<%= escape_javascript(link_to_context_attributes_overview(@item.list, text: true)) %>");
+  var btn = "<%= escape_javascript(link_to_context_attributes_overview(@item.list, class: "btn btn-default")) %>"
+  if($(".mailing-start-at .input-group-btn .btn").length == 2) {
+    $(".mailing-start-at .input-group-btn .btn:last-child").replaceWith(btn);
+  } else {
+    $(".mailing-start-at .input-group-btn").append(btn);
+  }
+<% else %>
+  $(".context-name").html("<%= escape_javascript(tw("mailings.no_context")) %>");
+  if($(".mailing-start-at .input-group-btn .btn").length == 2) {
+    $(".mailing-start-at .input-group-btn .btn:last-child").remove();
+  }
+<% end %>

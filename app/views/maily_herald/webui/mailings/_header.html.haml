@@ -1,0 +1,19 @@
+%h1
+  - if @item.sequence?
+    = link_to @item.sequence do
+      %span.resource-name= friendly_name @item.sequence
+    &raquo;
+  %span.resource-name= friendly_name @item
+  = link_to({action: "toggle", id: @item}, :remote => true, :class => "link link-sm dispatch-state", :confirm => @item.enabled? ? t(".disable_confirm") : t(".enable_confirm"), :method => :post) do
+    = display_dispatch_state @item
+  = link_to({action: "edit", id: @item}, :remote => true, :class => "link link-sm") do
+    = icon(:pencil)
+    = tw("commons.edit")
+  - if @item.enabled? && @item.one_time?
+    = link_to({action: "deliver", id: @item}, :method => :post, :remote => true, :data => {:confirm => t(".confirm_run")}, :class => "link link-sm") do
+      = icon(:send)
+      = tw("commons.run")
+  - unless @item.archived?
+    = link_to({action: "destroy", id: @item}, :method => :delete, :remote => true, :data => {:confirm => t(".confirm_archive")}, :class => "link link-sm") do
+      = icon(:archive)
+      = tw("commons.archive")

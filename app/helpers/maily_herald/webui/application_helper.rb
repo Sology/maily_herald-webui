@@ -4,7 +4,7 @@ module MailyHerald
       include MailyHerald::Webui::Breadcrumbs::HelperExtensions
 
       def render_main_menu
-        content_tag(:ul, :class => "nav nav-main nav-justified") do
+        content_tag(:ul, :class => "nav nav-main") do
           menu_manager.items.each do |i|
             title = i[:title] || i[:name]
             title = tw(title) if title.is_a?(Symbol)
@@ -40,9 +40,10 @@ module MailyHerald
         end
       end
 
-      def link_to_context_attributes_overview list
-        link_to context_variables_list_path(id: list, context: list.context_name), data: {toggle: "modal", target: "#modal-generic"}, class: "link link-help" do 
-          icon(:list)
+      def link_to_context_attributes_overview list, options = {}
+        link_to context_variables_list_path(id: list, context: list.context_name), data: {toggle: "modal", target: "#modal-generic"}, class: ["link link-help", options[:class]] do 
+          html = concat(icon(:list))
+          html.concat(" ").concat(list.context_name) if options[:text]
         end if list.try(:context_name)
       end
 
@@ -134,7 +135,7 @@ module MailyHerald
       end
 
       def display_help_icon title, options = {}
-        link_to "#", class: "link link-help", data: {toggle: "tooltip", placement: "right"}, title: (options[:scope] ? tw("#{options[:scope]}.help.#{title}") : t(".help.#{title}")) do
+        link_to "#", class: "link link-help", data: {toggle: "tooltip", placement: options[:placement] || "right"}, title: (options[:scope] ? tw("#{options[:scope]}.help.#{title}") : t(".help.#{title}")) do
           icon(:question)
         end
       end

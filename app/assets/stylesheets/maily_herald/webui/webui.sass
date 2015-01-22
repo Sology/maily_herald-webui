@@ -298,7 +298,7 @@ button i
         text-transform: uppercase
         color: #634a4d
         font-weight: bold
-        padding: 15px 10px
+        padding: 15px 20px
         color: #e4554f
         &:hover 
           background: none
@@ -381,7 +381,7 @@ button i
   margin: 20px 0 0
   padding: 20px 0
   box-shadow: none
-  left: 0 !important
+  //left: 0 !important
   &:before 
     content: ''
     position: absolute
@@ -419,7 +419,19 @@ button i
 
 
 // Forms
+
 form, .form-horizontal
+  ::-webkit-input-placeholder
+    color:    #b0b0b0
+  \:-moz-placeholder
+    color:    #b0b0b0
+    opacity:  1
+  ::-moz-placeholder
+    color:    #b0b0b0
+    opacity:  1
+  \:-ms-input-placeholder
+    color:    #b0b0b0
+
   label
     font-weight: normal
   input
@@ -479,6 +491,8 @@ form, .form-horizontal
 
 .radio, .checkbox 
   padding-left: 0
+  display: inline-block
+  padding-right: 21px
   .webui-input, .radio-btn, .check-box 
     display: inline-block
     float: left
@@ -500,12 +514,12 @@ form, .form-horizontal
     background: asset-url('maily_herald/webui/sprite-form.png') no-repeat 0 0
     cursor: pointer
     outline: none
-    &.checkedBox
+    &.checkbox-checked
       background-position: -29px 0
   &.field_with_errors, &.has-error
     .check-box
       background-position: -60px 0
-      &.checkedBox
+      &.checkbox-checked
         background-position: -29px 0  
 
 .radio
@@ -525,13 +539,26 @@ form, .form-horizontal
     background: asset-url('maily_herald/webui/sprite-form.png') no-repeat 0 -45px
     cursor: pointer
     outline: none
-    &.checkedRadio 
+    &.radio-checked 
       background: asset-url('maily_herald/webui/sprite-form.png') no-repeat -29px -45px
   &.field_with_errors, &.has-error
     > .radio-btn
       background-position: -60px -45px
-      &.checkedRadio 
+      &.radio-checked 
         background: asset-url('maily_herald/webui/sprite-form.png') no-repeat -29px -45px
+
+.input-group
+  .input-group-btn
+    .btn
+      border: 2px solid #969291
+      padding: 5px 12px
+      i
+        margin: 0
+    &:last-child > .btn, &:last-child > .btn-group
+      margin-left: -2px
+  .input-group-addon
+    border: 2px solid #969291
+    border-left: none
 
 
 // Modal
@@ -588,7 +615,8 @@ form, .form-horizontal
     margin-left: -4px
 
 .tooltip-inner
-  max-width: 200px
+  max-width: 400px
+  min-width: 200px
   padding: 15px 15px
   color: #4b4847
   text-align: center
@@ -596,6 +624,7 @@ form, .form-horizontal
   background-color: #fff
   border-radius: 0
   border: 2px solid #634a4d
+  white-space: normal
 
 .tooltip-arrow
   position: absolute
@@ -692,7 +721,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
 
 // Custom
 .hero
-  padding: 40px 0
+  padding: 20px 0
   h1 
     margin: 0
     line-height: 38px
@@ -717,7 +746,8 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
         padding: 0 7px
         //color: #b1b1b1
         color: #e4554f
-        margin-left: -10px
+        //margin-left: -10px
+        margin-left: -22px
       .text-muted
         color: #aaa
     &:hover
@@ -777,3 +807,5 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
   i
     margin-right: -5px
 
+.datepicker-dropdown
+  width: auto

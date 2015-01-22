@@ -11,19 +11,6 @@ module MailyHerald
         end
       end
 
-      def display_mailing_state s
-        content_tag(:span) do 
-          case s.state
-          when :enabled
-            boolean_icon true, style: :toggle, text: :enabled
-          when :disabled
-            boolean_icon false, style: :toggle, text: :enabled
-          when :archived
-            icon("archive", tw("commons.archived"))
-          end
-        end
-      end
-
       def mailing_subscriber_actions mailing, entity
         actions = []
         actions << {
@@ -34,10 +21,10 @@ module MailyHerald
           if:        mailing.processable?(entity),
           remote:    true,
           method:    :post
-        }
+        } if mailing.one_time?
         actions << {
           name:      :custom, 
-          url:       preview_one_time_mailing_path(mailing, entity),
+          url:       {action: :preview, id: mailing, entity_id: entity},
           icon:      "fa fa-search",
           title:     tw("mailings.list.preview"),
           data: {
@@ -47,8 +34,29 @@ module MailyHerald
         }
       end
 
+      def url_for_mailing mailing
+        if mailing.sequence?
+          sequence_mailing_path(mailing.sequence_id, mailing)
+        else
+          mailing_path(mailing)
+        end
+      end
+
       def link_to_mailing mailing
-        link_to friendly_name(mailing), mailing
+        link_to friendly_name(mailing), url_for_mailing(mailing)
+      end
+
+      def display_mailing_from mailing
+        tw("mailings.from.default", email: mailing.mailer.default[:from])
+      end
+
+      def display_mailing_period mailing
+        #tw("commons.day", count: mailing.period_in_days)
+        distance_of_time_in_words mailing.absolute_delay
+      end
+
+      def display_mailing_absolute_delay mailing
+        distance_of_time_in_words mailing.absolute_delay
       end
     end
   end

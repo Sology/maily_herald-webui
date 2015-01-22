@@ -1,0 +1,7 @@
+%h2.border
+  = tw(:label_sequence_mailing_plural)
+  = link_to(new_sequence_mailing_path(sequence_id: @item), :class => "link link-sm") do
+    = icon(:plus)
+    = tw("sequence_mailings.new.label")
+
+= smart_listing_render :mailings

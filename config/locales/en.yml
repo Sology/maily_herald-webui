@@ -19,6 +19,16 @@ en:
         from: Sender
         relative_delay: Delay
         template: Template
+      sequence_mailing: 
+        name: Name
+        context_name: Context
+        sequence: Sequence
+        conditions: Conditions
+        title: Title
+        from: Sender
+        relative_delay: Delay
+        template: Template
+        absolute_delay: Absolute delay
       sequence: 
         name: Name
         context_name: Context
@@ -50,6 +60,9 @@ en:
         archive: Archive
         please_select: Please select
         run: Run
+        day:
+          one: one day
+          other: "%{count} days"
       attributes:
         name: Name
         title: Title
@@ -104,7 +117,7 @@ en:
         processing_at: Processing at
         infos:
           error: An error occured and mailing was not sent
-          scheduled: This mailing hasn't been sent yet. Is is only scheduled for delivery.
+          scheduled: This mailing hasn't been sent yet. Is is only scheduled for delivery. You can see the preview below.
         status:
           delivered: Delivered
           error: Error
@@ -117,31 +130,71 @@ en:
       one_time_mailings:
         new:
           label: Add new One Time Mailing
-        header:
-          confirm_delete: Are you sure you want to remove this One Time Mailing?
-          confirm_archive: Are you sure you want to archive this One Time Mailing?
-          confirm_run: Are you sure you want to send this Mailing out to ALL users?
-          enable_confirm: Are you sure you want to enable this Mailing?
-          disable_confirm: Are you sure you want to disable this Mailing?
         archived:
           label: Archived Mailings
-        preview:
-          title: Mailing preview
-          info: This is preview only. Mailing hasn't been delivered to entity.
-      mailings:
+        header:
+          confirm_run: Are you sure you want to send this Mailing out to ALL users?
+      periodical_mailings:
+        new:
+          label: Add new Periodical Mailing
+      sequence_mailings:
+        new:
+          label: Add new Sequence Mailing
+      dispatches:
         general: General
+        no_context: No context selected. Choose List first.
+      mailings:
         template: Template
-        non_generic_mailer_info: This mailing uses Rails Mailer %{mailer} which means you can edit it only by coding. <br />In order to edit its template via this UI, choose %{generic_mailer}.
-        warning_disabled: This mailing is disabled and won't be delivered to entities. You can enable it using menu above.
-        info_archived: This mailing is archived and won't be delivered to entities. You can bring it back using menu above.
+        from:
+          default: "Default (%{email})"
+          specify: Specify
+        start_at:
+          absolute: Absolute
+          relative: Relative
+        header:
+          confirm_archive: Are you sure you want to archive this Mailing?
+          enable_confirm: Are you sure you want to enable this Mailing?
+          disable_confirm: Are you sure you want to disable this Mailing?
+        infos:
+          non_generic_mailer: This mailing uses Rails Mailer %{mailer} which means you can edit it only by coding. <br />In order to edit its template via this UI, choose %{generic_mailer}.
+          disabled: This mailing is disabled and won't be delivered to entities. You can enable it using menu above.
+          archived: This mailing is archived and won't be delivered to entities. You can bring it back using menu above.
+        placeholders:
+          from: Sender e-mail address for mailing
+          start_at: Either Liquid expression or parsable date string
+          period: Number of
+          absolute_delay: Number of
         help:
+          mailer_name: Mailer used to send this mailing. This can be eiter Generic Mailer or one of the mailers defined in the app.
+          from: From field of the emails. Either default value or specified directly.
           override_subscription: Determines whether this mailing should be sent regardless of user subscription state.
+          start_at: When the mailing delivery starts.
+          period_in_days: Amount of time between consecutive mailing deliveries.
+          absolute_delay_in_days: Specify amount of time after starting the sequence when mailing is delivered.
+          no_context: No available context. Select a List first.
+          period_unit: days
+          absolute_delay_unit: days
         list:
           no_mailings: No mailings
           preview: Preview mailing for this entity
           deliver: Deliver mailing to this entity
         archived:
           label: Archived mailings
+        preview:
+          title: Mailing preview
+          info: This is preview only. Mailing hasn't been delivered to entity.
+      sequences:
+        new:
+          label: Add new Sequence
+        help:
+          start_at: When the mailing delivery starts.
+        infos:
+          disabled: This sequence is disabled and its mailings won't be delivered to entities. You can enable it using menu above.
+          archived: This sequence is archived and its mailings won't be delivered to entities. You can bring it back using menu above.
+        header:
+          confirm_archive: Are you sure you want to archive this Sequence?
+          enable_confirm: Are you sure you want to enable this Sequence and start sending its Mailings?
+          disable_confirm: Are you sure you want to disable this Sequence?
       label_dashboard: Dashboard
       label_list: List
       label_list_plural: Lists
@@ -151,6 +204,12 @@ en:
       label_subscription_plural: Subscriptions
       label_one_time_mailing: One Time Mailing
       label_one_time_mailing_plural: One Time Mailings
+      label_periodical_mailing: Periodical Mailing
+      label_periodical_mailing_plural: Periodical Mailings
+      label_sequence_mailing: Sequence Mailing
+      label_sequence_mailing_plural: Sequence Mailings
+      label_sequence: Sequence
+      label_sequence_plural: Sequences
       label_generic_mailer: Generic mailer
       label_no_conditions: No conditions
 

@@ -1,0 +1,14 @@
+<% if @item.list.try(:context_name) %>
+  $(".context-name").html("<%= escape_javascript(link_to_context_attributes_overview(@item.list, text: true)) %>");
+  var btn = "<%= escape_javascript(link_to_context_attributes_overview(@item.list, class: "btn btn-default")) %>"
+  if($(".dispatch-start-at .input-group-btn .btn").length == 2) {
+    $(".dispatch-start-at .input-group-btn .btn:last-child").replaceWith(btn);
+  } else {
+    $(".dispatch-start-at .input-group-btn").append(btn);
+  }
+<% else %>
+  $(".context-name").html("<%= escape_javascript(tw("mailings.no_context")) %>");
+  if($(".dispatch-start-at .input-group-btn .btn").length == 2) {
+    $(".dispatch-start-at .input-group-btn .btn:last-child").remove();
+  }
+<% end %>

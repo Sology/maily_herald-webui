@@ -15,5 +15,6 @@
   %pre= @log.data[:msg]
 - elsif @log.scheduled?
   .alert.alert-info= tw("logs.infos.scheduled")
+  %pre= @log.mailing.build_mail(@log.entity)
 - else
   %pre= @log.data[:content]

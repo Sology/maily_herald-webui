@@ -9,7 +9,7 @@ MailyHerald::Webui::Engine.routes.draw do
     member do
       post "subscribe/:entity_id", action: :subscribe, as: :subscribe_to
       post "unsubscribe/:entity_id", action: :unsubscribe, as: :unsubscribe_from
-      get "context_variables/:context", action: :context_variables, as: :context_variables
+      get "context_variables(/:context)", action: :context_variables, as: :context_variables
     end
   end
   resources "subscriptions" do
@@ -20,7 +20,7 @@ MailyHerald::Webui::Engine.routes.draw do
   resources "one_time_mailings" do
     collection do 
       get "archived"
-      #post "template"
+      post "update_form"
     end
     member do
       post "toggle"
@@ -28,7 +28,35 @@ MailyHerald::Webui::Engine.routes.draw do
       get "preview/:entity_id", action: :preview, as: :preview
     end
   end
-  resources "sequence_mailings"
+  resources "periodical_mailings" do
+    collection do 
+      get "archived"
+      post "update_form"
+    end
+    member do
+      post "toggle"
+      get "preview/:entity_id", action: :preview, as: :preview
+    end
+  end
+  resources "sequences" do
+    resources "sequence_mailings", as: "mailings", path: "mailings", except: [:index] do
+      collection do 
+        get "archived"
+        post "update_form"
+      end
+      member do
+        post "toggle"
+        get "preview/:entity_id", action: :preview, as: :preview
+      end
+    end
+    collection do 
+      get "archived"
+      post "update_form"
+    end
+    member do
+      post "toggle"
+    end
+  end
 
   post "switch_mode/:mode", to: "sessions#switch_mode", as: "switch_mode"
 

@@ -89,30 +89,25 @@ $ ->
 
 
   # form ui
+  $('input[type=radio]').on 'change', ->
+    $("input[type=radio][name=#{$(this).attr("name")}]").each ->
+      if $(this).is(":checked")
+        $(this).parent().addClass("radio-checked")
+      else
+        $(this).parent().removeClass("radio-checked")
 
-  $('input[type="radio"]').wrap '<span class="radio-btn"></span>'
-  $('.radio-btn').on 'click', ->
-    _this = $(this)
-    block = _this.parent().parent()
-    block.find('input:radio').attr 'checked', false
-    block.find('.radio-btn').removeClass 'checkedRadio'
-    _this.addClass 'checkedRadio'
-    _this.find('input:radio').attr 'checked', true
-    return
+  $('input[type=checkbox]').on 'change', ->
+    if $(this).is(":checked")
+      $(this).parent().addClass("checkbox-checked")
+    else
+      $(this).parent().removeClass("checkbox-checked")
 
-  $.fn.toggleCheckbox = ->
-    @attr 'checked', not @attr('checked')
-    return
+  $('input[type="radio"]:checked').parent().addClass 'radio-checked'
+  $('input[type="checkbox"]:checked').parent().addClass 'checkbox-checked'
 
-  $('.checkbox-wrap').on 'click', ->
-    $(this).find(':checkbox').toggleCheckbox()
-    $(this).toggleClass 'checkedBox'
-    return
-
-  $('input[type="radio"]:checked').parent().addClass 'checkedRadio'
-  $('input[type="checkbox"]:checked').parent().addClass 'checkedBox'
   $(".select-wrap").click ->
     $(this).toggleClass "select-btn"
+  # end form ui
 
   $(document).on "ajax:before", "a", (e) ->
     dummy = () ->

@@ -4,6 +4,8 @@
 - if @context
   %h4= t(".variables", context: @context.name)
   = display_context_attributes @context.attributes_list
+- else
+  %p= t(".no_context")
 
 %br
 %h4= t(".syntax_help")

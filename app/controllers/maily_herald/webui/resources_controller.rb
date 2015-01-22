@@ -9,7 +9,7 @@ module MailyHerald
 
     class Spec
       DEFAULT_CONTAINER = "details"
-      attr_accessor :klass, :scope, :filter_proc, :items_partial, :item_partial, :locale_prefix, :params
+      attr_accessor :klass, :scope, :filter_proc, :items_partial, :item_partial, :locale_prefix, :params, :containers_order
 
       def filter scope, query
         @filter_proc.call(scope, query)
@@ -45,9 +45,13 @@ module MailyHerald
     def create
       @item = resource_spec.klass.new
       @item.attributes = item_params
+
+      yield(@item) if block_given?
+
       if @item.save
         redirect_to @item
       else
+        puts @item.errors.to_yaml
         add_breadcrumb view_context.tw("#{controller_name}.new.label", :action => :new)
         render :action => :new
       end
@@ -55,6 +59,7 @@ module MailyHerald
 
     def show
       render_containers resource_spec.update_containers.keys
+      add_breadcrumb view_context.friendly_name(@item)
     end
 
     def edit
@@ -74,6 +79,12 @@ module MailyHerald
       flash[:notice] = "destroyed"
 
       redirect_to :action => :index
+    end
+
+    protected
+
+    def resource_spec
+      @resource_spec ||= set_resource_spec
     end
 
     private

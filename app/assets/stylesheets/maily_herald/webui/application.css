@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require maily_herald/webui/bootstrap.min
+ *= require maily_herald/webui/bootstrap-datepicker
  *= require maily_herald/webui/font-awesome.min
  *= require_tree .
  */

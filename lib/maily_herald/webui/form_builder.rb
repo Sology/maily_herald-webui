@@ -12,14 +12,15 @@ module MailyHerald
         @label_col = options[:label_col] || default_label_col
         @control_col = options[:control_col] || default_control_col
         @inline_errors = options[:inline_errors] != false
+        @help_scope = options[:help_scope]
         super
       end
 
       def prepend_and_append_input(options, &block)
         options = options.extract!(:prepend, :append)
         input = capture(&block)
-        input = content_tag(:span, options[:prepend], class: input_group_class(options[:prepend])) + input if options[:prepend]
-        input << content_tag(:span, options[:append], class: input_group_class(options[:append])) if options[:append]
+        input = content_tag(:span, options[:prepend], class: options[:prepend].include?("button") ? "input-group-btn" : "input-group-addon") + input if options[:prepend]
+        input << content_tag(:span, options[:append], class: options[:append].include?("button") ? "input-group-btn" : "input-group-addon") if options[:append]
         input = content_tag(:div, input, class: "input-group") unless options.empty?
         input
       end
@@ -45,6 +46,7 @@ module MailyHerald
           end
         end
       end
+      alias_method_chain :select, :maily
 
       def check_box_with_maily(method, options = {}, checked_value = "1", unchecked_value = "0")
         form_group_builder(method, options.merge(hide_label: true)) do
@@ -56,9 +58,19 @@ module MailyHerald
           end
         end
       end
-
-      alias_method_chain :select, :maily
       alias_method_chain :check_box, :maily
+
+      def radio_button_with_maily(method, options = {}, checked_value = "1", unchecked_value = "0")
+        form_group_builder(method, options.merge(hide_label: true)) do
+          content_tag(:div, class: "radio-wrap") do
+            label method do
+              concat(content_tag(:span, check_box_without_maily(method, options, checked_value, unchecked_value), class: "radio-btn"))
+              concat(object.class.human_attribute_name(method))
+            end
+          end
+        end
+      end
+      alias_method_chain :radio_button, :maily
 
       def maily_context_select(options = {}, html_options = {})
         choices = MailyHerald.contexts.values.collect do |context|
@@ -82,7 +94,44 @@ module MailyHerald
         choices = MailyHerald::List.all.collect do |list|
           [@template.friendly_name(list), list.name]
         end
-        select_with_maily :list, choices, options.merge(prompt: tw("commons.please_select")), html_options
+        select_with_maily :list, choices, options.merge(prompt: tw("commons.please_select")), {autocomplete: "off"}.merge(html_options)
+      end
+
+      def maily_from_field options = {}, html_options = {}
+        form_group_builder(:from, options.merge(wrapper_class: "mailing-from")) do
+          radio1 = content_tag(:label, content_tag(:span, @template.radio_button_tag(:mailing_from, "default", !object.from.present?), class: "radio-btn") + @template.display_mailing_from(object), class: "radio")
+          radio2 = content_tag(:label, content_tag(:span, @template.radio_button_tag(:mailing_from, "specify", object.from.present?), class: "radio-btn") + tw("mailings.from.specify"), class: "radio")
+
+          field = prepend_and_append_input(options) do
+            text_field_without_maily(:from, {class: "form-control", placeholder: tw("mailings.placeholders.from")})
+          end
+
+          concat(content_tag(:p, radio1 + radio2)).concat(field)
+        end
+      end
+
+      def maily_start_at_field options = {}, html_options = {}
+        form_group_builder(:start_at, options.merge(wrapper_class: "dispatch-start-at")) do
+          radio1 = content_tag(:label, content_tag(:span, @template.radio_button_tag(:mailing_from, "absolute", !object.from.present?), class: "radio-btn") + tw("mailings.start_at.absolute"), class: "radio")
+          radio2 = content_tag(:label, content_tag(:span, @template.radio_button_tag(:mailing_from, "relative", object.from.present?), class: "radio-btn") + tw("mailings.start_at.relative"), class: "radio")
+          calendar_btn = content_tag(:button, @template.icon(:calendar), class: "btn btn-default", type: "button")
+          list_btn = @template.link_to_context_attributes_overview(object.list, class: "btn btn-default")
+
+          field = prepend_and_append_input({append: calendar_btn + list_btn}) do
+            text_field_without_maily(:start_at, {class: "form-control", placeholder: tw("mailings.placeholders.start_at")})
+          end
+
+          #concat(content_tag(:p, radio1 + radio2)).concat(field)
+          field
+        end
+      end
+
+      def maily_period_field options = {}, html_options = {}
+        text_field :period_in_days, help: true, append: tw("mailings.help.period_unit"), placeholder: tw("mailings.placeholders.period")
+      end
+
+      def maily_absolute_delay_field options = {}, html_options = {}
+        text_field :absolute_delay_in_days, help: true, append: tw("mailings.help.absolute_delay_unit"), placeholder: tw("mailings.placeholders.absolute_delay")
       end
 
       def form_group(*args, &block)
@@ -94,9 +143,10 @@ module MailyHerald
         options[:class] << " #{feedback_class}" if options[:icon]
 
         content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
-          label   = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
+          label   = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout], options[:help]) if options[:label]
           control = capture(&block).to_s
           control.concat(generate_help(name, options[:help]).to_s)
+          #control.concat(generate_help(options[:help].is_a?(TrueClass) ? name : options[:help])) if options[:help]
           control.concat(generate_icon(options[:icon])) if options[:icon]
 
           if get_group_layout(options[:layout]) == :horizontal
@@ -203,13 +253,20 @@ module MailyHerald
         object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty? || object.errors[name.to_s.chomp("_id").to_sym].empty?)
       end
 
-      def generate_label(id, name, options, custom_label_col, group_layout)
+      def generate_label(id, name, options, custom_label_col, group_layout, help)
         options[:for] = id if acts_like_form_tag
         classes = [options[:class], label_class]
         classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
         options[:class] = classes.compact.join(" ")
 
-        label(name, options[:text], options.except(:text))
+        text = options[:text] || object.class.human_attribute_name(name)
+        text += " " + generate_help_icon(help.is_a?(TrueClass) ? name : help) if help
+
+        label(name, text.html_safe, options.except(:text))
+      end
+
+      def generate_help_icon(help)
+        @template.display_help_icon help, scope: @help_scope, placement: "top"
       end
 
       def generate_help(name, help_text)
@@ -217,7 +274,7 @@ module MailyHerald
         return if help_text === false
 
         help_text ||= I18n.t(name, scope: "activerecord.help.#{object.class.to_s.downcase}", default: '')
-        content_tag(:span, help_text, class: 'help-block') if help_text.present?
+        content_tag(:span, help_text, class: 'help-block') if help_text.present? && help_text.is_a?(String)
       end
 
       def generate_icon(icon)
