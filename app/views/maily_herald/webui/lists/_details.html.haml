@@ -1,3 +1,5 @@
+= render partial: "header"
+
 .dl-horizontal
   - content_for_expert do
     %dt= tw("attributes.name")
@@ -8,3 +10,5 @@
 %p
 
 = render_context_attributes_info @item
+
+%p

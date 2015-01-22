@@ -1,0 +1,7 @@
+%h2.border
+  = tw("lists.subscribers")
+  = display_help_icon :subscribers, scope: "lists"
+= smart_listing_controls_for :subscribers, :class => "context-menu" do
+  - if @subscribers.any?
+    %form{:action => ""}= filter_box "subscribers_filter"
+= smart_listing_render :subscribers

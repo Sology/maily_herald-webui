@@ -85,14 +85,15 @@ en:
         subscribers: Subscribers
         opt_outs: Opt-outs
         potential_subscribers: Potential Subscribers
+        header:
+          confirm_delete: Are you sure you want to remove this List?
+        help:
+          subscribers: "Entities subscribed to this list. They receive e-mails from this list."
+          opt_outs: "Entities unsubscribed from this list. They no longer receive e-mails from this list."
+          potential_subscribers: "Entities inside the list's context scope but never subscribed to this list."
         new:
           label: Create new list
         show:
-          help:
-            subscribers: "Entities subscribed to this list. They receive e-mails from this list."
-            opt_outs: "Entities unsubscribed from this list. They no longer receive e-mails from this list."
-            potential_subscribers: "Entities inside the list's context scope but never subscribed to this list."
-          sure_delete: Are you sure you want to remove this List?
         items:
           no_lists: No lists.
         context_variables:

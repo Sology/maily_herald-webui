@@ -38,7 +38,7 @@ module MailyHerald
         if mailing.sequence?
           sequence_mailing_path(mailing.sequence_id, mailing)
         else
-          mailing_path(mailing)
+          url_for(mailing)
         end
       end
 

@@ -3,25 +3,6 @@ module MailyHerald
     add_breadcrumb :label_list_plural, Proc.new{ lists_path }
     set_menu_item :lists
 
-    def show
-      super
-
-      @list = @item
-
-      add_breadcrumb @item.title || @item.name
-
-      @subscribers = @item.subscribers
-      @subscribers = @subscribers.merge(@item.context.scope_like(params[:subscribers_filter])) if params[:subscribers_filter]
-      @opt_outs = @item.opt_outs
-      @opt_outs = @opt_outs.merge(@item.context.scope_like(params[:opt_outs_filter])) if params[:opt_outs_filter]
-      @potential_subscribers = @item.potential_subscribers
-      @potential_subscribers = @potential_subscribers.merge(@item.context.scope_like(params[:potential_subscribers_filter])) if params[:potential_subscribers_filter]
-
-      @subscribers = smart_listing_create(:subscribers, @subscribers, :partial => "maily_herald/webui/subscribers/list")
-      @opt_outs = smart_listing_create(:opt_outs, @opt_outs, :partial => "maily_herald/webui/subscribers/list")
-      @potential_subscribers = smart_listing_create(:potential_subscribers, @potential_subscribers, :partial => "maily_herald/webui/subscribers/list")
-    end
-
     def subscribe
       find_item
 
@@ -53,6 +34,35 @@ module MailyHerald
         end
         spec.items_partial = "items"
         spec.params = [:name, :title]
+        spec.update_containers = {
+          "subscribers" => true,
+          "opt_outs" => true,
+          "potential_subscribers" => true
+        }
+        spec.containers_order = ["details", "subscribers", "opt_outs", "potential_subscribers"]
+      end
+    end
+
+    def action_dependencies *containers
+      containers.flatten!
+
+      @list = @item
+
+      containers.each do |container|
+        case container
+        when "subscribers"
+          @subscribers = @item.subscribers
+          @subscribers = @subscribers.merge(@item.context.scope_like(params[:subscribers_filter])) if params[:subscribers_filter]
+          @subscribers = smart_listing_create(:subscribers, @subscribers, :partial => "maily_herald/webui/subscribers/list")
+        when "opt_outs"
+          @opt_outs = @item.opt_outs
+          @opt_outs = @opt_outs.merge(@item.context.scope_like(params[:opt_outs_filter])) if params[:opt_outs_filter]
+          @opt_outs = smart_listing_create(:opt_outs, @opt_outs, :partial => "maily_herald/webui/subscribers/list")
+        when "potential_subscribers"
+          @potential_subscribers = @item.potential_subscribers
+          @potential_subscribers = @potential_subscribers.merge(@item.context.scope_like(params[:potential_subscribers_filter])) if params[:potential_subscribers_filter]
+          @potential_subscribers = smart_listing_create(:potential_subscribers, @potential_subscribers, :partial => "maily_herald/webui/subscribers/list")
+        end
       end
     end
   end
