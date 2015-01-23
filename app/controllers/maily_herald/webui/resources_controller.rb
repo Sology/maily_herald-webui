@@ -59,7 +59,6 @@ module MailyHerald
 
     def show
       render_containers resource_spec.update_containers.keys
-      add_breadcrumb view_context.friendly_name(@item)
     end
 
     def edit

@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require maily_herald/webui/bootstrap.min
 //= require maily_herald/webui/bootstrap-datepicker
+//= require maily_herald/webui/d3.v3.js
+//= require maily_herald/webui/rickshaw.js
 //= require smart_listing
 //= require_tree .

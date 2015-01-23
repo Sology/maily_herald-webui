@@ -20,7 +20,8 @@ module MailyHerald
           title:     tw("mailings.list.deliver"),
           if:        mailing.processable?(entity),
           remote:    true,
-          method:    :post
+          method:    :post,
+          confirm:   tw("mailings.list.deliver_confirm")
         } if mailing.one_time?
         actions << {
           name:      :custom, 
@@ -52,7 +53,7 @@ module MailyHerald
 
       def display_mailing_period mailing
         #tw("commons.day", count: mailing.period_in_days)
-        distance_of_time_in_words mailing.absolute_delay
+        distance_of_time_in_words mailing.period
       end
 
       def display_mailing_absolute_delay mailing

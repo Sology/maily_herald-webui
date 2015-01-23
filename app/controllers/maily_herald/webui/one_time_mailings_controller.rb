@@ -10,8 +10,6 @@ module MailyHerald
     end
 
     def show
-      add_breadcrumb @item.title || @item.name, one_time_mailing_path(@item)
-
       super
     end
 

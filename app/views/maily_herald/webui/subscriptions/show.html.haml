@@ -9,6 +9,8 @@
     %dd= @item.entity.to_s
     %dt= tw("attributes.email")
     %dd= @list.context.destination_for(@item.entity)
+    %dt= tw(:label_list)
+    %dd= link_to friendly_name(@list), @list
 
 %h2.border
   = tw("logs.past_deliveries")

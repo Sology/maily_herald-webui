@@ -10,7 +10,7 @@
     = icon(:pencil)
     = tw("commons.edit")
   - if @item.enabled? && @item.one_time?
-    = link_to({action: "deliver", id: @item}, :method => :post, :remote => true, :data => {:confirm => t(".confirm_run")}, :class => "link link-sm") do
+    = link_to({action: "deliver", id: @item}, :method => :post, :remote => true, :data => {:confirm => tw("one_time_mailings.header.confirm_run")}, :class => "link link-sm") do
       = icon(:send)
       = tw("commons.run")
   - unless @item.archived?

@@ -74,6 +74,71 @@ $.fn.editable = (v) ->
     $(this).data("edit-bkp", children)
     $(this).html(v)
 
+$.fn.historyGraph = () ->
+  createSeries = (obj) ->
+    series = []
+    for date of obj
+      value = obj[date]
+      point =
+        x: Date.parse(date) / 1000
+        y: value
+
+      series.unshift point
+    series
+
+  $(this).each ->
+    container = $(this)
+
+    delivered = createSeries(container.data("delivered"))
+    skipped = createSeries(container.data("skipped"))
+    failed = createSeries(container.data("failed"))
+
+    if !container.data("graph")
+      graph = new Rickshaw.Graph(
+        element: container[0]
+        width: container.width()
+        height: 200
+        renderer: "line"
+        interpolation: "linear"
+        series: [
+          {
+            color: "#a94442"
+            data: failed
+            name: "Failed"
+          }
+          {
+            color: "#3c763d"
+            data: delivered
+            name: "Delivered"
+          }
+          {
+            color: "#006f68"
+            data: skipped
+            name: "Skipped"
+          }
+        ]
+      )
+      x_axis = new Rickshaw.Graph.Axis.Time(graph: graph)
+      y_axis = new Rickshaw.Graph.Axis.Y(
+        graph: graph
+        tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+        ticksTreatment: "glow"
+      )
+      graph.render()
+      hoverDetail = new Rickshaw.Graph.HoverDetail(
+        graph: graph
+        yFormatter: (y) ->
+          Math.floor(y)
+      )
+
+      container.data("graph", graph)
+    else
+      graph = container.data("graph")
+      graph.series[0]["data"] = failed
+      graph.series[1]["data"] = delivered
+      graph.series[2]["data"] = skipped
+      graph.update()
+
 $ ->
   SmartListing.config.merge()
   
@@ -116,9 +181,12 @@ $ ->
     target = $(e.target)
     target.addClass("disabled")
     target.bind "click", dummy
+    if target.find("i.fa").length == 0
+      target.prepend("<i class='fa fa-spinner fa-spin'></i> ")
 
     target.on "ajax:success", (e) ->
       target.removeClass("disabled")
+      target.find("i.fa-spinner").remove()
       target.unbind "click", dummy
 
     target.on "ajax:error", (e) ->
@@ -134,6 +202,8 @@ $ ->
     button.on "ajax:success", (e) ->
       button.removeAttr("disabled")
       button.find("i.fa-spinner").remove()
+
+  $(".history-graph").historyGraph()
 
   return
 

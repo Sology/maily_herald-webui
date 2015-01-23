@@ -17,7 +17,12 @@
             %td= log.entity
             %td= log.entity_email
           - unless @mailing
-            %td= link_to_mailing(log.mailing)
+            %td
+              - if log.mailing.sequence?
+                = link_to log.mailing.sequence do
+                  %span= friendly_name log.mailing.sequence
+                &raquo;
+              = link_to_mailing(log.mailing)
           %td= log.processing_at
           %td= link_to display_log_status(log), preview_log_path(log), data: {toggle: "modal", target: "#modal-generic"}
           %td.actions

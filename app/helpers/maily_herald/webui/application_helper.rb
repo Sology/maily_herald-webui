@@ -80,7 +80,7 @@ module MailyHerald
 
       def friendly_name obj
         return unless obj
-        obj.title.present? ? obj.title : obj.name
+        obj.respond_to?(:title) && obj.title.present? ? obj.title : obj.try(:name)
       end
 
       def form_for(object, options = {}, &block)

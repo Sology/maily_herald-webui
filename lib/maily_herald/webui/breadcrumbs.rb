@@ -25,6 +25,8 @@ module MailyHerald
           end
 
           def add_breadcrumb name, url = nil, options = {}
+            return unless name
+
             @breadcrumbs ||= []
             url = self.instance_eval(&url) if url.is_a?(Proc)
             url = eval(url.to_s) if url.to_s =~ /_path|_url|@/

@@ -189,6 +189,8 @@ pre
     color: #1f1d1c
 
 // Pagination 
+.pagination-wrapper
+  text-align: right
 .pagination
   border: 1px solid #e7e2db
   > li
@@ -729,14 +731,14 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
 .content-container 
   padding: 40px
   background: #fff
-  margin: 0 0 40px
+  margin: 0 0 20px
   .breadcrumb 
     line-height: 45px
 
 .smart-listing 
   margin-bottom: 30px
   .pagination 
-    margin: 0 0 20px
+    margin: 0 0 5px
   .pagination-per-page 
     text-align: right !important
   tr
@@ -799,7 +801,28 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
       box-shadow: none
 
 .footer 
-  margin: 0 0 40px
+  margin: 0 0 20px
+  font-size: 13px
+  padding: 0 40px
+  color: #777
+  strong
+    color: #4b4847
+    font-weight: normal
+  a
+    color: #4b4847
+    &:hover
+      color: #000
+  span
+    display: inline-block
+    &:after 
+      content: '·'
+      color: #969291
+      font-family: $font_nexa
+      padding: 0 5px
+    &:last-child 
+      margin: 0
+      &:after 
+        display: none
 
 
 .mailing-mailer
@@ -809,3 +832,12 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
 
 .datepicker-dropdown
   width: auto
+
+.statusbox
+  text-align: center
+
+.dashboard-periods
+  a
+    color: #777
+    &.active, &:hover
+      color: #4b4847

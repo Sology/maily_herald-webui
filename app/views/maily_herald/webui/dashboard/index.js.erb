@@ -1,2 +1,15 @@
+$(".dashboard-periods a").removeClass("active");
+$(".period-<%= params[:period] || "month" %>").addClass("active");
+
 <%= smart_listing_update(:logs) %>
 <%= smart_listing_update(:scheduled_logs) %>
+
+$(".processed-count").html(<%= @processed_count %>);
+$(".delivered-count").html(<%= @delivered_count %>);
+$(".skipped-count").html(<%= @skipped_count %>);
+$(".failed-count").html(<%= @failed_count %>);
+
+$(".history-graph").data("delivered", <%= @delivered.to_json.html_safe %>);
+$(".history-graph").data("failed", <%= @failed.to_json.html_safe %>);
+$(".history-graph").data("skipped", <%= @skipped.to_json.html_safe %>);
+$(".history-graph").historyGraph();

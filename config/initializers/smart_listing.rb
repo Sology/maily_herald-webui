@@ -27,6 +27,8 @@ SmartListing.configure(:maily_herald) do |config|
     #:hidden                => "hidden",
     #:autoselect            => "autoselect",
     #:callback              => "callback",
+    :pagination_wrapper     => "pagination-wrapper",
+    :pagination_container   => "pagination",
     #:pagination_per_page   => "pagination-per-page text-center",
     #:pagination_count      => "count",
     #:inline_editing        => "info",

@@ -28,19 +28,30 @@
         .content-container
           = yield
       
-      .footer.text-center 
-        %p 
-          = link_to "Maily Herald", "https://github.com/Sology/maily_herald"
-          =# "v#{::MailyHerald::VERSION}"
-          %br
-          %small
-            = t(".created_by")
-            = link_to "Sology", "http://www.sology.eu"
-    #popover-confirmation.fade{data: {title: t(".confirm")}}
-      %p.popover-msg
-      .popover-footer
-        %button.btn.btn-webui.confirm{:data => {:dismiss => "modal"}} OK
-        %button.btn.btn-link.cancel{:data => {:dismiss => "modal"}} Cancel
+      .footer 
+        .pull-right
+          = t(".created_by")
+          = link_to "Sology", "http://www.sology.eu"
+        %div
+          %span
+            %strong= link_to "MailyHerald", "https://github.com/Sology/maily_herald"
+            = "v#{::MailyHerald::VERSION}"
+          %span
+            %strong= link_to "WebUI", "https://github.com/Sology/maily_herald-webui"
+            = "v#{::MailyHerald::Webui::VERSION}"
+          %span
+            %strong Redis:
+            = MailyHerald.redis.client.id
+          - if MailyHerald.redis.respond_to?(:namespace)
+            %span
+              %strong Namespace:
+              = MailyHerald.redis.respond_to?(:namespace) ? MailyHerald.redis.namespace : nil
+    .hidden
+      #popover-confirmation.fade{data: {title: t(".confirm")}}
+        %p.popover-msg
+        .popover-footer
+          %button.btn.btn-webui.confirm{:data => {:dismiss => "modal"}} OK
+          %button.btn.btn-link.cancel{:data => {:dismiss => "modal"}} Cancel
     .modal#modal-generic.fade
       .modal-dialog
         .modal-content
