@@ -41,12 +41,15 @@ module MailyHerald
 
 
       logs(:delivered).each do |l| 
+        @delivered[l.processing_at.strftime("%Y-%m-%d")] ||= 0
         @delivered[l.processing_at.strftime("%Y-%m-%d")] += 1
       end
       logs(:error).each do |l| 
+        @failed[l.processing_at.strftime("%Y-%m-%d")] ||= 0
         @failed[l.processing_at.strftime("%Y-%m-%d")] += 1
       end
       logs(:skipped).each do |l| 
+        @skipped[l.processing_at.strftime("%Y-%m-%d")] ||= 0
         @skipped[l.processing_at.strftime("%Y-%m-%d")] += 1
       end
 		end
