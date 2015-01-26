@@ -1,3 +1,5 @@
+require 'maily_herald/webui/version'
+
 require 'smart_listing'
 require 'haml'
 
