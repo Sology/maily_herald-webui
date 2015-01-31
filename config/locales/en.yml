@@ -60,6 +60,7 @@ en:
         archive: Archive
         please_select: Please select
         run: Run
+        locked: Locked
         day:
           one: one day
           other: "%{count} days"
@@ -85,6 +86,7 @@ en:
         subscribers: Subscribers
         opt_outs: Opt-outs
         potential_subscribers: Potential Subscribers
+        locked_info: You can't edit this list because it is locked probably in your initializer file (programatically).
         header:
           confirm_delete: Are you sure you want to remove this List?
         help:
@@ -147,6 +149,7 @@ en:
       dispatches:
         general: General
         no_context: No context selected. Choose List first.
+        locked_info: You can't edit this dispatch because it is locked probably in your initializer file (programatically).
       mailings:
         template: Template
         from:
