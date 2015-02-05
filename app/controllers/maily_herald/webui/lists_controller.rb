@@ -28,7 +28,7 @@ module MailyHerald
     def resource_spec
       @resource_spec ||= Webui::ResourcesController::Spec.new.tap do |spec|
         spec.klass = MailyHerald::List
-        spec.scope = MailyHerald::List.scoped
+        spec.scope = Rails::VERSION::MAJOR == 3 ? MailyHerald::List.scoped : MailyHerald::List.all
         spec.filter_proc = Proc.new do |scope, query|
           scope.where("name like ? or title like ?", "%#{query}%", "%#{query}%")
         end
