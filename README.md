@@ -1,6 +1,6 @@
 # MailyHerald Web UI
 
-Web interface for Ruby on Rails email marketing solution - [MailyHerald](https://github.com/Sology/maily_herald).
+Web interface for [MailyHerald](https://github.com/Sology/maily_herald) - Ruby on Rails email marketing solution.
 
 ## Requirements
 
@@ -50,9 +50,9 @@ end
 
 ## More Information
 
-* [Home Page](http://www.mailyherald.org)
+* [Home Page](http://mailyherald.org)
 * [API Docs](http://www.rubydoc.info/gems/maily_herald)
-* Showcase (_coming soon_)
+* [Showcase](http://showcase.sology.eu/maily_herald)
 * [Sample application](https://github.com/Sology/maily_testapp)
 
 For bug reports or feature requests see the [issues on Github](https://github.com/Sology/maily_herald-webui/issues).  
