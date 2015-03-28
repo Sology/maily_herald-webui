@@ -48,6 +48,23 @@ class MailyAccessConstraint
 end
 ```
 
+## Conflict between will_paginate and kaminari
+will_paginate is known to cause problem when used with kaminari, to which maily_herald-webui has dependency. To work around this issue, create config/initializers/will_paginate.rb with following content:
+
+```ruby
+# config/initializers/will_paginate.rb
+if defined?(WillPaginate)
+  module WillPaginate
+    module ActiveRecord
+      module RelationMethods
+        alias_method :per, :per_page
+        alias_method :num_pages, :total_pages
+      end
+    end
+  end
+end
+```
+
 ## More Information
 
 * [Home Page](http://mailyherald.org)
