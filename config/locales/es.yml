@@ -1,0 +1,237 @@
+es:
+  activerecord:
+    attributes:
+      one_time_mailing: 
+        name: Nombre
+        context_name: Contexto
+        sequence: Secuencia
+        conditions: Condiciones
+        title: Título
+        from: Remitente
+        relative_delay: Retraso
+        template: Plantilla
+      periodical_mailing: 
+        name: Nombre
+        context_name: Contexto
+        sequence: Secuencia
+        conditions: Condiciones
+        title: Título
+        from: Remitente
+        relative_delay: Retraso
+        template: Plantilla
+      sequence_mailing: 
+        name: Nombre
+        context_name: Contexto
+        sequence: Secuencia
+        conditions: Condiciones
+        title: Título
+        from: Remitente
+        relative_delay: Retraso
+        template: Plantilla
+        absolute_delay: Retraso absoluto
+      sequence: 
+        name: Nombre
+        context_name: Contexto
+        mode: Modo
+        start: Fecha de inicio
+        start_var: Variable de inicio (evaluada)
+        period: Período
+  layouts:
+    maily_herald:
+      webui:
+        application:
+          created_by: Creado por
+          confirm: Confirmar
+  maily_herald:
+    webui:
+      commons:
+        create: Crear
+        save: Guardar
+        cancel: Cancelar
+        edit: Editar
+        remove: Eliminar
+        active: Activo
+        inactive: Inactivo
+        positive: "Si"
+        negative: "No"
+        enabled: Activado
+        disabled: Desactivado
+        archived: Archivado
+        archive: Archivar
+        please_select: Porfavor Seleccione
+        run: Ejecutar
+        locked: Bloqueado
+        day:
+          one: Un día
+          other: "%{count} días"
+      attributes:
+        name: Nombre
+        title: Título
+        context: Contexto
+        context_name: Nombre del contexto
+        context_model_name: Nombre del modelo
+        email: E-mail
+        state: Estado
+        status: Estatus
+        mailer: Mailer
+        mailing: Envío
+        entity: Entidad
+        override_subscription: Sobreescribir suscripción
+        conditions: Condiciones
+        subject: Asunto
+      work_modes:
+        regular: Modo regular
+        expert: Modo experto
+      lists:
+        subscribers: Suscriptores
+        opt_outs: No participaciones
+        potential_subscribers: Suscriptores potenciales
+        locked_info: Usted no puede editar esta lista porque está bloqueada probablemente en su archivo inicializador (en el código).
+        header:
+          confirm_delete: ¿Está seguro que desea eliminar esta lista?
+        help:
+          subscribers: "Entidades suscritas a esta lista. Ellos reciben E-mail de esta lista."
+          opt_outs: "Entidades dadas de baja de esta lista. Ellos no volverán a recibir E-mail de esta lista."
+          potential_subscribers: "Entidades dentro del contexto de sta lista pero nunca se han suscrito a esta lista."
+        new:
+          label: Crear nueva lista
+        show:
+        items:
+          no_lists: No. de listas.
+        context_variables:
+          title: Variables de contexto
+          syntax_help: Ayuda de sintaxis Liquid
+          variables: "Variables en el contexto '%{context}'"
+      subscribers:
+        list:
+          name: Nombre
+          email: E-mail
+          no_entities: No. de entidades
+        item:
+          subscribe: Suscribirse
+          unsubscribe: Dase de baja
+      subscriptions:
+        show:
+          users_subscription: "suscripción de %{user}"
+          toggle_confirm: ¿Está seguro que quiere cambiar el estado de la suscripción?
+      logs:
+        past_deliveries: Anteriores envíos
+        scheduled_deliveries: Envíos programados
+        processing_at: Prosesamiento en
+        state: Estado
+        infos:
+          error: Un error ocurrió y el envío no fue entregado
+          scheduled: Este envío no ha sido enviado aún. Sólo está programado para su envío. Puede ver la vista previa a continuación.
+        status:
+          delivered: Enviado
+          error: Error
+          failed: Falló
+          skipped: Saldato
+          scheduled: Programado
+          processed: Procesado
+        items:
+          no_logs: No. de registros
+        preview:
+          title: Registros del envío
+      one_time_mailings:
+        new:
+          label: Añadir un nuevo envío único
+        archived:
+          label: Envíos archivados
+        header:
+          confirm_run: ¿Está seguro que quiere enviar este Envío a todos los usuarios?
+      periodical_mailings:
+        new:
+          label: Añadir nuevo envío períodico
+      sequence_mailings:
+        new:
+          label: Añadir nuevo envío secuencial
+      dispatches:
+        general: General
+        no_context: No se ha seleccionado contexto. Seleccione una lista primero.
+        locked_info: Usted no puede editar este despacho porque probablemente está bloqueado en su archivo inicializador (en el código).
+      mailings:
+        template: Plantilla
+        from:
+          default: "(%{email}) por defecto"
+          specify: Especificar
+        start_at:
+          absolute: Absoluto
+          relative: Relativo
+        header:
+          confirm_archive: ¿Está seguro que quiere archivar este Envío?
+          enable_confirm: ¿Está seguro que quiere activar este Envío?
+          disable_confirm: ¿Está seguro que quiere desactivar este envío?
+        infos:
+          non_generic_mailer: Este Envío usa Rails Mailer %{mailer} lo que significa que usted solo puede editarlo desde el código. <br />Para poder editar esta plantilla a través de esta intefaz, seleccione %{generic_mailer}.
+          disabled: Este Envío está desactivado y no será enviado a las entidades. Usted puede activarlo usando el menú de arriba.
+          archived: Este Envío está archivado y no será enviado a entidades. Usted puede traerlo de vuelta usando el menú de arriba.
+        placeholders:
+          from: E-mail del remitente para el Envío
+          start_at: Ya sea una expresión Liquid o una cadena de fecha concatenable
+          period: Número de
+          absolute_delay: Número de
+        help:
+          mailer_name: Mailer usado para enviar este envío. Puede ser ya un Mailer genérico a uno que se esté usando en la aplicación.
+          from: Campo de remitente de stos E-mails. Ya sea el valor predeterminado o especificado directamente.
+          override_subscription: Determina si este envío debería ser enviado independientemente del estado de la suscripción de la entidad.
+          start_at: Cuando la entrega del envío comienza.
+          period_in_days: Cantidad de tiempo entre entregas de envíos consecutivas.
+          absolute_delay_in_days: Especificar cantidad de tiempo después de empezar la secuencia cuando el envío es entregado.
+          no_context: No available context. Seleccione una lista primero.
+          period_unit: días
+          absolute_delay_unit: días
+        list:
+          no_mailings: No Envíos
+          preview: Vista previa del envío para esta entidad
+          deliver: Entregar envío para esta entidad
+          deliver_confirm: ¿Está seguro que quiere entregar este envío a la entidad?
+        archived:
+          label: Envíos archivados
+        preview:
+          title: Vista previa del Envío
+          info: Esto es sólo una vista previa. El Envío no ha sido entregado aún.
+      sequences:
+        new:
+          label: Añadir nueva secuencia
+        help:
+          start_at: Cuando la entrega del envío comienza.
+        infos:
+          disabled: Esta secuencia está desactivada y sus envíos no serán entregados a las entidades. Usted puede activarla usando el menú de arriba.
+          archived: Esta secuencia está archivada y sus envíos no serán entregados a las entidades. Usted puede traerla devuelta usando el menú de arriba.
+        header:
+          confirm_archive: ¿Está seguro que quiere archivar esta secuencia?
+          enable_confirm: ¿Está seguro que quiere activar esta secuencia y comensar a entregar sus envíos?
+          disable_confirm: ¿Está seguro que quiere desactivar esta secuencia?
+      dashboard:
+        index:
+          history: Historia
+          week: Una semana
+          month: Un mes
+          6months: Seis meses
+          year: Un año
+      label_dashboard: Panel de control
+      label_list: Lista
+      label_list_plural: Listas
+      label_entity: Entidad
+      label_entity_plural: Entidades
+      label_subscription: Suscripción
+      label_subscription_plural: Suscripciones
+      label_one_time_mailing: Envío único
+      label_one_time_mailing_plural: Envíos únicos
+      label_periodical_mailing: Envío períodico
+      label_periodical_mailing_plural: Envíos períodicos
+      label_sequence_mailing: Envío secuencial
+      label_sequence_mailing_plural: Envíos secuenciales
+      label_sequence: Secuencia
+      label_sequence_plural: Secuencias
+      label_generic_mailer: Mailer genérico
+      label_no_conditions: No Condiciones
+
+      smart_listing:
+        actions:
+          show: Mostrar
+          edit: Editar
+      views:
+        pagination:
+          total: Total
