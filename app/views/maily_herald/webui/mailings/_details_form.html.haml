@@ -1,7 +1,7 @@
 - unless @item.new_record?
   = render partial: "header"
 
-= form_for(@item, :url => {:action => "update"}, :as => :item, :layout => :horizontal, :remote => !@item.new_record?, :control_col => "col-sm-5", help_scope: "mailings", html: {class: "dispatch-form"}, data: {update_form_path: url_for(action: "update_form") }) do |f|
+= form_for(@item, :as => :item, :layout => :horizontal, :remote => !@item.new_record?, :control_col => "col-sm-5", help_scope: "mailings", html: {class: "dispatch-form"}, data: {update_form_path: url_for(action: "update_form") }) do |f|
   - if f.object.new_record?
     %h2= tw("dispatches.general")
 

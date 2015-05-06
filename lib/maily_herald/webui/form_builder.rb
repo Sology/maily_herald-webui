@@ -13,7 +13,12 @@ module MailyHerald
         @control_col = options[:control_col] || default_control_col
         @inline_errors = options[:inline_errors] != false
         @help_scope = options[:help_scope]
-        super
+
+        if Rails::VERSION::MAJOR >= 4.2
+          super
+        else
+          super object_name, object, template, options
+        end
       end
 
       def prepend_and_append_input(options, &block)

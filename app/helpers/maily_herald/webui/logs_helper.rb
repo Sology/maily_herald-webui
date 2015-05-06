@@ -26,6 +26,7 @@ module MailyHerald
         when :delivered
           content_tag(:span, icon(:check, tw("logs.status.delivered")), class: "text-success")
         when :skipped
+          content_tag(:span, icon(:times, tw("logs.status.skipped")), class: "text-warning")
         when :error
           content_tag(:span, icon(:exclamation, tw("logs.status.error")), class: "text-danger")
         when :scheduled

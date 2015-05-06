@@ -1,6 +1,15 @@
 en:
   activerecord:
     attributes:
+      ad_hoc_mailing: 
+        name: Name
+        context_name: Context
+        sequence: Sequence
+        conditions: Conditions
+        title: Title
+        from: Sender
+        relative_delay: Delay
+        template: Template
       one_time_mailing: 
         name: Name
         context_name: Context
@@ -133,6 +142,13 @@ en:
           no_logs: No logs
         preview:
           title: Mailing log
+      ad_hoc_mailings:
+        new:
+          label: Add new Ad Hoc Mailing
+        archived:
+          label: Archived Mailings
+        header:
+          confirm_run: Are you sure you want to send this Mailing out to ALL users?
       one_time_mailings:
         new:
           label: Add new One Time Mailing
@@ -217,6 +233,8 @@ en:
       label_entity_plural: Entities
       label_subscription: Subscription
       label_subscription_plural: Subscriptions
+      label_ad_hoc_mailing: Ad Hoc Mailing
+      label_ad_hoc_mailing_plural: Ad Hoc Mailings
       label_one_time_mailing: One Time Mailing
       label_one_time_mailing_plural: One Time Mailings
       label_periodical_mailing: Periodical Mailing
