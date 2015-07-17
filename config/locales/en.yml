@@ -51,6 +51,7 @@ en:
         application:
           created_by: Created by
           confirm: Confirm
+          settings: Settings
   maily_herald:
     webui:
       commons:
@@ -69,10 +70,13 @@ en:
         archive: Archive
         please_select: Please select
         run: Run
+        send_to_all: Send to all
         locked: Locked
         day:
           one: one day
           other: "%{count} days"
+        time_in: "in %{time}"
+        time_ago: "%{time} ago"
       attributes:
         name: Name
         title: Title
@@ -88,9 +92,10 @@ en:
         override_subscription: Override subscription
         conditions: Conditions
         subject: Subject
-      work_modes:
-        regular: Regular Mode
-        expert: Expert Mode
+      settings:
+        expert_mode: Expert mode
+        show_skipped: Show skipped schedules
+        friendly_timestamps: Friendly timestamps
       lists:
         subscribers: Subscribers
         opt_outs: Opt-outs
@@ -112,13 +117,16 @@ en:
           syntax_help: Liquid syntax help
           variables: "Variables in context '%{context}'"
       subscribers:
+        show_unmet_conditions: Show also entities with unmet conditions
         list:
           name: Name
           email: E-mail
           no_entities: No entities
+          conditions: Mailing condition indicator
         item:
           subscribe: Subscribe
           unsubscribe: Unsubscribe
+          conditions_not_met: Mailing won't be sent to this entity because conditions are not met.
       subscriptions:
         show:
           users_subscription: "%{user}'s subscription"
@@ -131,6 +139,7 @@ en:
         infos:
           error: An error occured and mailing was not sent
           scheduled: This mailing hasn't been sent yet. Is is only scheduled for delivery. You can see the preview below.
+          conditions: This mailing has conditions. Conditions are evaluated just before the delivery so above information may change untill delivery time.
         status:
           delivered: Delivered
           error: Error
@@ -148,14 +157,12 @@ en:
         archived:
           label: Archived Mailings
         header:
-          confirm_run: Are you sure you want to send this Mailing out to ALL users?
+          confirm_send_to_all: Are you sure you want to send this Mailing out to ALL users?
       one_time_mailings:
         new:
           label: Add new One Time Mailing
         archived:
           label: Archived Mailings
-        header:
-          confirm_run: Are you sure you want to send this Mailing out to ALL users?
       periodical_mailings:
         new:
           label: Add new Periodical Mailing
@@ -168,6 +175,7 @@ en:
         locked_info: You can't edit this dispatch because it is locked probably in your initializer file (programatically).
       mailings:
         template: Template
+        missing: Missing mailing
         from:
           default: "Default (%{email})"
           specify: Specify

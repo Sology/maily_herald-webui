@@ -13,7 +13,7 @@ module MailyHerald
       add_breadcrumb view_context.tw("subscriptions.show.users_subscription", user: @item.entity.to_s)
 
       @entity = @item
-      smart_listing_create(:delivered_logs, @item.logs.delivered, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
+      smart_listing_create(:processed_logs, @item.logs.processed, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
       smart_listing_create(:scheduled_logs, @item.logs.scheduled, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
     end
 

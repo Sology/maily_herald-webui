@@ -6,6 +6,8 @@
           %th #
         %th.col-md-6= t(".name")
         %th.col-md-6= t(".email")
+        - if @with_unmet_conditions
+          %th= icon(:question, nil, title: t(".conditions"))
         %th
     %tbody
       - smart_listing.collection.each do |entity|

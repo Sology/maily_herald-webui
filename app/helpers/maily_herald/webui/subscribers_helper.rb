@@ -3,7 +3,7 @@ module MailyHerald
     module SubscribersHelper
       def subscriber_actions list, entity
         actions = []
-        subscription = list.subscription_for(entity)
+        subscription = MailyHerald::Subscription.get_from(entity) || list.subscription_for(entity)
         actions << {
           name:      :custom, 
           url:       subscription_path(subscription),

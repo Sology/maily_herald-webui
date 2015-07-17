@@ -13,14 +13,13 @@
             %h1= link_to image_tag("maily_herald/webui/logo.svg", :class => "img-responsive logo"), root_path
           .col-sm-6= render_breadcrumbs
           .col-sm-3
-            .dropdown.pull-right
-              %a{:href => '#', :data => { toggle: 'dropdown'}, :class => 'account'} 
-                %span= work_mode_t(work_mode)
+            .dropdown.pull-right.dropdown-settings
+              %a{:href => '#', :data => { toggle: 'dropdown'}} 
+                = icon(:cog, nil, title: t(".settings"))
               %ul.dropdown-menu{'role' => 'menu'}
-                - if work_mode == :expert
-                  %li= link_to work_mode_t(:regular), switch_mode_path(:regular), :method => :post
-                - else
-                  %li= link_to work_mode_t(:expert), switch_mode_path(:expert), :method => :post
+                %li= setting_switcher :expert_mode
+                %li= setting_switcher :show_skipped
+                %li= setting_switcher :friendly_timestamps
 
       .section-wrapper
         = render_main_menu

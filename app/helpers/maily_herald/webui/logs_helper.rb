@@ -3,7 +3,7 @@ module MailyHerald
     module LogsHelper
       def log_actions log
         actions = []
-        subscription = log.mailing.list.subscription_for(log.entity) if log.entity
+        subscription = log.mailing.list.subscription_for(log.entity) if log.mailing && log.entity
         actions << {
           name:      :custom, 
           url:       subscription_path(subscription),

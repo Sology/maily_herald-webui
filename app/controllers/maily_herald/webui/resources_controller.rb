@@ -126,10 +126,11 @@ module MailyHerald
     # Run code required by rendered containers
     def collect_action_dependencies
       if @rendered_containers
-        begin
-          action_dependencies @rendered_containers
-        rescue NoMethodError
-        end
+        action_dependencies @rendered_containers
+        #begin
+          #action_dependencies @rendered_containers
+        #rescue NoMethodError
+        #end
       end
     end
 

@@ -147,6 +147,9 @@ a.error
   color: #f00 !important
   i.fa:before
     content: "" !important
+  i.fa
+    -webkit-animation: none !important
+    animation: none !important
 
 em 
   font-style: italic
@@ -170,6 +173,17 @@ pre
 
 .no-margin 
   margin-bottom: 0
+
+.dropdown.dropdown-settings
+  background: none
+  width: 40px
+  text-align: center
+  .dropdown-menu
+    min-width: 200px
+    border: 1px solid #ddd
+    &:before
+      right: 10px
+
 
 // Breadcrumbs
 .breadcrumb
@@ -388,7 +402,7 @@ button i
     content: ''
     position: absolute
     top: -10px
-    left: 50%
+    right: 10%
     margin-left: -5px
     width: 0
     height: 0
@@ -511,7 +525,7 @@ form, .form-horizontal
     display: inline-block
     width: 20px
     height: 20px
-    margin: 0 10px 0 0
+    margin: 0
     vertical-align: middle
     background: asset-url('maily_herald/webui/sprite-form.png') no-repeat 0 0
     cursor: pointer
@@ -782,11 +796,15 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
           visibility: hidden
         &:first-child:before
           display: none
+.smart-listing-controls
+  label
+    margin-top: 8px
 
 // Search
 .filter-search 
   position: relative
   display: inline-block
+  vertical-align: top
   input[type='text']
     padding-right: 36px
     max-width: 200px

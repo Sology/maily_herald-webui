@@ -15,14 +15,14 @@ module MailyHerald
         actions = []
         actions << {
           name:      :custom, 
-          url:       deliver_one_time_mailing_path(mailing, entity),
+          url:       deliver_ad_hoc_mailing_path(mailing, entity),
           icon:      "fa fa-paper-plane",
           title:     tw("mailings.list.deliver"),
           if:        mailing.processable?(entity),
           remote:    true,
           method:    :post,
-          confirm:   tw("mailings.list.deliver_confirm")
-        } if mailing.one_time?
+          data:      {confirm: tw("mailings.list.deliver_confirm")}
+        } if mailing.ad_hoc?
         actions << {
           name:      :custom, 
           url:       {action: :preview, id: mailing, entity_id: entity},
@@ -44,7 +44,11 @@ module MailyHerald
       end
 
       def link_to_mailing mailing
-        link_to friendly_name(mailing), url_for_mailing(mailing)
+        if mailing
+          link_to friendly_name(mailing), url_for_mailing(mailing)
+        else
+          tw("mailings.missing")
+        end
       end
 
       def display_mailing_from mailing

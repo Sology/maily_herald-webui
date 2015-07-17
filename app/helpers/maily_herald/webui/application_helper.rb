@@ -67,11 +67,15 @@ module MailyHerald
       end
 
       def content_for_expert
-        yield if expert_mode?
+        yield if settings.expert_mode
       end
 
       def work_mode_t mode
         t(mode, {scope: [:maily_herald, :webui, :work_modes]})
+      end
+
+      def setting_t setting
+        t(setting, {scope: [:maily_herald, :webui, :settings]})
       end
 
       def tw(key, options = {})
@@ -149,8 +153,24 @@ module MailyHerald
         end
       end
 
+      def setting_switcher setting
+        link_to(switch_setting_path(setting), method: :post) do
+          concat(icon(settings.get(setting) ? "toggle-on" : "toggle-off"))
+          concat("&nbsp;".html_safe)
+          concat(setting_t(setting))
+        end
+      end
+
       def smart_listing_config_profile
         :maily_herald
+      end
+
+      def display_timestamp t
+        if t && settings.friendly_timestamps?
+          content_tag(:abbr, tw((t > Time.now) ? "commons.time_in" : "commons.time_ago", time: distance_of_time_in_words(t, Time.now)), title: t)
+        else
+          t
+        end
       end
     end
   end

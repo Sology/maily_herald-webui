@@ -39,9 +39,10 @@ module MailyHerald
         spec.update_containers = {
           "template" => {editable: true},
           "entities" => true,
-          "logs" => true
+          "logs" => true,
+          "schedules" => true
         }
-        spec.containers_order = ["details", "template", "entities", "logs"]
+        spec.containers_order = ["details", "template", "entities", "logs", "schedules"]
       end
     end
 
@@ -54,11 +55,22 @@ module MailyHerald
       containers.each do |container|
         case container
         when "logs"
-          @logs = smart_listing_create(:logs, @item.logs.processed, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
+          @logs = @item.logs.merge(log_scope).processed
+          @logs = @logs.merge(MailyHerald::Log.like_email(params[:logs_filter])) if params[:logs_filter]
+          @logs = smart_listing_create(:logs, @logs, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
+
+        when "schedules"
+          @schedules = @item.logs.scheduled
+          @schedules = @schedules.merge(MailyHerald::Log.like_email(params[:schedules_filter])) if params[:schedules_filter]
+          @schedules = smart_listing_create(:schedules, @schedules, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
+
         when "entities"
+          @with_unmet_conditions = params[:with_unmet_conditions] == "1"
+
           @entities = @item.list.subscribers
           @entities = @entities.merge(@item.list.context.scope_like(params[:entities_filter])) if params[:entities_filter]
-          @entities = smart_listing_create(:entities, @entities, :partial => "maily_herald/webui/subscribers/list")
+          @entities = @entities.select{|e| @mailing.conditions_met?(e)} if @mailing.has_conditions? && params[:with_unmet_conditions] != "1"
+          @entities = smart_listing_create(:entities, @entities, :partial => "maily_herald/webui/subscribers/list", array: @mailing.has_conditions?)
         else
           yield(container) if block_given?
         end

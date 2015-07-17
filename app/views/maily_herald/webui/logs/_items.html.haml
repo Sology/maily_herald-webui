@@ -18,12 +18,12 @@
             %td= log.entity_email
           - unless @mailing
             %td
-              - if log.mailing.sequence?
+              - if log.mailing.try(:sequence?)
                 = link_to log.mailing.sequence do
                   %span= friendly_name log.mailing.sequence
                 &raquo;
               = link_to_mailing(log.mailing)
-          %td= log.processing_at
+          %td= display_timestamp log.processing_at
           %td= link_to display_log_status(log), preview_log_path(log), data: {toggle: "modal", target: "#modal-generic"}
           %td.actions
             .action-group= smart_listing_item_actions log_actions(log)

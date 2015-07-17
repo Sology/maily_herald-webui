@@ -35,7 +35,6 @@ MailyHerald::Webui::Engine.routes.draw do
     end
     member do
       post "toggle"
-      post "deliver/(:entity_id)", action: :deliver, as: :deliver
       get "preview/:entity_id", action: :preview, as: :preview
     end
   end
@@ -69,7 +68,7 @@ MailyHerald::Webui::Engine.routes.draw do
     end
   end
 
-  post "switch_mode/:mode", to: "sessions#switch_mode", as: "switch_mode"
+  post "settings/:setting/switch", to: "sessions#switch_setting", as: "switch_setting"
 
 
 

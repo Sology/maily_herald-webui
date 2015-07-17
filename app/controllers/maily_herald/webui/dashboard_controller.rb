@@ -22,7 +22,7 @@ module MailyHerald
       smart_listing_create(:logs, logs(:processed), :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
       smart_listing_create(:scheduled_logs, MailyHerald::Log.scheduled, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
 
-      @total_count = MailyHerald::Log.count
+      @total_count = log_scope.count
       @processed_count = logs(:processed).count
       @delivered_count = logs(:delivered).count
       @skipped_count = logs(:skipped).count
@@ -59,7 +59,7 @@ module MailyHerald
     def logs state, period = nil
       period ||= @period
 
-      MailyHerald::Log.send(state).where("processing_at > (?)", @time - period)
+      log_scope.send(state).where("processing_at > (?)", @time - period)
     end
 	end
 end

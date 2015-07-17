@@ -14,10 +14,10 @@
     %a.link.link-sm.text-warning{:data => {:toggle => "tooltip", :placement => "top"}, :title => tw("dispatches.locked_info")}
       = icon(:lock)
       = tw("commons.locked")
-  - if @item.enabled? && @item.one_time?
-    = link_to({action: "deliver", id: @item}, :method => :post, :remote => true, :data => {:confirm => tw("one_time_mailings.header.confirm_run")}, :class => "link link-sm") do
+  - if @item.enabled? && @item.ad_hoc?
+    = link_to({action: "deliver", id: @item}, :method => :post, :remote => true, :data => {:confirm => tw("ad_hoc_mailings.header.confirm_send_to_all")}, :class => "link link-sm") do
       = icon(:send)
-      = tw("commons.run")
+      = tw("commons.send_to_all")
   - unless @item.locked? || @item.archived?
     = link_to({action: "destroy", id: @item}, :method => :delete, :remote => true, :data => {:confirm => t(".confirm_archive")}, :class => "link link-sm") do
       = icon(:archive)

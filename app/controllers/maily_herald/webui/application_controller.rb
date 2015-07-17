@@ -5,14 +5,18 @@ module MailyHerald
       include MailyHerald::Webui::MenuManager::ControllerExtensions
 
       helper SmartListing::Helper
-      helper_method :expert_mode?, :work_mode
+      helper_method :settings
 
-      def work_mode
-        session[:work_mode].try(:to_sym) || :regular
+      def settings
+        Settings.new(cookies)
       end
 
-      def expert_mode?
-        work_mode == :expert
+      def log_scope
+        if settings.show_skipped?
+          MailyHerald::Log.all
+        else
+          MailyHerald::Log.not_skipped
+        end
       end
     end
   end

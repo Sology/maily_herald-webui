@@ -12,21 +12,5 @@ module MailyHerald
     def show
       super
     end
-
-    def deliver
-      find_item
-
-      if params[:entity_id]
-        @e = @item.list.context.scope.find(params[:entity_id])
-        @item.deliver_to @e
-
-        render_containers ["logs"]
-        render_update
-      else
-        @item.run
-        head :ok
-      end
-    end
-
   end
 end
