@@ -173,6 +173,7 @@ en:
         general: General
         no_context: No context selected. Choose List first.
         locked_info: You can't edit this dispatch because it is locked probably in your initializer file (programatically).
+        hardcoded_info: This attribute has some complex expression and it was defined probably in your initializer file (programatically).
       mailings:
         template: Template
         missing: Missing mailing
@@ -182,6 +183,10 @@ en:
         start_at:
           absolute: Absolute
           relative: Relative
+        conditions:
+          met: Met
+          unmet: Unmet
+          missing: No conditions
         header:
           confirm_archive: Are you sure you want to archive this Mailing?
           enable_confirm: Are you sure you want to enable this Mailing?
@@ -252,7 +257,7 @@ en:
       label_sequence: Sequence
       label_sequence_plural: Sequences
       label_generic_mailer: Generic mailer
-      label_no_conditions: No conditions
+      label_hardcoded: Hardcoded
 
       smart_listing:
         actions:

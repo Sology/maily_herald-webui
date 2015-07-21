@@ -13,7 +13,7 @@
     %dd= display_log_status(@log)
     - if @log.mailing.has_conditions?
       %dt= tw("attributes.conditions")
-      %dd= @log.mailing.conditions_met?(@log.entity)
+      %dd= display_mailing_conditions_status @log.mailing, @log.entity
 
 - if @log.error?
   .alert.alert-danger= tw("logs.infos.error")

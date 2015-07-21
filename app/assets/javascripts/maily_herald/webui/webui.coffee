@@ -147,7 +147,7 @@ $ ->
     false
 
   $(document).tooltip
-    selector: 'a[data-toggle=tooltip]'
+    selector: '*[data-toggle=tooltip]'
 
   $(document).on 'hidden.bs.modal', (e) ->
     $(e.target).removeData('bs.modal')

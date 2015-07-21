@@ -30,12 +30,19 @@
 
 = render_context_attributes_info @item.list
 
+- if @item.one_time?
+  %p
+
+  .dl-horizontal
+    %dt= @item.class.human_attribute_name(:start_at)
+    %dd= display_mailing_start_at @item
+
 - if @item.periodical?
   %p
 
   .dl-horizontal
     %dt= @item.class.human_attribute_name(:start_at)
-    %dd= @item.start_at
+    %dd= display_mailing_start_at @item
 
     %dt= @item.class.human_attribute_name(:period)
     %dd= display_mailing_period @item
@@ -51,11 +58,7 @@
 
 .dl-horizontal
   %dt= tw("attributes.conditions")
-  %dd
-    - if @item.conditions.present?
-      %code= @item.conditions
-    - else
-      = tw(:label_no_conditions)
+  %dd= display_mailing_conditions @item
   %dt
     = tw("attributes.override_subscription")
     = display_help_icon("override_subscription", scope: "mailings")

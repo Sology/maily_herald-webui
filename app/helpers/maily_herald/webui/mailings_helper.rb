@@ -45,7 +45,13 @@ module MailyHerald
 
       def link_to_mailing mailing
         if mailing
-          link_to friendly_name(mailing), url_for_mailing(mailing)
+          link_to url_for_mailing(mailing) do
+            concat(friendly_name(mailing))
+            if mailing.locked?
+              concat("&nbsp;".html_safe)
+              concat(icon(:lock))
+            end
+          end
         else
           tw("mailings.missing")
         end
@@ -62,6 +68,41 @@ module MailyHerald
 
       def display_mailing_absolute_delay mailing
         distance_of_time_in_words mailing.absolute_delay
+      end
+
+      def display_mailing_conditions mailing
+        if mailing.has_conditions_proc?
+          content_tag :span, class: "text-warning", data: {:toggle => "tooltip", :placement => "top"}, :title => tw("dispatches.hardcoded_info") do
+            concat(icon(:gears))
+            concat("&nbsp;".html_safe)
+            concat(tw(:label_hardcoded))
+          end
+        elsif mailing.conditions.is_a?(String)
+          content_tag(:code, mailing.conditions)
+        else
+          tw("mailings.conditions.missing")
+        end
+      end
+
+      def display_mailing_conditions_status mailing, entity
+        if mailing.conditions_met?(entity)
+          content_tag(:span, icon(:check, tw("mailings.conditions.met")))
+        else
+          content_tag(:span, icon(:times, tw("mailings.conditions.unmet")), class: "text-warning")
+        end
+      end
+
+      def display_mailing_start_at mailing
+        if mailing.has_start_at_proc?
+          content_tag :span, class: "text-warning", data: {:toggle => "tooltip", :placement => "top"}, :title => tw("dispatches.hardcoded_info") do
+            concat(icon(:gears))
+            concat("&nbsp;".html_safe)
+            concat(tw(:label_hardcoded))
+          end
+        elsif mailing.start_at.is_a?(String)
+          content_tag(:code, mailing.start_at)
+        else
+        end
       end
     end
   end
