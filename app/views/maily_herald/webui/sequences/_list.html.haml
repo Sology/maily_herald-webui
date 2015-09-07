@@ -9,7 +9,7 @@
     %tbody
       - smart_listing.collection.each do |sequence|
         %tr
-          %td= link_to friendly_name(sequence), {:action => :show, :id => sequence}
+          %td= link_to_sequence(sequence)
           %td= display_dispatch_state sequence
           %td= link_to friendly_name(sequence.list), list_path(sequence.list)
           %td.actions

@@ -29,5 +29,8 @@ module MailyHerald
         spec.klass = MailyHerald::Subscription
       end
     end
+
+    def action_dependencies *containers
+    end
   end
 end

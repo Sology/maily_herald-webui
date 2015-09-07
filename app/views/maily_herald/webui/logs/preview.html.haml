@@ -11,9 +11,17 @@
     %dd= @log.processing_at
     %dt= tw("logs.state")
     %dd= display_log_status(@log)
-    - if @log.mailing.has_conditions?
-      %dt= tw("attributes.conditions")
-      %dd= display_mailing_conditions_status @log.mailing, @log.entity
+
+  - if @log.scheduled?
+    %br
+    .dl-horizontal
+      - if @log.mailing.has_conditions?
+        %dt= tw("attributes.conditions")
+        %dd= display_mailing_conditions_status @log.mailing, @log.entity
+      %dt
+        = tw("attributes.in_scope")
+        = display_help_icon :in_scope, scope: "lists"
+      %dd= display_list_scope_status @log.mailing.list, @log.entity
 
 - if @log.error?
   .alert.alert-danger= tw("logs.infos.error")

@@ -27,7 +27,7 @@ module MailyHerald
 
         value = case setting_type(setting)
                 when :boolean
-                  ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value) ? "1" : "0"
+                  value ? "1" : "0"
                 end
         @cookies.permanent[setting_key(setting)] = value
       end

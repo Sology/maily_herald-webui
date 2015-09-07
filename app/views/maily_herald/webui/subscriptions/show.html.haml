@@ -11,6 +11,10 @@
     %dd= @list.context.destination_for(@item.entity)
     %dt= tw(:label_list)
     %dd= link_to friendly_name(@list), @list
+    %dt
+      = tw("attributes.in_scope")
+      = display_help_icon :in_scope, scope: "lists"
+    %dd= display_list_scope_status @list, @item.entity
 
 %h2.border
   = tw("logs.past_deliveries")

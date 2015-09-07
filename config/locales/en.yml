@@ -91,6 +91,7 @@ en:
         entity: Entity
         override_subscription: Override subscription
         conditions: Conditions
+        in_scope: In scope?
         subject: Subject
       settings:
         expert_mode: Expert mode
@@ -107,6 +108,7 @@ en:
           subscribers: "Entities subscribed to this list. They receive e-mails from this list."
           opt_outs: "Entities unsubscribed from this list. They no longer receive e-mails from this list."
           potential_subscribers: "Entities inside the list's context scope but never subscribed to this list."
+          in_scope: Indicates whether entity is in the mailing list scope. If no, mailings won't be sent.
         new:
           label: Create new list
         show:
