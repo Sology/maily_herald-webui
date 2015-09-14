@@ -13,14 +13,18 @@ $.rails.confirmed = (link) ->
 $.rails.showConfirmDialog = (link) ->
   message = link.attr 'data-confirm'
   link.popover('destroy')
+  editable = link.closest(".editable")
+  editable.addClass("force-visible")
   
   content = $("#popover-confirmation").clone().removeClass("fade")
   content.find(".popover-msg").html(message)
   content.find('.confirm').unbind "click"
   content.find('.confirm').click ->
     $.rails.confirmed(link)
+    editable.removeClass("force-visible")
   content.find('.cancel').click ->
     link.popover('hide')
+    editable.removeClass("force-visible")
 
   link.popover(content: content, html: true, trigger: 'manual', title: $("#popover-confirmation").data("title"))
   link.popover('show')
