@@ -23,6 +23,7 @@ $.fn.handleDispatchForm = () ->
 
       if from_value == "default"
         from_field.hide()
+        from_field.val("")
       else if from_value == "specify"
         from_field.show()
 

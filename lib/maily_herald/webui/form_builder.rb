@@ -104,7 +104,7 @@ module MailyHerald
 
       def maily_from_field options = {}, html_options = {}
         form_group_builder(:from, options.merge(wrapper_class: "mailing-from")) do
-          radio1 = content_tag(:label, content_tag(:span, @template.radio_button_tag(:mailing_from, "default", !object.from.present?), class: "radio-btn") + @template.display_mailing_from(object), class: "radio")
+          radio1 = content_tag(:label, content_tag(:span, @template.radio_button_tag(:mailing_from, "default", !object.from.present?), class: "radio-btn") + @template.tw("mailings.from.default", email: object.mailer.default[:from]), class: "radio")
           radio2 = content_tag(:label, content_tag(:span, @template.radio_button_tag(:mailing_from, "specify", object.from.present?), class: "radio-btn") + tw("mailings.from.specify"), class: "radio")
 
           field = prepend_and_append_input(options) do

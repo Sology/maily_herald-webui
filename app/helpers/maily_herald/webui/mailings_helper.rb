@@ -58,7 +58,7 @@ module MailyHerald
       end
 
       def display_mailing_from mailing
-        tw("mailings.from.default", email: mailing.mailer.default[:from])
+        mailing.from || tw("mailings.from.default", email: mailing.mailer.default[:from])
       end
 
       def display_mailing_period mailing

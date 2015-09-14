@@ -65,6 +65,10 @@ $('.btn-default a').click  (e) ->
        keyChange()
      , 400)
 
+$.fn.setup_form_inputs = (v) ->
+  $(this).find('input[type="radio"]:checked').parent().addClass 'radio-checked'
+  $(this).find('input[type="checkbox"]:checked').parent().addClass 'checkbox-checked'
+
 $.fn.editable = (v) ->
   if v == "cancel"
     if $(this).data("edit-bkp")
@@ -77,6 +81,7 @@ $.fn.editable = (v) ->
     children.detach()
     $(this).data("edit-bkp", children)
     $(this).html(v)
+    $(this).setup_form_inputs()
 
 $.fn.historyGraph = () ->
   createSeries = (obj) ->
@@ -158,21 +163,20 @@ $ ->
 
 
   # form ui
-  $('input[type=radio]').on 'change', ->
+  $(document).on 'change', 'input[type=radio]', ->
     $("input[type=radio][name=#{$(this).attr("name")}]").each ->
       if $(this).is(":checked")
         $(this).parent().addClass("radio-checked")
       else
         $(this).parent().removeClass("radio-checked")
 
-  $('input[type=checkbox]').on 'change', ->
+  $(document).on 'change', 'input[type=checkbox]', ->
     if $(this).is(":checked")
       $(this).parent().addClass("checkbox-checked")
     else
       $(this).parent().removeClass("checkbox-checked")
 
-  $('input[type="radio"]:checked').parent().addClass 'radio-checked'
-  $('input[type="checkbox"]:checked').parent().addClass 'checkbox-checked'
+  $(document).setup_form_inputs()
 
   $(".select-wrap").click ->
     $(this).toggleClass "select-btn"
