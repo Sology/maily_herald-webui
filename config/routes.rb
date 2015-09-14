@@ -9,7 +9,7 @@ MailyHerald::Webui::Engine.routes.draw do
     member do
       post "subscribe/:entity_id", action: :subscribe, as: :subscribe_to
       post "unsubscribe/:entity_id", action: :unsubscribe, as: :unsubscribe_from
-      get "context_variables(/:context)", action: :context_variables, as: :context_variables
+      get "context_attributes(/:context)", action: :context_attributes, as: :context_attributes
     end
   end
   resources "subscriptions" do

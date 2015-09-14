@@ -2,8 +2,11 @@
   = t(".title")
 
 - if @context
-  %h4= t(".variables", context: @context.name)
-  = display_context_attributes @context.attributes_list
+  %h4= t(".attributes", context: @context.name)
+  - unless @context.attributes_list.empty?
+    = display_context_attributes @context.attributes_list
+  - else
+    %p= t(".no_context_attributes")
 - else
   %p= t(".no_context")
 

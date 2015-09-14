@@ -17,7 +17,7 @@ module MailyHerald
       @item.unsubscribe! @entity
     end
 
-    def context_variables
+    def context_attributes
       @context = MailyHerald.context(params[:context])
 
       render layout: "maily_herald/webui/modal"

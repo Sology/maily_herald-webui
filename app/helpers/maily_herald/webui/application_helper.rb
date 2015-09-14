@@ -41,7 +41,7 @@ module MailyHerald
       end
 
       def link_to_context_attributes_overview list, options = {}
-        link_to context_variables_list_path(id: list, context: list.context_name), data: {toggle: "modal", target: "#modal-generic"}, class: ["link link-help", options[:class]] do 
+        link_to context_attributes_list_path(id: list, context: list.context_name), data: {toggle: "modal", target: "#modal-generic"}, class: ["link link-help", options[:class]] do 
           html = concat(icon(:list))
           html.concat(" ").concat(list.context_name) if options[:text]
         end if list.try(:context_name)

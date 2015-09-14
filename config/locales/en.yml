@@ -114,10 +114,11 @@ en:
         show:
         items:
           no_lists: No lists.
-        context_variables:
-          title: Context variables
+        context_attributes:
+          title: Context attributes
           syntax_help: Liquid syntax help
-          variables: "Variables in context '%{context}'"
+          attributes: "Attributes in context '%{context}'"
+          no_context_attributes: No context attributes. Ask your app developer to define some.
       subscribers:
         show_unmet_conditions: Show also entities with unmet conditions
         list:
