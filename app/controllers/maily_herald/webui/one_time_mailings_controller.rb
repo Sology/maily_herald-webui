@@ -12,5 +12,24 @@ module MailyHerald
     def show
       super
     end
+
+    protected
+
+    def set_resource_spec
+      spec = super
+      spec.params.push(:start_at)
+      spec.update_containers["schedules"] = true
+      spec.containers_order = ["details", "template", "entities", "schedules", "logs"]
+      spec
+    end
+
+    def action_dependencies *containers
+      super do |container|
+        case container
+        when "schedules"
+          @schedules = smart_listing_create(:schedules, @item.logs.scheduled, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
+        end
+      end
+    end
   end
 end

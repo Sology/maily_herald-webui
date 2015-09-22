@@ -49,9 +49,12 @@ module MailyHerald
       yield(@item) if block_given?
 
       if @item.save
-        redirect_to @item
+        if @item.is_a?(MailyHerald::SequenceMailing)
+          redirect_to sequence_mailing_path(@item.sequence, @item)
+        else
+          redirect_to @item
+        end
       else
-        puts @item.errors.to_yaml
         add_breadcrumb view_context.tw("#{controller_name}.new.label", :action => :new)
         render :action => :new
       end

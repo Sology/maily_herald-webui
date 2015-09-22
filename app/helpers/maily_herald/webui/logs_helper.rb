@@ -33,6 +33,10 @@ module MailyHerald
           content_tag(:span, icon(:"clock-o", tw("logs.status.scheduled")), class: "text-muted")
         end
       end
+
+      def display_log_skip_reason skip_reason
+        tw("logs.skip_reason.#{skip_reason}") if skip_reason
+      end
     end
   end
 end

@@ -143,6 +143,8 @@ en:
           error: An error occured and mailing was not sent
           scheduled: This mailing hasn't been sent yet. Is is only scheduled for delivery. You can see the preview below.
           conditions: This mailing has conditions. Conditions are evaluated just before the delivery so above information may change untill delivery time.
+          original_processing: "Original processing was scheduled for %{date}."
+          last_skipped: "Last delivery attempt was on %{date}. The reason of skipping was: %{reason}."
         status:
           delivered: Delivered
           error: Error
@@ -154,6 +156,12 @@ en:
           no_logs: No logs
         preview:
           title: Mailing log
+        data:
+          skip_reason: Reason of skipping
+        skip_reason:
+          conditions_unmet: Conditions unmet
+          not_processable: Not processable
+          not_in_scope: Entity not in context scope
       ad_hoc_mailings:
         new:
           label: Add new Ad Hoc Mailing

@@ -111,6 +111,11 @@ $.fn.historyGraph = () ->
         interpolation: "linear"
         series: [
           {
+            color: "#c3a323"
+            data: skipped
+            name: "Skipped"
+          }
+          {
             color: "#a94442"
             data: failed
             name: "Failed"
@@ -119,11 +124,6 @@ $.fn.historyGraph = () ->
             color: "#3c763d"
             data: delivered
             name: "Delivered"
-          }
-          {
-            color: "#006f68"
-            data: skipped
-            name: "Skipped"
           }
         ]
       )
@@ -189,7 +189,7 @@ $ ->
     target = $(e.target)
     target.addClass("disabled")
     target.bind "click", dummy
-    if target.find("i.fa").length == 0
+    if target.find("i.fa, span.fa").length == 0
       target.prepend("<i class='fa fa-spinner fa-spin'></i> ")
 
     target.on "ajax:success", (e) ->
