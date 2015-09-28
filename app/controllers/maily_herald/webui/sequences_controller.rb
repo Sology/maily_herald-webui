@@ -21,11 +21,11 @@ module MailyHerald
         spec.params = [:title, :list, :start_at, :override_subscription]
         spec.update_containers = {
           "mailings" => true,
-          "entities" => true,
+          "subscribers" => true,
           "schedules" => true,
           "logs" => true
         }
-        spec.containers_order = ["details", "mailings", "entities", "schedules", "logs"]
+        spec.containers_order = ["details", "mailings", "subscribers", "schedules", "logs"]
       end
     end
 
@@ -41,10 +41,10 @@ module MailyHerald
           @logs = smart_listing_create(:logs, @item.logs.processed, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
         when "schedules"
           @schedules = smart_listing_create(:schedules, @item.logs.scheduled, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
-        when "entities"
-          @entities = @item.list.subscribers
-          @entities = @entities.merge(@item.list.context.scope_like(params[:entities_filter])) if params[:entities_filter]
-          @entities = smart_listing_create(:entities, @entities, :partial => "maily_herald/webui/subscribers/list")
+        when "subscribers"
+          @subscribers = @item.list.subscribers
+          @subscribers = @subscribers.merge(@item.list.context.scope_like(params[:subscribers_filter])) if params[:subscribers_filter]
+          @subscribers = smart_listing_create(:subscribers, @subscribers, :partial => "maily_herald/webui/subscribers/list")
         when "mailings"
           @mailings = smart_listing_create(:mailings, @item.mailings, :partial => "maily_herald/webui/mailings/list")
         else

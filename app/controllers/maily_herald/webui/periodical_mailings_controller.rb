@@ -9,7 +9,7 @@ module MailyHerald
       spec = super
       spec.params.push(:start_at, :period_in_days)
       spec.update_containers["schedules"] = true
-      spec.containers_order = ["details", "template", "entities", "schedules", "logs"]
+      spec.containers_order = ["details", "template", "subscribers", "schedules", "logs"]
       spec
     end
 
