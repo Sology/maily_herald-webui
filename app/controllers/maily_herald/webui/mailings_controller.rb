@@ -38,11 +38,11 @@ module MailyHerald
         spec.params = [:title, :mailer_name, :list, :from, :conditions, :override_subscription, :subject, :template]
         spec.update_containers = {
           "template" => {editable: true},
-          "entities" => true,
+          "subscribers" => true,
           "logs" => true,
           "schedules" => true
         }
-        spec.containers_order = ["details", "template", "entities", "logs", "schedules"]
+        spec.containers_order = ["details", "template", "subscribers", "logs", "schedules"]
       end
     end
 
@@ -64,13 +64,13 @@ module MailyHerald
           @schedules = @schedules.merge(MailyHerald::Log.like_email(params[:schedules_filter])) if params[:schedules_filter]
           @schedules = smart_listing_create(:schedules, @schedules, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
 
-        when "entities"
+        when "subscribers"
           @with_unmet_conditions = params[:with_unmet_conditions] == "1"
 
-          @entities = @item.list.subscribers
-          @entities = @entities.merge(@item.list.context.scope_like(params[:entities_filter])) if params[:entities_filter]
-          @entities = @entities.select{|e| @mailing.conditions_met?(e)} if @mailing.has_conditions? && params[:with_unmet_conditions] != "1"
-          @entities = smart_listing_create(:entities, @entities, :partial => "maily_herald/webui/subscribers/list", array: @mailing.has_conditions?)
+          @subscribers = @item.list.subscribers
+          @subscribers = @subscribers.merge(@item.list.context.scope_like(params[:subscribers_filter])) if params[:subscribers_filter]
+          @subscribers = @subscribers.select{|e| @mailing.conditions_met?(e)} if @mailing.has_conditions? && params[:with_unmet_conditions] != "1"
+          @subscribers = smart_listing_create(:subscribers, @subscribers, :partial => "maily_herald/webui/subscribers/list", array: @mailing.has_conditions?)
         else
           yield(container) if block_given?
         end

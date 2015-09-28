@@ -22,7 +22,7 @@ module MailyHerald
     def destroy
       @item.archive!
 
-      render_containers ["details", "entities"]
+      render_containers ["details", "subscribers"]
       render_update
     end
 
@@ -35,7 +35,7 @@ module MailyHerald
         @item.disable!
       end
 
-      render_containers ["details", "entities"]
+      render_containers ["details", "subscribers"]
       render_update
     end
   end
