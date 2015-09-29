@@ -48,6 +48,21 @@ class MailyAccessConstraint
 end
 ```
 
+### Entity names
+
+By default WebUI display entities (i.e. your users) using `to_s` method. You can easily overwrite this method in your model to see your user names in the WebUI. Example below:
+
+```ruby
+class User < ActiveRecord::Base
+
+  # ...
+
+  def to_s
+    "#{self.firstname} #{self.lastname}"
+  end
+end
+```
+
 ## More Information
 
 * [Home Page](http://mailyherald.org)
