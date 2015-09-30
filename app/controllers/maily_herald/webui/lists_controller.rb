@@ -33,7 +33,7 @@ module MailyHerald
           scope.where("name like ? or title like ?", "%#{query}%", "%#{query}%")
         end
         spec.items_partial = "items"
-        spec.params = [:name, :title]
+        spec.params = [:name, :title, :context_name]
         spec.update_containers = {
           "subscribers" => true,
           "opt_outs" => true,

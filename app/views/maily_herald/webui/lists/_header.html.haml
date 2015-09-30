@@ -4,9 +4,6 @@
     = link_to edit_list_path(@item), :remote => true, :class => "link link-sm" do
       = icon(:pencil)
       = tw("commons.edit")
-    = link_to list_path(@item), :method => :delete, :data => {:confirm => t(".confirm_delete")}, :class => "link link-sm" do
-      = icon(:"trash-o")
-      = tw("commons.remove")
   - else
     %a.link.link-sm.text-warning{:data => {:toggle => "tooltip", :placement => "top"}, :title => tw("lists.locked_info")}
       = icon(:lock)
