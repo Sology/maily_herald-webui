@@ -143,9 +143,9 @@ $.fn.historyGraph = () ->
       container.data("graph", graph)
     else
       graph = container.data("graph")
-      graph.series[0]["data"] = failed
-      graph.series[1]["data"] = delivered
-      graph.series[2]["data"] = skipped
+      graph.series[0]["data"] = skipped
+      graph.series[1]["data"] = failed
+      graph.series[2]["data"] = delivered
       graph.update()
 
 $ ->
