@@ -48,6 +48,17 @@ class MailyAccessConstraint
 end
 ```
 
+HTTP Basic auth can be used too:
+
+```ruby
+# config/routes.rb
+MailyHerald::Webui::Engine.middleware.use Rack::Auth::Basic do |username, password|
+  username == ENV["MAILY_USERNAME"] && password == ENV["MAILY_PASSWORD"]
+end if Rails.env.production?
+
+mount MailyHerald::Webui::Engine => "/maily_webui"
+```
+
 ### Entity names
 
 By default WebUI display entities (i.e. your users) using `to_s` method. You can easily overwrite this method in your model to see your user names in the WebUI. Example below:
