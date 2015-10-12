@@ -8,7 +8,7 @@ Both Ruby on Rails 3.2 and 4 are supported.
 
 ## Installation
 
-Simply just
+Simply just run
 
     gem install maily_herald-webui
 
@@ -18,7 +18,7 @@ or put in your Gemfile
 
 ## Usage
 
-Mount WebUI in your application:
+Mount the WebUI in your application:
 
 ```ruby
 # config/routes.rb
@@ -29,14 +29,14 @@ mount MailyHerald::Webui::Engine => "/maily_webui"
 
 ### Restricting access
 
-The simplest way to restrict access to Maily WebUI is to use Rails routing constraints:
+The simplest way to restrict access to the Maily WebUI is to use Rails routing constraints:
 
 ```ruby
 # config/routes.rb
 mount MailyHerald::Webui::Engine => "/maily_webui", :constraints => MailyAccessConstraint.new
 ```
 
-Sample `MailyAccessConstraint` implementation might look like this:
+A sample `MailyAccessConstraint` implementation might look like this:
 
 ```ruby
 class MailyAccessConstraint
@@ -61,7 +61,7 @@ mount MailyHerald::Webui::Engine => "/maily_webui"
 
 ### Entity names
 
-By default WebUI display entities (i.e. your users) using `to_s` method. You can easily overwrite this method in your model to see your user names in the WebUI. Example below:
+By default the WebUI displays entities (i.e. your users) using the `to_s` method. You can easily overwrite this method in your model to see your user names in the WebUI. Example below:
 
 ```ruby
 class User < ActiveRecord::Base
