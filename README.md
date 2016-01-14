@@ -56,7 +56,7 @@ MailyHerald::Webui::Engine.middleware.use Rack::Auth::Basic do |username, passwo
   username == ENV["MAILY_USERNAME"] && password == ENV["MAILY_PASSWORD"]
 end if Rails.env.production?
 
-mount MailyHerald::Webui::Engine => "/maily_webui"
+mount MailyHerald::Webui::Engine, at: '/maily_webui
 ```
 
 ### Entity names
