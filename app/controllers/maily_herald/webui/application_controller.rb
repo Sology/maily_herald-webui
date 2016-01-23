@@ -8,7 +8,7 @@ module MailyHerald
       helper_method :settings
 
       def settings
-        Settings.new(cookies)
+        MailyHerald::Webui::Settings.new(cookies)
       end
 
       def log_scope
