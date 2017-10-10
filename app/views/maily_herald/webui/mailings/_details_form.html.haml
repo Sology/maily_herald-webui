@@ -1,0 +1,41 @@
+- unless @item.new_record?
+  = render partial: "header"
+
+= form_for(@item, :as => :item, :layout => :horizontal, :remote => !@item.new_record?, :control_col => "col-sm-5", help_scope: "mailings", html: {class: "dispatch-form"}, data: {update_form_path: url_for(action: "update_form") }) do |f|
+  - if f.object.new_record?
+    %h2= tw("dispatches.general")
+
+  - content_for_expert do
+    = f.text_field :name
+  = f.text_field :title
+  = f.maily_mailer_select help: true
+  = f.maily_from_field help: true
+  - if @item.new_record? && !@item.sequence?
+    = f.maily_list_select
+
+    .form-group
+      %label.control-label.col-sm-2= tw("attributes.context")
+      .col-sm-5
+        %p.help-block.context-name
+          = link_to_context_attributes_overview(@item.list, text: true) || tw("dispatches.no_context")
+
+  - if @item.one_time?
+    = render partial: "form_one_time", locals: {f: f}
+  - elsif @item.periodical?
+    = render partial: "form_periodical", locals: {f: f}
+  - elsif @item.sequence?
+    = render partial: "form_sequence", locals: {f: f}
+
+  = f.text_area :conditions
+  = f.check_box :override_subscription
+
+  - if f.object.new_record?
+    .template-generic
+      = render partial: "form_template_generic", locals: {f: f}
+    .template-mailer
+      = render partial: "form_template_mailer", locals: {f: f}
+
+  - if @item.new_record?
+    = f.buttons :create
+  - else
+    = f.buttons :save, :cancel

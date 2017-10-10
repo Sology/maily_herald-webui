@@ -1,0 +1,16 @@
+%h1
+  %span.resource-name= friendly_name @item
+  - unless @item.locked?
+    = link_to({action: "toggle", id: @item}, :remote => true, :class => "link link-sm dispatch-state", :confirm => @item.enabled? ? tw("sequences.header.disable_confirm") : tw("sequences.header.enable_confirm"), :method => :post) do
+      = display_dispatch_state @item
+    = link_to({action: "edit", id: @item}, :remote => true, :class => "link link-sm") do
+      = icon(:pencil)
+      = tw("commons.edit")
+  - else
+    %a.link.link-sm.text-warning{:data => {:toggle => "tooltip", :placement => "top"}, :title => tw("dispatches.locked_info")}
+      = icon(:lock)
+      = tw("commons.locked")
+  - unless @item.locked? || @item.archived?
+    = link_to({action: "destroy", id: @item}, :method => :delete, :remote => true, :data => {:confirm => tw("sequences.header.confirm_archive")}, :class => "link link-sm") do
+      = icon(:archive)
+      = tw("commons.archive")

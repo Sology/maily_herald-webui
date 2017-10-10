@@ -1,0 +1,7 @@
+= form_for @item, :as => :item, :layout => :horizontal, :remote => !@item.new_record?, :control_col => "col-sm-5", html: {class: "edit-mailing-template-form"} do |f|
+  = hidden_field_tag :edited_container, "template"
+  - if @item.generic_mailer?
+    = render partial: "form_template_generic", locals: {f: f}
+  - else
+    = render partial: "form_template_mailer", locals: {f: f}
+  = f.buttons :save, :cancel

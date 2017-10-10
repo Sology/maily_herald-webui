@@ -1,0 +1,47 @@
+- content_for :modal_title do
+  = t(".title")
+
+.box.noborder
+  .dl-horizontal
+    %dt= tw("attributes.mailing")
+    %dd= friendly_name @log.mailing
+    %dt= tw("attributes.entity")
+    %dd= @log.entity
+    %dt= tw("logs.processing_at")
+    %dd= @log.processing_at
+    %dt= tw("logs.state")
+    %dd= display_log_status(@log)
+
+  - if @log.scheduled?
+    %br
+    .dl-horizontal
+      - if @log.mailing.has_conditions?
+        %dt= tw("attributes.conditions")
+        %dd= display_mailing_conditions_status @log.mailing, @log.entity
+      %dt
+        = tw("attributes.in_scope")
+        = display_help_icon :in_scope, scope: "lists"
+      %dd= display_list_scope_status @log.mailing.list, @log.entity
+
+- if @log.error?
+  .alert.alert-danger= tw("logs.infos.error")
+  %pre= @log.data[:msg]
+- elsif @log.scheduled?
+  .alert.alert-info
+    %p= tw("logs.infos.scheduled")
+    - if @log.mailing.has_conditions?
+      %p= tw("logs.infos.conditions")
+  %pre= @log.mailing.build_mail(@log.entity)
+- elsif @log.skipped?
+  - if @log.data[:skip_reason]
+    .box.noborder
+      .dl-horizontal
+        %dt= tw("logs.data.skip_reason")
+        %dd= display_log_skip_reason(@log.data[:skip_reason])
+- else
+  %pre= @log.data[:content]
+
+- if (@log.skipped? || @log.scheduled?) && @log.data[:delivery_attempts]
+  .alert.alert-info
+    %p= tw("logs.infos.original_processing", date: @log.data[:original_processing_at])
+    %p= tw("logs.infos.last_skipped", date: @log.data[:delivery_attempts].last[:date_at], reason: display_log_skip_reason(@log.data[:delivery_attempts].last[:reason]))

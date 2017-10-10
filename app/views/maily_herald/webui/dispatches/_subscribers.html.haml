@@ -1,0 +1,13 @@
+%h2.border
+  = tw(:label_entity_plural)
+
+= smart_listing_controls_for :subscribers, :class => "context-menu" do
+  %form{:action => ""}
+    - if @mailing && @mailing.has_conditions?
+      = hidden_field_tag :with_unmet_conditions, "0"
+      %label.checkbox.inline
+        .checkbox-wrap
+          = check_box_tag :with_unmet_conditions
+        = tw("subscribers.show_unmet_conditions")
+    = filter_box "subscribers_filter"
+= smart_listing_render :subscribers

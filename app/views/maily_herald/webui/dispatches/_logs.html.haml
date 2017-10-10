@@ -1,0 +1,8 @@
+%h2.border
+  = tw("logs.past_deliveries")
+
+= smart_listing_controls_for :logs, :class => "context-menu" do
+  %form{:action => ""}
+    = filter_box "logs_filter"
+
+= smart_listing_render :logs

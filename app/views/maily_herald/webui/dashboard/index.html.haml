@@ -1,0 +1,57 @@
+%h2.border
+  = t(".history")
+  %span.dashboard-periods
+    = link_to({period: "week"}, :remote => true, :class => ["link link-sm period-week", ("active" if @period == 1.week)]) do
+      = t(".week")
+    = link_to({period: "month"}, :remote => true, :class => ["link link-sm period-month", ("active" if @period == 1.month)]) do
+      = t(".month")
+    = link_to({period: "6months"}, :remote => true, :class => ["link link-sm period-6months", ("active" if @period == 6.months)]) do
+      = t(".6months")
+    = link_to({period: "year"}, :remote => true, :class => ["link link-sm period-year", ("active" if @period == 1.year)]) do
+      = t(".year")
+
+.history-graph{data: history_graph_data}
+
+%p
+
+.container-fluid
+  .well.row.statusbox
+    .col-sm-12.clearfix
+      - if settings.show_skipped?
+        .col-sm-3
+          %strong.text-muted.processed-count= @processed_count
+          %br
+          %span= tw("logs.status.processed")
+        .col-sm-3
+          %strong.delivered-count= @delivered_count
+          %br
+          %span= tw("logs.status.delivered")
+        .col-sm-3
+          %strong.text-warning.skipped-count= @skipped_count
+          %br
+          %span= tw("logs.status.skipped")
+        .col-sm-3
+          %strong.text-danger.failed-count= @failed_count
+          %br
+          %span= tw("logs.status.failed")
+      - else
+        .col-sm-4
+          %strong.text-muted.processed-count= @processed_count
+          %br
+          %span= tw("logs.status.processed")
+        .col-sm-4
+          %strong.delivered-count= @delivered_count
+          %br
+          %span= tw("logs.status.delivered")
+        .col-sm-4
+          %strong.text-danger.failed-count= @failed_count
+          %br
+          %span= tw("logs.status.failed")
+
+%p
+
+= smart_listing_render :logs
+
+%h2.border
+  = tw("logs.scheduled_deliveries")
+= smart_listing_render :scheduled_logs

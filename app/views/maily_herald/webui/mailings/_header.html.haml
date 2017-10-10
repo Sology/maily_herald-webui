@@ -1,0 +1,24 @@
+%h1
+  - if @item.sequence?
+    = link_to @item.sequence do
+      %span.resource-name= friendly_name @item.sequence
+    &raquo;
+  %span.resource-name= friendly_name @item
+  - unless @item.locked?
+    = link_to({action: "toggle", id: @item}, :remote => true, :class => "link link-sm dispatch-state", :confirm => @item.enabled? ? t(".disable_confirm") : t(".enable_confirm"), :method => :post) do
+      = display_dispatch_state @item
+    = link_to({action: "edit", id: @item}, :remote => true, :class => "link link-sm") do
+      = icon(:pencil)
+      = tw("commons.edit")
+  - else
+    %a.link.link-sm.text-warning{:data => {:toggle => "tooltip", :placement => "top"}, :title => tw("dispatches.locked_info")}
+      = icon(:lock)
+      = tw("commons.locked")
+  - if @item.enabled? && @item.ad_hoc?
+    = link_to({action: "deliver", id: @item}, :method => :post, :remote => true, :data => {:confirm => tw("ad_hoc_mailings.header.confirm_send_to_all")}, :class => "link link-sm") do
+      = icon(:send)
+      = tw("commons.send_to_all")
+  - unless @item.locked? || @item.archived?
+    = link_to({action: "destroy", id: @item}, :method => :delete, :remote => true, :data => {:confirm => t(".confirm_archive")}, :class => "link link-sm") do
+      = icon(:archive)
+      = tw("commons.archive")

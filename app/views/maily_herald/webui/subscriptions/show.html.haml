@@ -1,0 +1,25 @@
+%h1
+  = tw("subscriptions.show.users_subscription", user: @item.entity.to_s)
+  = link_to toggle_subscription_path(@item), :remote => true, :class => "link link-sm subscription-state", :confirm => t(".toggle_confirm"), :method => :post do
+    = display_subscription_state @item
+
+.box.noborder
+  .dl-horizontal
+    %dt= tw("attributes.name")
+    %dd= @item.entity.to_s
+    %dt= tw("attributes.email")
+    %dd= @list.context.destination_for(@item.entity)
+    %dt= tw(:label_list)
+    %dd= link_to friendly_name(@list), @list
+    %dt
+      = tw("attributes.in_scope")
+      = display_help_icon :in_scope, scope: "lists"
+    %dd= display_list_scope_status @list, @item.entity
+
+%h2.border
+  = tw("logs.past_deliveries")
+= smart_listing_render :processed_logs
+
+%h2.border
+  = tw("logs.scheduled_deliveries")
+= smart_listing_render :scheduled_logs

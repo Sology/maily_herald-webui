@@ -1,0 +1,57 @@
+!!! 5
+%html
+  %head
+    %title MailyHerald
+    = stylesheet_link_tag    "maily_herald/webui/application", :media => "all"
+    = javascript_include_tag "maily_herald/webui/application"
+    = csrf_meta_tags
+  %body{data: {smart_listing_config: SmartListing.config(:maily_herald).to_json}}
+    .container
+      .hero
+        .row
+          .col-sm-3.text-center
+            %h1= link_to image_tag("maily_herald/webui/logo.svg", :class => "img-responsive logo"), root_path
+          .col-sm-6= render_breadcrumbs
+          .col-sm-3
+            .dropdown.pull-right.dropdown-settings
+              %a{:href => '#', :data => { toggle: 'dropdown'}} 
+                = icon(:cog, nil, title: t(".settings"))
+              %ul.dropdown-menu{'role' => 'menu'}
+                %li= setting_switcher :expert_mode
+                %li= setting_switcher :show_skipped
+                %li= setting_switcher :friendly_timestamps
+
+      .section-wrapper
+        = render_main_menu
+
+        .content-container
+          = yield
+      
+      .footer 
+        .pull-right
+          = t(".created_by")
+          = link_to "Sology", "http://www.sology.eu"
+        %div
+          %span
+            %strong= link_to "MailyHerald", "https://github.com/Sology/maily_herald"
+            = "v#{::MailyHerald::VERSION}"
+          %span
+            %strong= link_to "WebUI", "https://github.com/Sology/maily_herald-webui"
+            = "v#{::MailyHerald::Webui::VERSION}"
+          %span
+            %strong Redis:
+            = MailyHerald.redis.client.id
+          - if MailyHerald.redis.respond_to?(:namespace)
+            %span
+              %strong Namespace:
+              = MailyHerald.redis.respond_to?(:namespace) ? MailyHerald.redis.namespace : nil
+    .hidden
+      #popover-confirmation.fade{data: {title: t(".confirm")}}
+        %p.popover-msg
+        .popover-footer
+          %button.btn.btn-webui.confirm{:data => {:dismiss => "modal"}} OK
+          %button.btn.btn-link.cancel{:data => {:dismiss => "modal"}} Cancel
+    .modal#modal-generic.fade
+      .modal-dialog
+        .modal-content
+

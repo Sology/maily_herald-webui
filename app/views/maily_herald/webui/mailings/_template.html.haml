@@ -1,0 +1,17 @@
+- if @item.generic_mailer?
+  %h2.border
+    = tw("mailings.template")
+    - unless @item.locked?
+      = link_to({action: "edit", id: @item, :edited_container => "template"}, :remote => true, :class => "link link-sm") do
+        = icon(:pencil)
+        = tw("commons.edit")
+  .dl-horizontal
+    %dt= tw("attributes.subject")
+    %dd= @item.subject
+  %br
+  %pre= @item.template
+  %br
+- else
+  %h2.border
+    = tw("mailings.template")
+  %p= tw("mailings.infos.non_generic_mailer", mailer: display_mailing_mailer(@item.mailer_name).html_safe, generic_mailer: display_mailing_mailer(:generic)).html_safe

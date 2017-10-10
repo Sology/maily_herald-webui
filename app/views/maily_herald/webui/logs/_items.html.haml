@@ -1,0 +1,34 @@
+- unless smart_listing.empty?
+  %table.table.table-striped
+    %thead
+      %tr 
+        - unless @entity
+          %th= tw("attributes.entity")
+          %th= tw("attributes.email")
+        - unless @mailing
+          %th= tw("attributes.mailing")
+        %th= smart_listing.sortable tw("logs.processing_at"), :processing_at
+        %th= tw("attributes.status")
+        %th
+    %tbody
+      - smart_listing.collection.each do |log|
+        %tr
+          - unless @entity
+            %td= log.entity
+            %td= log.entity_email
+          - unless @mailing
+            %td
+              - if log.mailing.try(:sequence?)
+                = link_to log.mailing.sequence do
+                  %span= friendly_name log.mailing.sequence
+                &raquo;
+              = link_to_mailing(log.mailing)
+          %td= display_timestamp log.processing_at
+          %td= link_to display_log_status(log), preview_log_path(log), data: {toggle: "modal", target: "#modal-generic"}
+          %td.actions
+            .action-group= smart_listing_item_actions log_actions(log)
+
+  = smart_listing.paginate 
+  = smart_listing.pagination_per_page_links 
+- else
+  = t(".no_logs")

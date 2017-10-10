@@ -1,0 +1,39 @@
+= render partial: "header"
+
+- if @item.disabled?
+  .alert.alert-warning= tw("sequences.infos.disabled")
+- elsif @item.archived?
+  .alert.alert-info= tw("sequences.infos.archived")
+
+.dl-horizontal
+  - content_for_expert do
+    %dt= tw("attributes.name")
+    %dd= @item.name
+  %dt= tw("attributes.title")
+  %dd= @item.title
+
+  %dt= tw(:label_list)
+  %dd= link_to friendly_name(@item.list), list_path(@item.list)
+
+
+%p
+
+= render_context_attributes_info @item.list
+
+%p
+
+.dl-horizontal
+  %dt= @item.class.human_attribute_name(:start_at)
+  %dd= @item.start_at
+
+
+%p
+
+.dl-horizontal
+  %dt
+    = tw("attributes.override_subscription")
+    = display_help_icon("override_subscription", scope: "mailings")
+  %dd
+    = boolean_icon(@item.override_subscription, text: :yes)
+
+%p

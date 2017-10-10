@@ -1,0 +1,24 @@
+- unless smart_listing.empty?
+  %table.table.table-striped
+    %thead
+      %tr 
+        - content_for_expert do
+          %th= tw("attributes.name")
+        %th.col-md-4= tw("attributes.title")
+        %th= tw("attributes.context")
+        %th= tw("lists.subscribers")
+        %th
+    %tbody
+      - smart_listing.collection.each do |list|
+        %tr
+          - content_for_expert do
+            %td= link_to list.name, list
+          %td= link_to list.title, list
+          %td= friendly_name list.context
+          %td= list.active_subscription_count
+          %td.actions= smart_listing_item_actions [{name: :show, url: list_path(list)}]
+
+  = smart_listing.paginate 
+  = smart_listing.pagination_per_page_links 
+- else
+  = t(".no_lists")

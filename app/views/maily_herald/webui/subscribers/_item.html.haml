@@ -1,0 +1,12 @@
+- content_for_expert do
+  %td= item.id
+%td= item.to_s
+%td= @list.context.destination_for(item)
+- if @with_unmet_conditions
+  %td
+    - unless @mailing.conditions_met?(item)
+      = icon(:minus, nil, title: t(".conditions_not_met"))
+%td.actions
+  - if @mailing
+    .action-group= smart_listing_item_actions mailing_subscriber_actions(@mailing, item)
+  .action-group= smart_listing_item_actions subscriber_actions(@list, item)

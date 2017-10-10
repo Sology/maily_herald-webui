@@ -12,3 +12,12 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+# jquery-rails is used by the dummy application
+gem "jquery-rails"
+
+gem 'maily_herald', path: '../maily_herald'
+
+group :development do
+  gem "forgery"
+end

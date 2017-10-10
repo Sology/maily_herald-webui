@@ -1,0 +1,3 @@
+<% resource_spec.containers_order.each do |container| %>
+  <%= smart_listing_update(container.to_sym) if @smart_listings[container.to_sym] %>
+<% end %>

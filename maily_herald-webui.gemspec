@@ -15,7 +15,11 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", ">= 4.2.0"
+  # s.add_dependency 'maily_herald', "~>0.9.2"
+  s.add_dependency "smart_listing", "~>1.1.0"
+  s.add_dependency "haml"
+  s.add_dependency "coffee-rails"
+  s.add_dependency 'sass-rails'
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
@@ -23,4 +27,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "guard"
   s.add_development_dependency "guard-rspec"
+  s.add_development_dependency "simplecov"
+  s.add_development_dependency "timecop"
+  s.add_development_dependency "spring-commands-rspec"
+  s.add_development_dependency "therubyracer"
+  s.add_development_dependency "uglifier"
+  s.add_development_dependency "thin"
 end

@@ -1,0 +1,10 @@
+%h1
+  = friendly_name @item
+  - unless @item.locked?
+    = link_to edit_list_path(@item), :remote => true, :class => "link link-sm" do
+      = icon(:pencil)
+      = tw("commons.edit")
+  - else
+    %a.link.link-sm.text-warning{:data => {:toggle => "tooltip", :placement => "top"}, :title => tw("lists.locked_info")}
+      = icon(:lock)
+      = tw("commons.locked")

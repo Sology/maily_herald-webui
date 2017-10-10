@@ -1,0 +1,21 @@
+- unless smart_listing.empty?
+  %table.table.table-striped
+    %thead
+      %tr 
+        %th.col-md-6= tw("attributes.title")
+        %th= tw("attributes.state")
+        %th= tw(:label_list)
+        %th
+    %tbody
+      - smart_listing.collection.each do |sequence|
+        %tr
+          %td= link_to_sequence(sequence)
+          %td= display_dispatch_state sequence
+          %td= link_to friendly_name(sequence.list), list_path(sequence.list)
+          %td.actions
+            .action-group= smart_listing_item_actions [{name: :show, url: {action: :show, id: sequence}}]
+
+  = smart_listing.paginate 
+  = smart_listing.pagination_per_page_links 
+- else
+  = t(".no_mailings")

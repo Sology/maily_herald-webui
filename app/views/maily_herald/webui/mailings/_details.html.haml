@@ -1,0 +1,68 @@
+= render partial: "header"
+
+- if @item.disabled?
+  .alert.alert-warning= tw("mailings.infos.disabled")
+- elsif @item.archived?
+  .alert.alert-info= tw("mailings.infos.archived")
+
+.dl-horizontal
+  - content_for_expert do
+    %dt= tw("attributes.name")
+    %dd= @item.name
+  %dt= tw("attributes.title")
+  %dd= @item.title
+
+  %dt
+    = tw("attributes.mailer")
+    = display_help_icon :mailer_name, scope: "mailings"
+  %dd= display_mailing_mailer @item.mailer_name
+
+  %dt
+    = @item.class.human_attribute_name(:from)
+    = display_help_icon "from", scope: "mailings"
+  %dd= display_mailing_from @item
+
+  %dt= tw(:label_list)
+  %dd= link_to friendly_name(@item.list), list_path(@item.list)
+
+
+%p
+
+= render_context_attributes_info @item.list
+
+- if @item.one_time?
+  %p
+
+  .dl-horizontal
+    %dt= @item.class.human_attribute_name(:start_at)
+    %dd= display_mailing_start_at @item
+
+- if @item.periodical?
+  %p
+
+  .dl-horizontal
+    %dt= @item.class.human_attribute_name(:start_at)
+    %dd= display_mailing_start_at @item
+
+    %dt= @item.class.human_attribute_name(:period)
+    %dd= display_mailing_period @item
+- elsif @item.sequence?
+  %p
+
+  .dl-horizontal
+    %dt= @item.class.human_attribute_name(:absolute_delay)
+    %dd= display_mailing_absolute_delay @item
+
+
+%p
+
+.dl-horizontal
+  %dt= tw("attributes.conditions")
+  %dd= display_mailing_conditions @item
+  %dt
+    = tw("attributes.override_subscription")
+    = display_help_icon("override_subscription", scope: "mailings")
+  %dd
+    = boolean_icon(@item.override_subscription, text: :yes)
+
+%p

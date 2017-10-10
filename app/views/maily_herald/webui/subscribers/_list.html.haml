@@ -1,0 +1,20 @@
+- unless smart_listing.empty?
+  %table.table.table-striped
+    %thead
+      %tr 
+        - content_for_expert do
+          %th #
+        %th.col-md-6= t(".name")
+        %th.col-md-6= t(".email")
+        - if @with_unmet_conditions
+          %th= icon(:question, nil, title: t(".conditions"))
+        %th
+    %tbody
+      - smart_listing.collection.each do |entity|
+        %tr.editable{data: {id: entity.id}}
+          = smart_listing.render partial: "maily_herald/webui/subscribers/item", locals: {item: entity}
+
+  = smart_listing.paginate 
+  = smart_listing.pagination_per_page_links 
+- else
+  = t(".no_entities")

@@ -1,0 +1,7 @@
+%h2.border
+  = tw("lists.opt_outs")
+  = display_help_icon :opt_outs, scope: "lists"
+= smart_listing_controls_for :opt_outs, :class => "context-menu" do
+  - if @opt_outs.any?
+    %form{:action => ""}= filter_box "opt_outs_filter"
+= smart_listing_render :opt_outs

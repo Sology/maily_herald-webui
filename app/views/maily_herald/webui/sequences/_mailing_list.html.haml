@@ -1,0 +1,21 @@
+- unless smart_listing.empty?
+  %table.table.table-striped
+    %thead
+      %tr 
+        - content_for_expert do
+          %th #
+        %th.col-md-6= MailyHerald::SequenceMailing.human_attribute_name(:title)
+        %th.col-md-6= MailyHerald::SequenceMailing.human_attribute_name(:absolute_delay)
+        %th
+    %tbody
+      - smart_listing.collection.each do |mailing|
+        %tr
+          %td= friendly_name mailing
+          %td= display_mailing_absolute_delay mailing
+          %td.actions
+            .action-group= smart_listing_item_actions sequence_mailing_actions(mailing)
+
+  = smart_listing.paginate 
+  = smart_listing.pagination_per_page_links 
+- else
+  = tw("mailings.list.no_mailings")

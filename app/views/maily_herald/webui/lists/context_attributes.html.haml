@@ -1,0 +1,18 @@
+- content_for :modal_title do
+  = t(".title")
+
+- if @context
+  %h4= t(".attributes", context: @context.name)
+  - unless @context.attributes_list.empty?
+    = display_context_attributes @context.attributes_list
+  - else
+    %p= t(".no_context_attributes")
+- else
+  %p= t(".no_context")
+
+%br
+%h4= t(".syntax_help")
+
+%ul
+  %li= link_to "Using Liquid Templates", "http://code.google.com/p/liquid-markup/wiki/UsingLiquidTemplates"
+  %li= link_to "Liquid Basics", "http://nationbuilder.com/liquid_basics"

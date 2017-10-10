@@ -1,0 +1,5 @@
+%h1
+  = link_to "<<", @item.is_a?(MailyHerald::SequenceMailing) ? sequence_path(@sequence) : {:action => :index}
+  = tw("#{controller_name}.new.label", :action => :new)
+
+= render :partial => "form"

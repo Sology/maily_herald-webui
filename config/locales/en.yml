@@ -1,0 +1,279 @@
+en:
+  activerecord:
+    attributes:
+      ad_hoc_mailing: 
+        name: Name
+        context_name: Context
+        sequence: Sequence
+        conditions: Conditions
+        title: Title
+        from: Sender
+        relative_delay: Delay
+        template: Template
+      one_time_mailing: 
+        name: Name
+        context_name: Context
+        sequence: Sequence
+        conditions: Conditions
+        title: Title
+        from: Sender
+        relative_delay: Delay
+        template: Template
+      periodical_mailing: 
+        name: Name
+        context_name: Context
+        sequence: Sequence
+        conditions: Conditions
+        title: Title
+        from: Sender
+        relative_delay: Delay
+        template: Template
+      sequence_mailing: 
+        name: Name
+        context_name: Context
+        sequence: Sequence
+        conditions: Conditions
+        title: Title
+        from: Sender
+        relative_delay: Delay
+        template: Template
+        absolute_delay: Absolute delay
+      sequence: 
+        name: Name
+        context_name: Context
+        mode: Mode
+        start: Start date
+        start_var: Start variable (evaluated)
+        period: Period
+  layouts:
+    maily_herald:
+      webui:
+        application:
+          created_by: Created by
+          confirm: Confirm
+          settings: Settings
+  maily_herald:
+    webui:
+      commons:
+        create: Create
+        save: Save
+        cancel: Cancel
+        edit: Edit
+        remove: Remove
+        active: Active
+        inactive: Inactive
+        positive: "Yes"
+        negative: "No"
+        enabled: Enabled
+        disabled: Disabled
+        archived: Archived
+        archive: Archive
+        please_select: Please select
+        run: Run
+        send_to_all: Send to all
+        locked: Locked
+        day:
+          one: one day
+          other: "%{count} days"
+        time_in: "in %{time}"
+        time_ago: "%{time} ago"
+      attributes:
+        name: Name
+        title: Title
+        context: Context
+        context_name: Context name
+        context_model_name: Model name
+        email: E-mail
+        state: State
+        status: Status
+        mailer: Mailer
+        mailing: Mailing
+        entity: Entity
+        override_subscription: Override subscription
+        conditions: Conditions
+        in_scope: In scope?
+        subject: Subject
+      settings:
+        expert_mode: Expert mode
+        show_skipped: Show skipped schedules
+        friendly_timestamps: Friendly timestamps
+      lists:
+        subscribers: Subscribers
+        opt_outs: Opt-outs
+        potential_subscribers: Potential Subscribers
+        locked_info: You can't edit this list because it is locked probably in your initializer file (programatically).
+        header:
+          confirm_delete: Are you sure you want to remove this List?
+        help:
+          subscribers: "Entities subscribed to this list. They receive e-mails from this list."
+          opt_outs: "Entities unsubscribed from this list. They no longer receive e-mails from this list."
+          potential_subscribers: "Entities inside the list's context scope but never subscribed to this list."
+          in_scope: Indicates whether entity is in the mailing list scope. If no, mailings won't be sent.
+        new:
+          label: Create new list
+        show:
+        items:
+          no_lists: No lists.
+        context_attributes:
+          title: Context attributes
+          syntax_help: Liquid syntax help
+          attributes: "Attributes in context '%{context}'"
+          no_context_attributes: No context attributes. Ask your app developer to define some.
+      subscribers:
+        show_unmet_conditions: Show also entities with unmet conditions
+        list:
+          name: Name
+          email: E-mail
+          no_entities: No entities
+          conditions: Mailing condition indicator
+        item:
+          subscribe: Subscribe
+          unsubscribe: Unsubscribe
+          conditions_not_met: Mailing won't be sent to this entity because conditions are not met.
+      subscriptions:
+        show:
+          users_subscription: "%{user}'s subscription"
+          toggle_confirm: Are you sure you want to change subscription's status?
+      logs:
+        past_deliveries: Past deliveries
+        scheduled_deliveries: Scheduled deliveries
+        processing_at: Processing at
+        state: State
+        infos:
+          error: An error occured and mailing was not sent
+          scheduled: This mailing hasn't been sent yet. Is is only scheduled for delivery. You can see the preview below.
+          conditions: This mailing has conditions. Conditions are evaluated just before the delivery so above information may change untill delivery time.
+          original_processing: "Original processing was scheduled for %{date}."
+          last_skipped: "Last delivery attempt was on %{date}. The reason of skipping was: %{reason}."
+        status:
+          delivered: Delivered
+          error: Error
+          failed: Failed
+          skipped: Skipped
+          scheduled: Scheduled
+          processed: Processed
+        items:
+          no_logs: No logs
+        preview:
+          title: Mailing log
+        data:
+          skip_reason: Reason of skipping
+        skip_reason:
+          conditions_unmet: Conditions unmet
+          not_processable: Not processable
+          not_in_scope: Entity not in context scope
+      ad_hoc_mailings:
+        new:
+          label: Add new Ad Hoc Mailing
+        archived:
+          label: Archived Mailings
+        header:
+          confirm_send_to_all: Are you sure you want to send this Mailing out to ALL users?
+      one_time_mailings:
+        new:
+          label: Add new One Time Mailing
+        archived:
+          label: Archived Mailings
+      periodical_mailings:
+        new:
+          label: Add new Periodical Mailing
+      sequence_mailings:
+        new:
+          label: Add new Sequence Mailing
+      dispatches:
+        general: General
+        no_context: No context selected. Choose List first.
+        locked_info: You can't edit this dispatch because it is locked probably in your initializer file (programatically).
+        hardcoded_info: This attribute has some complex expression and it was defined probably in your initializer file (programatically).
+      mailings:
+        template: Template
+        missing: Missing mailing
+        from:
+          default: "Default (%{email})"
+          specify: Specify
+        start_at:
+          absolute: Absolute
+          relative: Relative
+        conditions:
+          met: Met
+          unmet: Unmet
+          missing: No conditions
+        header:
+          confirm_archive: Are you sure you want to archive this Mailing?
+          enable_confirm: Are you sure you want to enable this Mailing?
+          disable_confirm: Are you sure you want to disable this Mailing?
+        infos:
+          non_generic_mailer: This mailing uses Rails Mailer %{mailer} which means you can edit it only by coding. <br />In order to edit its template via this UI, choose %{generic_mailer}.
+          disabled: This mailing is disabled and won't be delivered to entities. You can enable it using menu above.
+          archived: This mailing is archived and won't be delivered to entities. You can bring it back using menu above.
+        placeholders:
+          from: Sender e-mail address for mailing
+          start_at: Either Liquid expression or parsable date string
+          period: Number of
+          absolute_delay: Number of
+        help:
+          mailer_name: Mailer used to send this mailing. This can be eiter Generic Mailer or one of the mailers defined in the app.
+          from: From field of the emails. Either default value or specified directly.
+          override_subscription: Determines whether this mailing should be sent regardless of user subscription state.
+          start_at: When the mailing delivery starts.
+          period_in_days: Amount of time between consecutive mailing deliveries.
+          absolute_delay_in_days: Specify amount of time after starting the sequence when mailing is delivered.
+          no_context: No available context. Select a List first.
+          period_unit: days
+          absolute_delay_unit: days
+        list:
+          no_mailings: No mailings
+          preview: Preview mailing for this entity
+          deliver: Deliver mailing to this entity
+          deliver_confirm: Are you sure you want to deliver this Mailing to the entity?
+        archived:
+          label: Archived mailings
+        preview:
+          title: Mailing preview
+          info: This is preview only. Mailing hasn't been delivered to entity.
+      sequences:
+        new:
+          label: Add new Sequence
+        help:
+          start_at: When the mailing delivery starts.
+        infos:
+          disabled: This sequence is disabled and its mailings won't be delivered to entities. You can enable it using menu above.
+          archived: This sequence is archived and its mailings won't be delivered to entities. You can bring it back using menu above.
+        header:
+          confirm_archive: Are you sure you want to archive this Sequence?
+          enable_confirm: Are you sure you want to enable this Sequence and start sending its Mailings?
+          disable_confirm: Are you sure you want to disable this Sequence?
+      dashboard:
+        index:
+          history: History
+          week: One week
+          month: One month
+          6months: Six months
+          year: One year
+      label_dashboard: Dashboard
+      label_list: List
+      label_list_plural: Lists
+      label_entity: Entity
+      label_entity_plural: Entities
+      label_subscription: Subscription
+      label_subscription_plural: Subscriptions
+      label_ad_hoc_mailing: Ad Hoc Mailing
+      label_ad_hoc_mailing_plural: Ad Hoc Mailings
+      label_one_time_mailing: One Time Mailing
+      label_one_time_mailing_plural: One Time Mailings
+      label_periodical_mailing: Periodical Mailing
+      label_periodical_mailing_plural: Periodical Mailings
+      label_sequence_mailing: Sequence Mailing
+      label_sequence_mailing_plural: Sequence Mailings
+      label_sequence: Sequence
+      label_sequence_plural: Sequences
+      label_generic_mailer: Generic mailer
+      label_hardcoded: Hardcoded
+
+      smart_listing:
+        actions:
+          show: Show
+          edit: Edit
+      views:
+        pagination:
+          total: Total

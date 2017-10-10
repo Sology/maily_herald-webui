@@ -1,0 +1,6 @@
+.modal-header
+  %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} 
+    ×
+  %h3.modal-title= content_for(:modal_title)
+.modal-body
+  = yield

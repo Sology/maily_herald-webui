@@ -1,0 +1,11 @@
+= smart_listing_controls_for :items, :class => "context-menu" do
+  %ul.nav.nav-secondary
+    %li
+      = link_to(controller: controller_name, action: :new) do
+        = icon :plus
+        = tw("#{controller_name}.new.label")
+    = render :partial => "maily_herald/webui/#{controller_name}/nav_secondary/#{action_name}" rescue nil
+  %form{:action => ""}= filter_box
+
+
+= smart_listing_render :items

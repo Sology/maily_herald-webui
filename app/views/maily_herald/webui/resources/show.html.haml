@@ -1,0 +1,4 @@
+- resource_spec.containers_order.each do |container|
+  - opts = resource_spec.update_containers[container]
+  %div{class: ["container-#{container}", ("resource-editable" if opts.try(:[], :editable))]}
+    = render partial: container

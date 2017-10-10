@@ -1,0 +1,11 @@
+.dl-horizontal
+  %dt= tw("attributes.context")
+  %dd
+    = friendly_name list.context
+    = link_to_context_attributes_overview list
+  - content_for_expert do
+    %dt= tw("attributes.context_name")
+    %dd= list.context.name
+    %dt= tw("attributes.context_model_name")
+    %dd
+      %code= list.context.model.name

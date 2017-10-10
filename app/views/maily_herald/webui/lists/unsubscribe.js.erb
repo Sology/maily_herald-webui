@@ -1,0 +1,7 @@
+var l = $("#subscribers").smart_listing();
+l.remove(<%= @entity.id %>);
+l.fadeLoaded();
+
+var l = $("#opt_outs").smart_listing();
+l.remove(<%= @entity.id %>);
+l.reload();

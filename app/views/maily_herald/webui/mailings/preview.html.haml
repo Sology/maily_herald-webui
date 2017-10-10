@@ -1,0 +1,13 @@
+- content_for :modal_title do
+  = t(".title")
+
+.box.noborder
+  .dl-horizontal
+    %dt= tw("attributes.mailing")
+    %dd= friendly_name @item
+    %dt= tw("attributes.entity")
+    %dd= @e
+
+.alert.alert-info= t(".info")
+
+%pre= @mail

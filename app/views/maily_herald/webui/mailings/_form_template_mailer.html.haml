@@ -1,0 +1,4 @@
+%h2
+  = tw("mailings.template")
+
+%p= tw("mailings.infos.non_generic_mailer", mailer: display_mailing_mailer(@item.mailer_name).html_safe, generic_mailer: display_mailing_mailer(:generic)).html_safe
