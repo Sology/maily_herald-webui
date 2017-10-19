@@ -1,5 +1,5 @@
 MailyHerald::Webui::Engine.routes.draw do
-	root to: 'dashboard#index'
+  root to: 'dashboard#index'
   resources "logs" do
     member do
       get "preview"

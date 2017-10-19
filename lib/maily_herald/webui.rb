@@ -9,7 +9,7 @@ end
 
 module MailyHerald
   module Webui
-    autoload :Breadcrumbs,					'maily_herald/webui/breadcrumbs'
-    autoload :MenuManager,					'maily_herald/webui/menu_manager'
+    autoload :Breadcrumbs,          'maily_herald/webui/breadcrumbs'
+    autoload :MenuManager,          'maily_herald/webui/menu_manager'
   end
 end

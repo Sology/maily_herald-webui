@@ -3,6 +3,7 @@ module MailyHerald
     class ApplicationController < ActionController::Base
       include MailyHerald::Webui::Breadcrumbs::ControllerExtensions
       include MailyHerald::Webui::MenuManager::ControllerExtensions
+      protect_from_forgery with: :exception
 
       helper SmartListing::Helper
       helper_method :settings
