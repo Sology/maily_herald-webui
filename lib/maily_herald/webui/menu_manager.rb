@@ -13,7 +13,7 @@ module MailyHerald
           protected
 
           def set_menu_item name
-            before_filter do |controller|
+            before_action do |controller|
               controller.send(:set_menu_item, name)
             end
           end

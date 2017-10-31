@@ -9,17 +9,17 @@ Gem::Specification.new do |s|
   s.version     = MailyHerald::Webui::VERSION
   s.authors     = ["Łukasz Jachymczyk"]
   s.email       = ["lukasz@sology.eu"]
-  s.homepage    = "https://github.com/Sology/maily_herald-webui"
+  s.homepage    = "http://mailyherald.org"
   s.license     = "LGPL-3.0"
   s.description = s.summary = "Web UI for MailyHerald - Email processing solution for Ruby on Rails applications"
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
-  # s.add_dependency 'maily_herald', "~>0.9.2"
-  s.add_dependency "smart_listing", "~>1.1.0"
-  s.add_dependency "haml"
-  s.add_dependency "coffee-rails"
-  s.add_dependency 'sass-rails'
+	s.add_dependency 'maily_herald', "~>1.0.0"
+	s.add_dependency "smart_listing", "~>1.2.0"
+	s.add_dependency "haml"
+	s.add_dependency "coffee-rails"
+	s.add_dependency 'sass-rails'
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"

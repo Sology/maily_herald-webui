@@ -28,12 +28,3 @@
 
 
 %p
-
-.dl-horizontal
-  %dt
-    = tw("attributes.override_subscription")
-    = display_help_icon("override_subscription", scope: "mailings")
-  %dd
-    = boolean_icon(@item.override_subscription, text: :yes)
-
-%p

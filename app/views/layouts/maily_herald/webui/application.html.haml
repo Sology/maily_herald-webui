@@ -40,7 +40,7 @@
             = "v#{::MailyHerald::Webui::VERSION}"
           %span
             %strong Redis:
-            = MailyHerald.redis.client.id
+            = MailyHerald.redis.id
           - if MailyHerald.redis.respond_to?(:namespace)
             %span
               %strong Namespace:

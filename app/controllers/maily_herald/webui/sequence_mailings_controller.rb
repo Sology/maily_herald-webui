@@ -3,7 +3,7 @@ module MailyHerald
     add_breadcrumb :label_sequence_plural, Proc.new{ sequences_path }
     set_menu_item :sequences
 
-    before_filter :find_sequence
+    before_action :find_sequence
 
     def new
       super

@@ -5,7 +5,7 @@ module MailyHerald
 
     helper_method :resource_spec
 
-    before_filter :find_item, :only => [:show, :edit, :update, :destroy]
+    before_action :find_item, :only => [:show, :edit, :update, :destroy]
 
     class Spec
       DEFAULT_CONTAINER = "details"

@@ -27,7 +27,6 @@
     = render partial: "form_sequence", locals: {f: f}
 
   = f.text_area :conditions
-  = f.check_box :override_subscription
 
   - if f.object.new_record?
     .template-generic

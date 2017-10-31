@@ -89,7 +89,6 @@ en:
         mailer: Mailer
         mailing: Mailing
         entity: Entity
-        override_subscription: Override subscription
         conditions: Conditions
         in_scope: In scope?
         subject: Subject
@@ -214,7 +213,6 @@ en:
         help:
           mailer_name: Mailer used to send this mailing. This can be eiter Generic Mailer or one of the mailers defined in the app.
           from: From field of the emails. Either default value or specified directly.
-          override_subscription: Determines whether this mailing should be sent regardless of user subscription state.
           start_at: When the mailing delivery starts.
           period_in_days: Amount of time between consecutive mailing deliveries.
           absolute_delay_in_days: Specify amount of time after starting the sequence when mailing is delivered.

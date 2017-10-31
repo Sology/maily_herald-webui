@@ -18,7 +18,7 @@ module MailyHerald
         end
         spec.items_partial = "maily_herald/webui/sequences/list"
         spec.item_partial = "maily_herald/webui/sequences/sequence"
-        spec.params = [:title, :list, :start_at, :override_subscription]
+        spec.params = [:title, :list, :start_at]
         spec.update_containers = {
           "mailings" => true,
           "subscribers" => true,

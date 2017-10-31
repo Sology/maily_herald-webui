@@ -19,8 +19,6 @@
 
   = f.maily_start_at_field help: true
 
-  = f.check_box :override_subscription
-
   - if @item.new_record?
     = f.buttons :create
   - else
