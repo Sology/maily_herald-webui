@@ -157,6 +157,8 @@ $.fn.disableTemplate = () ->
         if window.cm_editor
           $('.CodeMirror').removeClass 'disabled'
           window.cm_editor.setOption 'readonly', false
+        else
+          $(document).codemirror()
       when 'plain'
         $('#plain_form textarea').attr 'disabled', false
         $('#html_form textarea').attr 'disabled', 'disabled'
@@ -169,6 +171,8 @@ $.fn.disableTemplate = () ->
         if window.cm_editor
           $('.CodeMirror').removeClass 'disabled'
           window.cm_editor.setOption 'readonly', false
+        else
+          $(document).codemirror()
 
 $.fn.codemirror = () ->
   if $('.CodeMirror').length == 0
