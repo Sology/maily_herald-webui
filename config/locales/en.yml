@@ -92,6 +92,7 @@ en:
         conditions: Conditions
         in_scope: In scope?
         subject: Subject
+        kind: Kind
       settings:
         expert_mode: Expert mode
         show_skipped: Show skipped schedules

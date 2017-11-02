@@ -25,6 +25,8 @@
   %dt= tw(:label_list)
   %dd= link_to friendly_name(@item.list), list_path(@item.list)
 
+  %dt= tw("attributes.kind")
+  %dd= @item.kind
 
 %p
 
@@ -53,5 +55,10 @@
     %dt= @item.class.human_attribute_name(:absolute_delay)
     %dd= display_mailing_absolute_delay @item
 
+%p
+
+.dl-horizontal
+  %dt= tw("attributes.conditions")
+  %dd= display_mailing_conditions @item
 
 %p

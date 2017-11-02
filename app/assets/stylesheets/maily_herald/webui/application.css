@@ -13,6 +13,7 @@
  *= require maily_herald/webui/bootstrap-datepicker
  *= require maily_herald/webui/font-awesome.min
  *= require maily_herald/webui/rickshaw
+ *= require maily_herald/webui/codemirror
  *= require_tree .
  */
 

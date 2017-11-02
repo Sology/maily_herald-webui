@@ -35,7 +35,7 @@ module MailyHerald
         end
         spec.items_partial = "maily_herald/webui/mailings/list"
         spec.item_partial = "maily_herald/webui/mailings/mailing"
-        spec.params = [:title, :mailer_name, :list, :from, :conditions, :subject, :template]
+        spec.params = [:title, :mailer_name, :list, :from, :conditions, :subject, :template_plain, :template_html, :kind]
         spec.update_containers = {
           "template" => {editable: true},
           "subscribers" => true,

@@ -1,4 +1,5 @@
 - if @item.generic_mailer?
+
   %h2.border
     = tw("mailings.template")
     - unless @item.locked?
@@ -8,9 +9,20 @@
   .dl-horizontal
     %dt= tw("attributes.subject")
     %dd= @item.subject
-  %br
-  %pre= @item.template
-  %br
+
+  .templates
+    %ul.nav.nav-tabs{role: "tablist"}
+      %li.active
+        %a{"data-toggle" => "tab", href: "#html", role: "tab"} HTML
+      %li
+        %a{"data-toggle" => "tab", href: "#plain", role: "tab"} PLAIN
+
+    .tab-content
+      #html.tab-pane.fade.in.active
+        = @item.template.html.html_safe
+      #plain.tab-pane.fade
+        %pre= @item.template.plain
+
 - else
   %h2.border
     = tw("mailings.template")

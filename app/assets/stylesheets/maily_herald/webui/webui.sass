@@ -865,3 +865,34 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
     color: #777
     &.active, &:hover
       color: #4b4847
+
+.templates
+  margin: 20px 0
+
+  .tab-content
+    padding: 20px 0
+
+    pre
+      min-height: 38px
+
+.template-inputs
+  .form-group
+    label
+      display: none
+    textarea
+      margin-top: 15px
+
+  .CodeMirror
+    margin: 15px 0 14px
+    border: 2px solid #969291
+    border-radius: 3px
+    resize: both
+
+    &.disabled
+      cursor: not-allowed
+      background-color: #eee
+
+      .CodeMirror-lines
+        cursor: not-allowed
+      .CodeMirror-cursors
+        visibility: hidden

@@ -1,2 +1,5 @@
 $(".container-<%= @edited_container %>").editable("<%= escape_javascript(render(:partial => "#{@edited_container}_form")) %>");
 $(".container-<%= @edited_container %>").find(".dispatch-form").handleDispatchForm();
+
+$(document).codemirror();
+$(document).disableTemplate();

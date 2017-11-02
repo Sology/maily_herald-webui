@@ -148,6 +148,43 @@ $.fn.historyGraph = () ->
       graph.series[2]["data"] = delivered
       graph.update()
 
+$.fn.disableTemplate = () ->
+  $('#item_kind').on 'change', ->
+    switch @value
+      when 'html'
+        $('#plain_form textarea').attr 'disabled', 'disabled'
+        $('#html_form textarea').attr 'disabled', false
+        if window.cm_editor
+          $('.CodeMirror').removeClass 'disabled'
+          window.cm_editor.setOption 'readonly', false
+      when 'plain'
+        $('#plain_form textarea').attr 'disabled', false
+        $('#html_form textarea').attr 'disabled', 'disabled'
+        if window.cm_editor
+          $('.CodeMirror').addClass 'disabled'
+          window.cm_editor.setOption 'readonly', 'nocursor'
+      when 'both'
+        $('#plain_form textarea').attr 'disabled', false
+        $('#html_form textarea').attr 'disabled', false
+        if window.cm_editor
+          $('.CodeMirror').removeClass 'disabled'
+          window.cm_editor.setOption 'readonly', false
+
+$.fn.codemirror = () ->
+  if $('.CodeMirror').length == 0
+    textarea = $('#html_form textarea')
+
+    if textarea.length > 0 && textarea.attr('disabled') != 'disabled'
+      interval = setInterval((->
+        if CodeMirror.modes.css and CodeMirror.modes.xml and CodeMirror.modes.javascript
+          cm_editor = CodeMirror.fromTextArea textarea[0],
+            mode: 'htmlmixed'
+            lineNumbers: true
+          window.cm_editor = cm_editor
+          clearInterval interval
+        return
+      ), 10)
+
 $ ->
   SmartListing.config.merge()
   
@@ -212,6 +249,9 @@ $ ->
       button.find("i.fa-spinner").remove()
 
   $(".history-graph").historyGraph()
+
+  $(document).codemirror()
+  $(document).disableTemplate()
 
   return
 

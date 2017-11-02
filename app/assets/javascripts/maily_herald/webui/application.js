@@ -16,5 +16,10 @@
 //= require maily_herald/webui/bootstrap-datepicker
 //= require maily_herald/webui/d3.v3.js
 //= require maily_herald/webui/rickshaw.js
+//= require maily_herald/webui/codemirror.js
+//= require maily_herald/webui/codemirror-xml.js
+//= require maily_herald/webui/codemirror-javascript.js
+//= require maily_herald/webui/codemirror-css.js
+//= require maily_herald/webui/codemirror-htmlmixed.js
 //= require smart_listing
 //= require_tree .

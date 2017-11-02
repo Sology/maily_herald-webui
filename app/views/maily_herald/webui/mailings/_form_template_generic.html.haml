@@ -3,5 +3,18 @@
   = link_to_context_attributes_overview f.object.list
 
 = f.text_field :subject
--#= f.text_field :sender
-= f.text_area :template, rows: 15, control_col: "col-sm-10"
+
+.form-group.template-inputs
+  %label.col-sm-2.control-label Template
+  .col-sm-10
+    %ul.nav.nav-tabs{role: "tablist"}
+      %li.active
+        %a{"data-toggle" => "tab", href: "#html_form", role: "tab"} HTML
+      %li
+        %a{"data-toggle" => "tab", href: "#plain_form", role: "tab"} PLAIN
+
+    .tab-content
+      #html_form.tab-pane.fade.in.active
+        = f.text_area :template_html, rows: 15, control_col: "col-sm-12", disabled: f.object.plain? ? "disabled" : false
+      #plain_form.tab-pane.fade
+        = f.text_area :template_plain, rows: 15, control_col: "col-sm-12", disabled: f.object.html? ? "disabled" : false
