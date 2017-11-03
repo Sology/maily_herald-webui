@@ -25,21 +25,42 @@
 
 - if @log.error?
   .alert.alert-danger= tw("logs.infos.error")
-  %pre= @log.data[:msg]
-- elsif @log.scheduled?
-  .alert.alert-info
-    %p= tw("logs.infos.scheduled")
-    - if @log.mailing.has_conditions?
-      %p= tw("logs.infos.conditions")
-  %pre= @log.mailing.build_mail(@log.entity)
+  - if @log.data[:msg]
+    %pre= @log.data[:msg]
+
 - elsif @log.skipped?
   - if @log.data[:skip_reason]
     .box.noborder
       .dl-horizontal
         %dt= tw("logs.data.skip_reason")
         %dd= display_log_skip_reason(@log.data[:skip_reason])
+
 - else
-  %pre= @log.data[:content]
+  - if @log.scheduled?
+    .alert.alert-info
+      %p= tw("logs.infos.scheduled")
+      - if @log.mailing.has_conditions?
+        %p= tw("logs.infos.conditions")
+
+  .log-previews
+    %ul.nav.nav-tabs{role: "tablist"}
+      %li.active
+        %a{"data-toggle" => "tab", href: "#html", role: "tab"} HTML
+      %li
+        %a{"data-toggle" => "tab", href: "#plain", role: "tab"} PLAIN
+      %li
+        %a{"data-toggle" => "tab", href: "#raw", role: "tab"} RAW
+
+    .tab-content
+      #html.tab-pane.fade.in.active
+        = @log.mailing.render_template(@log.entity).html_safe
+      #plain.tab-pane.fade
+        %pre= @log.mailing.render_template(@log.entity, "plain")
+      #raw.tab-pane.fade
+        - if @log.scheduled?
+          %pre= @log.mailing.build_mail(@log.entity)
+        - else
+          %pre= @log.data[:content]
 
 - if (@log.skipped? || @log.scheduled?) && @log.data[:delivery_attempts]
   .alert.alert-info
