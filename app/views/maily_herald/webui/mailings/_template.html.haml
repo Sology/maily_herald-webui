@@ -19,7 +19,7 @@
 
     .tab-content
       #html.tab-pane.fade.in.active
-        = @item.template_wrapper.html.html_safe
+        %iframe{src: preview_html_template_path(@item), width: "100%", "height" => "400px", frameborder: 0}
       #plain.tab-pane.fade
         %pre= @item.template_wrapper.plain
 

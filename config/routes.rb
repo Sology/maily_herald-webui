@@ -18,7 +18,7 @@ MailyHerald::Webui::Engine.routes.draw do
     end
   end
   resources "ad_hoc_mailings" do
-    collection do 
+    collection do
       get "archived"
       post "update_form"
     end
@@ -29,7 +29,7 @@ MailyHerald::Webui::Engine.routes.draw do
     end
   end
   resources "one_time_mailings" do
-    collection do 
+    collection do
       get "archived"
       post "update_form"
     end
@@ -39,7 +39,7 @@ MailyHerald::Webui::Engine.routes.draw do
     end
   end
   resources "periodical_mailings" do
-    collection do 
+    collection do
       get "archived"
       post "update_form"
     end
@@ -50,7 +50,7 @@ MailyHerald::Webui::Engine.routes.draw do
   end
   resources "sequences" do
     resources "sequence_mailings", as: "mailings", path: "mailings", except: [:index] do
-      collection do 
+      collection do
         get "archived"
         post "update_form"
       end
@@ -59,7 +59,7 @@ MailyHerald::Webui::Engine.routes.draw do
         get "preview/:entity_id", action: :preview, as: :preview
       end
     end
-    collection do 
+    collection do
       get "archived"
       post "update_form"
     end
@@ -68,8 +68,8 @@ MailyHerald::Webui::Engine.routes.draw do
     end
   end
 
-  post "settings/:setting/switch", to: "sessions#switch_setting", as: "switch_setting"
-
+  post "settings/:setting/switch",           to: "sessions#switch_setting",        as: "switch_setting"
+  get  "mailings/:id/preview_html_template", to: "mailings#preview_html_template", as: :preview_html_template
 
 
 

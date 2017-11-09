@@ -20,6 +20,11 @@ module MailyHerald
       render layout: "maily_herald/webui/modal"
     end
 
+    def preview_html_template
+      @template = find_item.template_wrapper.html
+      render layout: false
+    end
+
     protected
 
     def set_resource_spec
