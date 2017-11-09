@@ -5,7 +5,7 @@ module MailyHerald
 
     def preview
       @log = MailyHerald::Log.find params[:id]
-
+      @mail = Mail.new(@log.data[:content]) if @log.delivered?
       render layout: "maily_herald/webui/modal"
     end
 

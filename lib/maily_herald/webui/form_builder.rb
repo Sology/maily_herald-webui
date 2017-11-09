@@ -107,6 +107,10 @@ module MailyHerald
         select_with_maily :kind, choices, options.merge(prompt: tw("commons.please_select")), {autocomplete: "off"}.merge(html_options)
       end
 
+      def maily_track_select(options = {}, html_options = {})
+        select_with_maily :track, [[true, true], [false, false]], options.merge(prompt: tw("commons.please_select")), {autocomplete: "off"}.merge(html_options)
+      end
+
       def maily_from_field options = {}, html_options = {}
         form_group_builder(:from, options.merge(wrapper_class: "mailing-from")) do
           radio1 = content_tag(:label, content_tag(:span, @template.radio_button_tag(:mailing_from, "default", !object.from.present?), class: "radio-btn") + @template.tw("mailings.from.default", email: object.mailer.default[:from]), class: "radio")

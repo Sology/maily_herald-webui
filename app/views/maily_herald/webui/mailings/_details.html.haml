@@ -28,6 +28,11 @@
   %dt= tw("attributes.kind")
   %dd= @item.kind
 
+  %dt
+    = tw("attributes.track")
+    = display_help_icon :track, scope: "mailings"
+  %dd= @item.track
+
 %p
 
 = render_context_attributes_info @item.list

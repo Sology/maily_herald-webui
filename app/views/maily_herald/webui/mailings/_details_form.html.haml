@@ -19,6 +19,7 @@
         %p.help-block.context-name
           = link_to_context_attributes_overview(@item.list, text: true) || tw("dispatches.no_context")
   = f.maily_kind_select
+  = f.maily_track_select help: true
 
   - if @item.one_time?
     = render partial: "form_one_time", locals: {f: f}

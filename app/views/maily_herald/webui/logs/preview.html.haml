@@ -53,9 +53,21 @@
 
     .tab-content
       #html.tab-pane.fade.in.active
-        = @log.mailing.render_template(@log.entity).html_safe
+        - if @log.scheduled?
+          = @log.mailing.render_template(@log.entity).html_safe
+        - else
+          - if @mail.parts.any?
+            = @mail.html_part.body.raw_source.html_safe
+          - else
+            = @mail.body.raw_source.html_safe
       #plain.tab-pane.fade
-        %pre= @log.mailing.render_template(@log.entity, "plain")
+        - if @log.scheduled?
+          %pre= @log.mailing.render_template(@log.entity, "plain")
+        - else
+          - if @mail.parts.any?
+            %pre= @mail.text_part.body.raw_source
+          - else
+            %pre= @mail.body.raw_source.html_safe
       #raw.tab-pane.fade
         - if @log.scheduled?
           %pre= @log.mailing.build_mail(@log.entity)

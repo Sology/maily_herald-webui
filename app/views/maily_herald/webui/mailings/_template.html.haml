@@ -19,9 +19,9 @@
 
     .tab-content
       #html.tab-pane.fade.in.active
-        = @item.template.html.html_safe
+        = @item.template_wrapper.html.html_safe
       #plain.tab-pane.fade
-        %pre= @item.template.plain
+        %pre= @item.template_wrapper.plain
 
 - else
   %h2.border

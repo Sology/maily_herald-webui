@@ -93,6 +93,7 @@ en:
         in_scope: In scope?
         subject: Subject
         kind: Kind
+        track: Track
       settings:
         expert_mode: Expert mode
         show_skipped: Show skipped schedules
@@ -212,7 +213,7 @@ en:
           period: Number of
           absolute_delay: Number of
         help:
-          mailer_name: Mailer used to send this mailing. This can be eiter Generic Mailer or one of the mailers defined in the app.
+          mailer_name: Mailer used to send this mailing. This can be either Generic Mailer or one of the mailers defined in the app.
           from: From field of the emails. Either default value or specified directly.
           start_at: When the mailing delivery starts.
           period_in_days: Amount of time between consecutive mailing deliveries.
@@ -220,6 +221,7 @@ en:
           no_context: No available context. Select a List first.
           period_unit: days
           absolute_delay_unit: days
+          track: Indicates whether emails from this mailing are tracked or not.
         list:
           no_mailings: No mailings
           preview: Preview mailing for this entity
