@@ -49,10 +49,13 @@ $font_open: 'Open Sans', sans-serif
 $font_nexa: 'Nexa Free', sans-serif
 
 // General
+html
+  position: relative
+  min-height: 100%
+
 body 
   font-family: $font_open
-  //font-size: 14px
-  //line-height: 1.5
+  margin-bottom: 40px
   color: #4b4847
   background-color: #e7e2db
 
@@ -824,11 +827,14 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
     &:active 
       box-shadow: none
 
-.footer 
-  margin: 0 0 20px
+.footer
+  position: absolute
+  bottom: 0
+  width: 100%
+  height: 40px
   font-size: 13px
-  padding: 0 40px
   color: #777
+
   strong
     color: #4b4847
     font-weight: normal
