@@ -3,6 +3,11 @@ module MailyHerald
     add_breadcrumb :label_list_plural, Proc.new{ lists_path }
     set_menu_item :lists
 
+    def show
+      add_breadcrumb @item.title, Proc.new{ list_path(@item) }
+      super
+    end
+
     def subscribe
       find_item
 

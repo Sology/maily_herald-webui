@@ -5,6 +5,11 @@ module MailyHerald
 
     before_action :find_sequence
 
+    def show
+      add_breadcrumb @item.title, Proc.new{ sequence_mailing_path(@sequence, @item) }
+      super
+    end
+
     def new
       super
       @item.sequence = @sequence

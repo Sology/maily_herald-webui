@@ -10,6 +10,7 @@ module MailyHerald
     end
 
     def show
+      add_breadcrumb @item.title, Proc.new{ ad_hoc_mailing_path(@item) }
       super
     end
 

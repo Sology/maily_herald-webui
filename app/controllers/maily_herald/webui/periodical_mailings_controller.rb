@@ -3,6 +3,11 @@ module MailyHerald
     add_breadcrumb :label_periodical_mailing_plural, Proc.new{ periodical_mailings_path }
     set_menu_item :periodical_mailings
 
+    def show
+      add_breadcrumb @item.title, Proc.new{ periodical_mailing_path(@item) }
+      super
+    end
+
     protected
 
     def set_resource_spec
