@@ -57,7 +57,7 @@
           = @log.mailing.render_template(@log.entity).html_safe
         - else
           - if @mail.parts.any?
-            = @mail.html_part.body.raw_source.gsub(/<img alt=\"\" id=\"tracking-pixel\" src=\".{1,}\/>/, "").html_safe
+            %iframe{src: preview_html_template_log_path(@log), width: "100%", "height" => "400px", frameborder: 0}
           - else
             = @mail.body.raw_source.html_safe
       #plain.tab-pane.fade

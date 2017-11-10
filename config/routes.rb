@@ -3,6 +3,7 @@ MailyHerald::Webui::Engine.routes.draw do
   resources "logs" do
     member do
       get "preview"
+      get "preview_html_template"
     end
   end
   resources "lists" do
