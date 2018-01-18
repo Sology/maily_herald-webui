@@ -2,6 +2,7 @@ MailyHerald::Webui::Engine.routes.draw do
   root to: 'dashboard#index'
   resources "logs" do
     member do
+      post "retry"
       get "preview"
       get "preview_html_template"
     end

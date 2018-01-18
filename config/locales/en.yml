@@ -270,6 +270,8 @@ en:
       label_sequence_plural: Sequences
       label_generic_mailer: Generic mailer
       label_hardcoded: Hardcoded
+      label_preview: Preview
+      label_retry: Retry
 
       smart_listing:
         actions:

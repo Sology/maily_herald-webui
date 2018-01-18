@@ -5,20 +5,32 @@ module MailyHerald
         actions = []
         subscription = log.mailing.list.subscription_for(log.entity) if log.mailing && log.entity
         actions << {
-          name:      :custom, 
+          name:      :custom,
           url:       subscription_path(subscription),
           icon:      "fa fa-book",
           title:     tw("label_subscription")
         } if subscription && !@item.is_a?(Subscription)
         actions << {
-          name: :custom, 
-          url: preview_log_path(log), 
-          icon: "fa fa-file-o", 
+          name:     :custom,
+          url:      preview_log_path(log),
+          icon:     "fa fa-file-o",
+          title:    tw("label_preview"),
           data: {
-            toggle: "modal", 
+            toggle: "modal",
             target: "#modal-generic"
           }
         }
+        actions << {
+          name:     :custom,
+          url:      retry_log_path(log),
+          method:   :post,
+          icon:     "fa fa-refresh",
+          title:    tw("label_retry"),
+          data: {
+            remote: :true
+          }
+        } if log.error?
+        actions
       end
 
       def display_log_status log
