@@ -257,5 +257,8 @@ $ ->
   $(document).codemirror()
   $(document).disableTemplate()
 
+  $(document).on "click", ".btn-retry", (e) ->
+    $('#modal-generic').modal('hide')
+    false
   return
 

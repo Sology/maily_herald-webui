@@ -597,14 +597,21 @@ form, .form-horizontal
     background: #fff
     border-bottom: 2px solid #cbc6bf
     h3
-      margin: 0
-    .close  
+      margin: 1px 0 0
+    .close
+      margin-top: -4px
       color: #e4554f
       font-family: $font_nexa
       font-size: 30px
       opacity: 1
       &:hover
         opacity: .5
+  .modal-body
+    a.btn-retry
+      color: #428bca
+      margin-left: 15px
+      &:hover
+        color: #204d74
   .modal-footer
     border-top: none
 #modal-confirmation
@@ -790,6 +797,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
     td.actions
       white-space: nowrap
       text-align: right
+      min-width: 61px
       a.show
         display: inline !important
       .action-group

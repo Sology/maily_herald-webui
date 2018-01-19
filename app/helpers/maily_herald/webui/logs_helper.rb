@@ -5,6 +5,16 @@ module MailyHerald
         actions = []
         subscription = log.mailing.list.subscription_for(log.entity) if log.mailing && log.entity
         actions << {
+          name:     :custom,
+          url:      retry_log_path(log),
+          method:   :post,
+          icon:     "fa fa-refresh",
+          title:    tw("label_retry"),
+          data: {
+            remote: :true
+          }
+        } if log.error?
+        actions << {
           name:      :custom,
           url:       subscription_path(subscription),
           icon:      "fa fa-book",
@@ -20,27 +30,24 @@ module MailyHerald
             target: "#modal-generic"
           }
         }
-        actions << {
-          name:     :custom,
-          url:      retry_log_path(log),
-          method:   :post,
-          icon:     "fa fa-refresh",
-          title:    tw("label_retry"),
-          data: {
-            remote: :true
-          }
-        } if log.error?
         actions
       end
 
-      def display_log_status log
+      def display_log_status log, for_modal = false
         case log.status
         when :delivered
           content_tag(:span, icon(:check, tw("logs.status.delivered")), class: "text-success")
         when :skipped
           content_tag(:span, icon(:times, tw("logs.status.skipped")), class: "text-warning")
         when :error
-          content_tag(:span, icon(:exclamation, tw("logs.status.error")), class: "text-danger")
+          if for_modal
+            content_tag(:span, class: "text-danger") do
+              concat(icon(:exclamation, tw("logs.status.error")))
+              concat(content_tag(:a, icon(:refresh, tw("label_retry")), href: retry_log_path(log), data: {method: :post, remote: true}, class: "btn-retry"))
+            end
+          else
+            content_tag(:span, icon(:exclamation, tw("logs.status.error")), class: "text-danger")
+          end
         when :scheduled
           content_tag(:span, icon(:"clock-o", tw("logs.status.scheduled")), class: "text-muted")
         end

@@ -10,7 +10,7 @@
     %dt= tw("logs.processing_at")
     %dd= @log.processing_at
     %dt= tw("logs.state")
-    %dd= display_log_status(@log)
+    %dd= display_log_status @log, true
 
   - if @log.scheduled?
     %br
