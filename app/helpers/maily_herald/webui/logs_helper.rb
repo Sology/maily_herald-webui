@@ -49,6 +49,46 @@ module MailyHerald
       def display_log_skip_reason skip_reason
         tw("logs.skip_reason.#{skip_reason}") if skip_reason
       end
+
+      def render_preview
+        render_preview_nav.concat(render_preview_content)
+      end
+
+      def render_preview_nav
+        content_tag(:ul, class: "nav nav-tabs") do
+          concat(content_tag(:li, class: "active") do
+            content_tag(:a, "HTML", href: "#preview-html", role: "tab", data: {toggle: :tab})
+          end) if @log.preview.html?
+
+          concat(content_tag(:li, class: @log.preview.html? ? "" : "active") do
+            content_tag(:a, "PLAIN", href: "#preview-plain", role: "tab", data: {toggle: :tab})
+          end) if @log.preview.plain?
+
+          concat(content_tag(:li, class: @log.preview.html? || @log.preview.plain? ? "" : "active") do
+            content_tag(:a, "RAW", href: "#preview-raw", role: "tab", data: {toggle: :tab})
+          end)
+        end
+      end
+
+      def render_preview_content
+        content_tag(:div, class: "tab-content") do
+          concat(content_tag(:div, id: "preview-html", class: "tab-pane fade in active") do
+            if @log.preview.mail.parts.any?
+              content_tag(:iframe, '', src: preview_html_template_log_path(@log), width: "100%", height: 400, frameborder: 0)
+            else
+              @log.preview.html
+            end
+          end) if @log.preview.html?
+
+          concat(content_tag(:div, id: "preview-plain", class: "tab-pane fade #{'active in' unless @log.preview.html?}") do
+            content_tag(:pre, @log.preview.plain)
+          end) if @log.preview.plain?
+
+          concat(content_tag(:div, id: "preview-raw", class: "tab-pane fade #{'active in' unless @log.preview.html? || @log.preview.plain?}") do
+            content_tag(:pre, @log.delivered? ? @log.data[:content] : @log.preview.mail)
+          end)
+        end
+      end
     end
   end
 end

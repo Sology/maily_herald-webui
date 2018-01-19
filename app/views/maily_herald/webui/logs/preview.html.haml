@@ -42,37 +42,7 @@
       - if @log.mailing.has_conditions?
         %p= tw("logs.infos.conditions")
 
-  .log-previews
-    %ul.nav.nav-tabs{role: "tablist"}
-      %li.active
-        %a{"data-toggle" => "tab", href: "#html", role: "tab"} HTML
-      %li
-        %a{"data-toggle" => "tab", href: "#plain", role: "tab"} PLAIN
-      %li
-        %a{"data-toggle" => "tab", href: "#raw", role: "tab"} RAW
-
-    .tab-content
-      #html.tab-pane.fade.in.active
-        - if @log.scheduled?
-          = @log.mailing.render_template(@log.entity).html_safe
-        - else
-          - if @mail.parts.any?
-            %iframe{src: preview_html_template_log_path(@log), width: "100%", "height" => "400px", frameborder: 0}
-          - else
-            = @mail.body.raw_source.html_safe
-      #plain.tab-pane.fade
-        - if @log.scheduled?
-          %pre= @log.mailing.render_template(@log.entity, "plain")
-        - else
-          - if @mail.parts.any?
-            %pre= @mail.text_part.body.raw_source
-          - else
-            %pre= @mail.body.raw_source.html_safe
-      #raw.tab-pane.fade
-        - if @log.scheduled?
-          %pre= @log.mailing.build_mail(@log.entity)
-        - else
-          %pre= @log.data[:content]
+  .log-previews= render_preview
 
 - if (@log.skipped? || @log.scheduled?) && @log.data[:delivery_attempts]
   .alert.alert-info

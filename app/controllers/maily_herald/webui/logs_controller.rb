@@ -1,7 +1,6 @@
 module MailyHerald
 	class Webui::LogsController < Webui::ResourcesController
     before_action :find_log
-    before_action :build_mail
 
     add_breadcrumb :label_log_plural, Proc.new{ logs_path }
     set_menu_item :logs
@@ -19,7 +18,7 @@ module MailyHerald
     end
 
     def preview_html_template
-      @template = @mail.html_part.body.raw_source.gsub(/<img alt=\"\" id=\"tracking-pixel\" src=\".{1,}\/>/, "") if @mail
+      @template = @log.preview.html
       render layout: false
     end
 
@@ -27,10 +26,6 @@ module MailyHerald
 
     def find_log
       @log = MailyHerald::Log.find params[:id]
-    end
-
-    def build_mail
-      @mail = Mail.new(@log.data[:content]) if @log.delivered?
     end
 
     def resource_spec
