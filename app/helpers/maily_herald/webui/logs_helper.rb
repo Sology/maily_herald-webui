@@ -65,13 +65,13 @@ module MailyHerald
         content_tag(:ul, class: "nav nav-tabs") do
           concat(content_tag(:li, class: "active") do
             content_tag(:a, "HTML", href: "#preview-html", role: "tab", data: {toggle: :tab})
-          end) if @log.preview.html?
+          end) if @preview.html?
 
-          concat(content_tag(:li, class: @log.preview.html? ? "" : "active") do
+          concat(content_tag(:li, class: @preview.html? ? "" : "active") do
             content_tag(:a, "PLAIN", href: "#preview-plain", role: "tab", data: {toggle: :tab})
-          end) if @log.preview.plain?
+          end) if @preview.plain?
 
-          concat(content_tag(:li, class: @log.preview.html? || @log.preview.plain? ? "" : "active") do
+          concat(content_tag(:li, class: @preview.html? || @preview.plain? ? "" : "active") do
             content_tag(:a, "RAW", href: "#preview-raw", role: "tab", data: {toggle: :tab})
           end)
         end
@@ -80,19 +80,19 @@ module MailyHerald
       def render_preview_content
         content_tag(:div, class: "tab-content") do
           concat(content_tag(:div, id: "preview-html", class: "tab-pane fade in active") do
-            if @log.preview.mail.parts.any?
-              content_tag(:iframe, '', src: preview_html_template_log_path(@log), width: "100%", height: 400, frameborder: 0)
+            if @preview.mail.parts.any?
+              content_tag(:iframe, '', src: defined?(@log) ? preview_html_template_log_path(@log) : preview_html_template_for_path(@item, @e), width: "100%", height: 400, frameborder: 0)
             else
-              @log.preview.html
+              @preview.html
             end
-          end) if @log.preview.html?
+          end) if @preview.html?
 
-          concat(content_tag(:div, id: "preview-plain", class: "tab-pane fade #{'active in' unless @log.preview.html?}") do
-            content_tag(:pre, @log.preview.plain)
-          end) if @log.preview.plain?
+          concat(content_tag(:div, id: "preview-plain", class: "tab-pane fade #{'active in' unless @preview.html?}") do
+            content_tag(:pre, @preview.plain)
+          end) if @preview.plain?
 
-          concat(content_tag(:div, id: "preview-raw", class: "tab-pane fade #{'active in' unless @log.preview.html? || @log.preview.plain?}") do
-            content_tag(:pre, @log.delivered? ? @log.data[:content] : @log.preview.mail)
+          concat(content_tag(:div, id: "preview-raw", class: "tab-pane fade #{'active in' unless @preview.html? || @preview.plain?}") do
+            content_tag(:pre, defined?(@log) && @log.delivered? ? @log.data[:content] : @preview.mail)
           end)
         end
       end

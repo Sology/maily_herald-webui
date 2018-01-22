@@ -1,5 +1,7 @@
 module MailyHerald
 	class Webui::MailingsController < Webui::DispatchesController
+    before_action :load_preview, only: [:preview, :preview_html_template]
+
     def update
       super
 
@@ -12,16 +14,11 @@ module MailyHerald
     end
 
     def preview
-      find_item
-
-      @e = @item.list.context.scope.find(params[:entity_id])
-      @mail = @item.build_mail @e
-
       render layout: "maily_herald/webui/modal"
     end
 
     def preview_html_template
-      @template = find_item.template_wrapper.html
+      @template = @preview.is_a?(String) ? @preview : @preview.html
       render layout: false
     end
 
@@ -80,6 +77,17 @@ module MailyHerald
           yield(container) if block_given?
         end
       end
+    end
+
+    def load_preview
+      find_item
+      @preview =  if params[:entity_id].present?
+                    @e = @item.list.context.scope.find(params[:entity_id])
+                    @mail = @item.build_mail @e
+                    MailyHerald::Mailing::Preview.new @mail
+                  else
+                    @item.template_wrapper.html
+                  end
     end
   end
 end

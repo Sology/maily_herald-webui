@@ -70,8 +70,9 @@ MailyHerald::Webui::Engine.routes.draw do
     end
   end
 
-  post "settings/:setting/switch",           to: "sessions#switch_setting",        as: "switch_setting"
-  get  "mailings/:id/preview_html_template", to: "mailings#preview_html_template", as: :preview_html_template
+  post "settings/:setting/switch",                                to: "sessions#switch_setting",        as: "switch_setting"
+  get  "mailings/:id/preview_html_template",                      to: "mailings#preview_html_template", as: :preview_html_template
+  get  "mailings/:id/entities/:entity_id/preview_html_template",  to: "mailings#preview_html_template", as: :preview_html_template_for
 
 
 

@@ -1,6 +1,7 @@
 module MailyHerald
 	class Webui::LogsController < Webui::ResourcesController
     before_action :find_log
+    before_action :load_preview, only: [:preview, :preview_html_template]
 
     add_breadcrumb :label_log_plural, Proc.new{ logs_path }
     set_menu_item :logs
@@ -18,7 +19,6 @@ module MailyHerald
     end
 
     def preview_html_template
-      @template = @log.preview.html
       render layout: false
     end
 
@@ -32,6 +32,10 @@ module MailyHerald
       @resource_spec ||= Webui::ResourcesController::Spec.new.tap do |spec|
         spec.klass = MailyHerald::Log
       end
+    end
+
+    def load_preview
+      @preview = @log.preview
     end
   end
 end
