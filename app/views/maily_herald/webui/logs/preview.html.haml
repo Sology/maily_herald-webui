@@ -44,7 +44,7 @@
 
   .log-previews= render_preview
 
-- if (@log.skipped? || @log.scheduled?) && @log.postponed_delivery_attempts.any?
+- if (@log.skipped? || @log.scheduled?) && @log.delivery_attempts.list_by(:postpone).any?
   .alert.alert-info
     %p= tw("logs.infos.original_processing", date: @log.data[:original_processing_at])
-    %p= tw("logs.infos.last_skipped", date: @log.postponed_delivery_attempts.last[:date_at], reason: display_log_skip_reason(@log.postponed_delivery_attempts.last[:reason]))
+    %p= tw("logs.infos.last_skipped", date: @log.delivery_attempts.list_by(:postpone).last[:date_at], reason: display_log_skip_reason(@log.delivery_attempts.list_by(:postpone).last[:reason]))
