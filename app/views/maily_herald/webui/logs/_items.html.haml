@@ -23,7 +23,7 @@
                   %span= friendly_name log.mailing.sequence
                 &raquo;
               = link_to_mailing(log.mailing)
-          %td= display_timestamp log.processing_at
+          %td= display_timestamp log.processing_at.try(:in_time_zone)
           %td= link_to display_log_status(log), preview_log_path(log), data: {toggle: "modal", target: "#modal-generic"}
           %td.actions
             .action-group= smart_listing_item_actions log_actions(log)

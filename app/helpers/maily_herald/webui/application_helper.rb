@@ -167,7 +167,7 @@ module MailyHerald
 
       def display_timestamp t
         if t && settings.friendly_timestamps?
-          content_tag(:abbr, tw((t > Time.now) ? "commons.time_in" : "commons.time_ago", time: distance_of_time_in_words(t, Time.now)), title: t)
+          content_tag(:abbr, tw((t > Time.zone.now) ? "commons.time_in" : "commons.time_ago", time: distance_of_time_in_words(t, Time.zone.now)), title: t)
         else
           t
         end

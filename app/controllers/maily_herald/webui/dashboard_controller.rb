@@ -17,7 +17,7 @@ module MailyHerald
                 else #month
                   1.month
                 end
-      @time = Time.now
+      @time = Time.zone.now
 
       smart_listing_create(:logs, logs(:processed), partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
       smart_listing_create(:schedules, MailyHerald::Log.scheduled, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})

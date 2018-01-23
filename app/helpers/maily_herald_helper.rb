@@ -2,127 +2,128 @@ module MailyHeraldHelper
    def sequence_mailing_list_actions mailing
      actions = [
       {
-         :name => :custom,
-         :url => webui_mailing_path(mailing),
-         :icon => "glyphicon glyphicon-hand-right",
-         :title => "Show"
-       },
-       {
-         :name => :custom,
-         :url => edit_webui_mailing_path(mailing),
-         :icon => "glyphicon glyphicon-pencil",
-         :title => "Edit"
-       },
-       { 
-				 :name => :custom,
-         :url => webui_mailing_path(mailing),
-         :method => :delete,
-         :confirm => "Are you sure you want to remove this mailing?",
-         :icon => "glyphicon glyphicon-trash",
-         :title => "Remove"
-       }
+        name:     :custom,
+        url:      webui_mailing_path(mailing),
+        icon:     "glyphicon glyphicon-hand-right",
+        title:    "Show"
+      },
+      {
+        name:     :custom,
+        url:      edit_webui_mailing_path(mailing),
+        icon:     "glyphicon glyphicon-pencil",
+        title:    "Edit"
+      },
+      {
+        name:     :custom,
+        url:      webui_mailing_path(mailing),
+        method:   :delete,
+        confirm:  "Are you sure you want to remove this mailing?",
+        icon:     "glyphicon glyphicon-trash",
+        title:    "Remove"
+      }
     ]
-     actions.insert(0, {
-       :name => :custom,
-      :url => "#mailing-#{mailing.id}",
-       :class => "show-preview",
-      :icon => "glyphicon glyphicon-search",
-       :title => "Preview"
+    actions.insert(0, {
+      name:   :custom,
+      url:    "#mailing-#{mailing.id}",
+      class:  "show-preview",
+      icon:   "glyphicon glyphicon-search",
+      title:  "Preview"
      }) if @sequence && @subscription
      actions
    end
 
   def sequence_entity_list_actions entity
-		[
-			{
-				:name => :custom,
-				:url => subscription_webui_sequence_path(:entity_id      => entity),
-				:icon => "glyphicon glyphicon-hand-right",
-				:title => "Show"
-			}
-		]
-	end
-	def mailing_entity_list_actions mailing, entity
-		actions = []
-		actions.push({
-			:name => :custom,
-			:url => preview_webui_mailing_path(:subscription_id => mailing.subscription_for(entity)),
-			:icon => "glyphicon glyphicon-search",
-			:title => "Preview template below",
-			:remote => true
-		})
-		actions.push({
-			:name => :custom,
-			:url => mailing.sequence? ? subscription_webui_sequence_path(:id => mailing.sequence, :entity_id => entity) : subscription_webui_mailing_path(:entity_id => entity),
-			:icon => "glyphicon glyphicon-hand-right",
-			:title => "Show"
-		})
-		actions
-	end
-	
-	def time_tag(time)
-		return unless time
-		text = distance_of_time_in_words(Time.now, time)
-		content_tag('abbr', text, :title => format_time(time))
-	end
+    [
+      {
+        name:   :custom,
+        url:    subscription_webui_sequence_path(entity_id: entity),
+        icon:   "glyphicon glyphicon-hand-right",
+        title:  "Show"
+      }
+    ]
+  end
 
-	def time_tag_ago(time)
-		return unless time
-		text = distance_of_time_in_words(Time.now, time)
-	  content_tag('abbr', t('time_distance.ago', :text => text), :title => time)
-	 end
-	
-	def time_tag_to(time)
-		return unless time
-		text = distance_of_time_in_words(Time.now, time)
-		content_tag('abbr', t('time_distance.in', :text => text), :title => time)
-	end
+  def mailing_entity_list_actions mailing, entity
+    actions = []
+    actions.push({
+      name:   :custom,
+      url:    preview_webui_mailing_path(subscription_id: mailing.subscription_for(entity)),
+      icon:   "glyphicon glyphicon-search",
+      title:  "Preview template below",
+      remote: true
+    })
+    actions.push({
+      name:   :custom,
+      url:    mailing.sequence? ? subscription_webui_sequence_path(id: mailing.sequence, entity_id: entity) : subscription_webui_mailing_path(entity_id: entity),
+      icon:   "glyphicon glyphicon-hand-right",
+      title:  "Show"
+    })
+    actions
+  end
 
-	def delivery_log_list_actions delivery_log
-		mailing = delivery_log.mailing
-		entity = delivery_log.entity
+  def time_tag(time)
+    return unless time
+    text = distance_of_time_in_words(Time.zone.now, time)
+    content_tag('abbr', text, title: format_time(time))
+  end
 
-		actions = []
-		actions.push({
-			:name => :custom,
-			:url => webui_dashboard_path(delivery_log),
-			:icon => "icon-search",
-			:title => "Show log details"
-		})
-		actions.push({
-			:name => :custom,
-			:url => mailing.sequence? ? subscription_webui_sequence_path(:id => mailing.sequence, :entity_id => entity) : subscription_webui_mailing_path(:id => mailing, :entity_id => entity),
-			:icon => "icon-hand-right",
-			:title => "Subscription"
-		}) unless @subscription
-		actions
-	end
+  def time_tag_ago(time)
+    return unless time
+    text = distance_of_time_in_words(Time.zone.now, time)
+    content_tag('abbr', t('time_distance.ago', text: text), title: time)
+   end
 
-	def subscription_group_subscription_actions subscription
-		[{
-			:name => :custom,
-			:url => toggle_subscription_webui_subscription_group_path(:subscription_id => subscription),
-			:method => :get,
-			:confirm => "Are you sure you want to change this subscription?",
-			:icon => "icon-refresh",
-			:title => "Toggle subscription"
-		}]
-	end
+  def time_tag_to(time)
+    return unless time
+    text = distance_of_time_in_words(Time.zone.now, time)
+    content_tag('abbr', t('time_distance.in', text: text), title: time)
+  end
 
-	def time_tag_relative(time)
-		if time > Time.now
-			 time_tag_to time
-		else
-			 time_tag_ago time
-		end
-	end
+  def delivery_log_list_actions delivery_log
+    mailing = delivery_log.mailing
+    entity = delivery_log.entity
 
-	def context_attributes_link options = {}
-		link_to context_attributes_webui_mailings_path(:context_name => options[:context]), :role => "button", :data => {:toggle => "modal", :target => "#context-attributes"}, :class => "show-context-attributes" do
-       concat(content_tag(:i, "", :class => "glyphicon glyphicon-th-list"))
+    actions = []
+    actions.push({
+      name:   :custom,
+      url:    webui_dashboard_path(delivery_log),
+      icon:   "icon-search",
+      title:  "Show log details"
+    })
+    actions.push({
+      name:   :custom,
+      url:    mailing.sequence? ? subscription_webui_sequence_path(id: mailing.sequence, entity_id: entity) : subscription_webui_mailing_path(id: mailing, entity_id: entity),
+      icon:   "icon-hand-right",
+      title:  "Subscription"
+    }) unless @subscription
+    actions
+  end
+
+  def subscription_group_subscription_actions subscription
+    [{
+      name: :custom,
+      url:      toggle_subscription_webui_subscription_group_path(subscription_id: subscription),
+      method:   :get,
+      confirm:  "Are you sure you want to change this subscription?",
+      icon:     "icon-refresh",
+      title:    "Toggle subscription"
+    }]
+  end
+
+  def time_tag_relative(time)
+    if time > Time.zone.now
+       time_tag_to time
+    else
+       time_tag_ago time
+    end
+  end
+
+  def context_attributes_link options = {}
+    link_to context_attributes_webui_mailings_path(context_name: options[:context]), role: "button", data: {toggle: "modal", target: "#context-attributes"}, class: "show-context-attributes" do
+       concat(content_tag(:i, "", class: "glyphicon glyphicon-th-list"))
        concat(" show") unless options[:notext]
-		end
-	end
+    end
+  end
 
   def maily_herald_context_options_for_select selected = nil, options = {}
     MailyHerald.contexts.keys.collect {|c| [c, c] }

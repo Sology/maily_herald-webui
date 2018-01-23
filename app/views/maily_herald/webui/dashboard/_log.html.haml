@@ -1,5 +1,5 @@
 %td
-  = time_tag_relative(object.processed_at)
+  = time_tag_relative(object.processed_at.try(:in_time_zone))
 %td
   = object.entity 
   = "<#{object.entity.email}>"
@@ -11,10 +11,10 @@
 %td
   - case object.status
   - when :delivered
-    %span.glyphicon.glyphicon-ok{:title => "Delivered"}
+    %span.glyphicon.glyphicon-ok{title: "Delivered"}
   - when :skipped
-    %span.glyphicon.glyphicon-warning-sign{:title => "Skipped"}
+    %span.glyphicon.glyphicon-warning-sign{title: "Skipped"}
   - when :error
-    %span.glyphicon.glyphicon-remove{:title => "ERROR"}
+    %span.glyphicon.glyphicon-remove{title: "ERROR"}
 %td.actions
   = smart_listing_item_actions delivery_log_list_actions(object)

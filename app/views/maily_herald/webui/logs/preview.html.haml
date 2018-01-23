@@ -8,7 +8,7 @@
     %dt= tw("attributes.entity")
     %dd= @log.entity
     %dt= tw("logs.processing_at")
-    %dd= @log.processing_at
+    %dd= @log.processing_at.try(:in_time_zone)
     %dt= tw("logs.state")
     %dd= display_log_status @log, true
 
@@ -46,5 +46,5 @@
 
 - if (@log.skipped? || @log.scheduled?) && @log.delivery_attempts.list_by(:postpone).any?
   .alert.alert-info
-    %p= tw("logs.infos.original_processing", date: @log.data[:original_processing_at])
+    %p= tw("logs.infos.original_processing", date: @log.data[:original_processing_at].try(:in_time_zone))
     %p= tw("logs.infos.last_skipped", date: @log.delivery_attempts.list_by(:postpone).last[:date_at], reason: display_log_skip_reason(@log.delivery_attempts.list_by(:postpone).last[:reason]))

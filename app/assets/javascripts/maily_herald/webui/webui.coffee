@@ -191,6 +191,8 @@ $.fn.codemirror = () ->
 
 $ ->
   SmartListing.config.merge()
+
+  document.cookie = "currentTimeZone=" + Intl.DateTimeFormat().resolvedOptions().timeZone
   
   $(document).on "click", ".resource-editable button.cancel", ->
     $(this).closest(".resource-editable").editable("cancel")

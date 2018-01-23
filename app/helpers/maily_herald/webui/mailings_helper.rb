@@ -72,7 +72,7 @@ module MailyHerald
 
       def display_mailing_conditions mailing
         if mailing.has_conditions_proc?
-          content_tag :span, class: "text-warning", data: {:toggle => "tooltip", :placement => "top"}, :title => tw("dispatches.hardcoded_info") do
+          content_tag :span, class: "text-warning", data: {toggle: "tooltip", placement: "top"}, title: tw("dispatches.hardcoded_info") do
             concat(icon(:gears))
             concat("&nbsp;".html_safe)
             concat(tw(:label_hardcoded))
@@ -94,13 +94,13 @@ module MailyHerald
 
       def display_mailing_start_at mailing
         if mailing.has_start_at_proc?
-          content_tag :span, class: "text-warning", data: {:toggle => "tooltip", :placement => "top"}, :title => tw("dispatches.hardcoded_info") do
+          content_tag :span, class: "text-warning", data: {toggle: "tooltip", placement: "top"}, title: tw("dispatches.hardcoded_info") do
             concat(icon(:gears))
             concat("&nbsp;".html_safe)
             concat(tw(:label_hardcoded))
           end
         elsif mailing.start_at.is_a?(String)
-          content_tag(:code, mailing.start_at)
+          content_tag(:code, mailing.start_at.try(:in_time_zone))
         else
         end
       end

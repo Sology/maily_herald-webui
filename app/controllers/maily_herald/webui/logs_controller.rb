@@ -22,7 +22,7 @@ module MailyHerald
                     1.month
                   end
 
-        @logs = log_scope.processed.where("processing_at > (?)", Time.now - @period)
+        @logs = log_scope.processed.where("processing_at > (?)", Time.zone.now - @period)
         @schedules = MailyHerald::Log.scheduled
       else
         @logs = @log.mailing.logs.processed

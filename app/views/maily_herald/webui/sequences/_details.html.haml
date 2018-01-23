@@ -15,7 +15,6 @@
   %dt= tw(:label_list)
   %dd= link_to friendly_name(@item.list), list_path(@item.list)
 
-
 %p
 
 = render_context_attributes_info @item.list
@@ -24,7 +23,6 @@
 
 .dl-horizontal
   %dt= @item.class.human_attribute_name(:start_at)
-  %dd= @item.start_at
-
+  %dd= @item.start_at.try(:in_time_zone)
 
 %p
