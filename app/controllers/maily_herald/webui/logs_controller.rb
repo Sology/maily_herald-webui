@@ -7,11 +7,30 @@ module MailyHerald
     set_menu_item :logs
 
     def retry
-      @mailing = @log.mailing
       @log.retry
 
-      @logs = smart_listing_create(:logs, @mailing.logs.processed, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
-      @schedules = smart_listing_create(:schedules, @mailing.logs.scheduled, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
+      @is_dashboard = !request.referrer.match(/\/\d{1,}/)
+      if @is_dashboard
+        @period = case params[:period]
+                  when "week"
+                    1.week
+                  when "6months"
+                    6.months
+                  when "year"
+                    1.year
+                  else
+                    1.month
+                  end
+
+        @logs = log_scope.processed.where("processing_at > (?)", Time.now - @period)
+        @schedules = MailyHerald::Log.scheduled
+      else
+        @logs = @log.mailing.logs.processed
+        @schedules = @log.mailing.logs.scheduled
+      end
+
+      smart_listing_create(:logs, @logs, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
+      smart_listing_create(:schedules, @schedules, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
     end
 
     def preview

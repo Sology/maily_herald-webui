@@ -19,8 +19,8 @@ module MailyHerald
                 end
       @time = Time.now
 
-      smart_listing_create(:logs, logs(:processed), :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
-      smart_listing_create(:scheduled_logs, MailyHerald::Log.scheduled, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
+      smart_listing_create(:logs, logs(:processed), partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
+      smart_listing_create(:schedules, MailyHerald::Log.scheduled, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
 
       @total_count = log_scope.count
       @processed_count = logs(:processed).count

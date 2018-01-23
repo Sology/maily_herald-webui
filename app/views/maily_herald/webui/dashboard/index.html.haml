@@ -1,13 +1,13 @@
 %h2.border
   = t(".history")
   %span.dashboard-periods
-    = link_to({period: "week"}, :remote => true, :class => ["link link-sm period-week", ("active" if @period == 1.week)]) do
+    = link_to({period: "week"}, remote: true, class: ["link link-sm period-week", ("active" if @period == 1.week)]) do
       = t(".week")
-    = link_to({period: "month"}, :remote => true, :class => ["link link-sm period-month", ("active" if @period == 1.month)]) do
+    = link_to({period: "month"}, remote: true, class: ["link link-sm period-month", ("active" if @period == 1.month)]) do
       = t(".month")
-    = link_to({period: "6months"}, :remote => true, :class => ["link link-sm period-6months", ("active" if @period == 6.months)]) do
+    = link_to({period: "6months"}, remote: true, class: ["link link-sm period-6months", ("active" if @period == 6.months)]) do
       = t(".6months")
-    = link_to({period: "year"}, :remote => true, :class => ["link link-sm period-year", ("active" if @period == 1.year)]) do
+    = link_to({period: "year"}, remote: true, class: ["link link-sm period-year", ("active" if @period == 1.year)]) do
       = t(".year")
 
 .history-graph{data: history_graph_data}
@@ -54,4 +54,4 @@
 
 %h2.border
   = tw("logs.scheduled_deliveries")
-= smart_listing_render :scheduled_logs
+= smart_listing_render :schedules

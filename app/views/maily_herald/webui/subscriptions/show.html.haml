@@ -1,6 +1,6 @@
 %h1
   = tw("subscriptions.show.users_subscription", user: @item.entity.to_s)
-  = link_to toggle_subscription_path(@item), :remote => true, :class => "link link-sm subscription-state", :confirm => t(".toggle_confirm"), :method => :post do
+  = link_to toggle_subscription_path(@item), remote: true, class: "link link-sm subscription-state", confirm: t(".toggle_confirm"), method: :post do
     = display_subscription_state @item
 
 .box.noborder
@@ -18,8 +18,8 @@
 
 %h2.border
   = tw("logs.past_deliveries")
-= smart_listing_render :processed_logs
+= smart_listing_render :logs
 
 %h2.border
   = tw("logs.scheduled_deliveries")
-= smart_listing_render :scheduled_logs
+= smart_listing_render :schedules

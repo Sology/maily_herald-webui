@@ -2,7 +2,7 @@ $(".dashboard-periods a").removeClass("active");
 $(".period-<%= params[:period] || "month" %>").addClass("active");
 
 <%= smart_listing_update(:logs) %>
-<%= smart_listing_update(:scheduled_logs) %>
+<%= smart_listing_update(:schedules) %>
 
 $(".processed-count").html(<%= @processed_count %>);
 $(".delivered-count").html(<%= @delivered_count %>);
