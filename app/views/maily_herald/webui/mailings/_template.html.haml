@@ -21,7 +21,7 @@
       #html.tab-pane.fade.in.active
         %iframe{src: preview_html_template_path(@item), width: "100%", "height" => "400px", frameborder: 0}
       #plain.tab-pane.fade
-        %pre= @item.template_wrapper.plain
+        %pre= @item.template.plain
 
 - else
   %h2.border

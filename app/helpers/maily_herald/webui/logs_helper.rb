@@ -80,11 +80,7 @@ module MailyHerald
       def render_preview_content
         content_tag(:div, class: "tab-content") do
           concat(content_tag(:div, id: "preview-html", class: "tab-pane fade in active") do
-            if @preview.mail.parts.any?
-              content_tag(:iframe, '', src: defined?(@log) ? preview_html_template_log_path(@log) : preview_html_template_for_path(@item, @e), width: "100%", height: 400, frameborder: 0)
-            else
-              @preview.html
-            end
+            content_tag(:iframe, '', src: defined?(@log) ? preview_html_template_log_path(@log) : preview_html_template_for_path(@item, @e), width: "100%", height: 400, frameborder: 0)
           end) if @preview.html?
 
           concat(content_tag(:div, id: "preview-plain", class: "tab-pane fade #{'active in' unless @preview.html?}") do

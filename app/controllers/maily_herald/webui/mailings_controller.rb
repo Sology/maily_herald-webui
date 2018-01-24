@@ -86,7 +86,7 @@ module MailyHerald
                     @mail = @item.build_mail @e
                     MailyHerald::Mailing::Preview.new @mail
                   else
-                    @item.template_wrapper.html
+                    @item.template.html
                   end
     end
   end
