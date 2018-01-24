@@ -31,57 +31,56 @@ module MailyHerald
       end
 
       FIELD_HELPERS.each do |method_name|
-        with_method_name = "#{method_name}_with_maily"
-        without_method_name = "#{method_name}_without_maily"
-        define_method(with_method_name) do |name, options = {}|
-          form_group_builder(name, options) do
+        define_method(method_name) do |name, options = {}|
+          if options[:without_wrapper]
             prepend_and_append_input(options) do
-              send(without_method_name, name, options)
+              super(name, options)
+            end
+          else
+            form_group_builder(name, options) do
+              prepend_and_append_input(options) do
+                super(name, options)
+              end
             end
           end
         end
-        alias_method_chain method_name, :maily
       end
 
-
-      def select_with_maily(method, choices, options = {}, html_options = {})
+      def select(method, choices, options = {}, html_options = {})
         form_group_builder(method, options, html_options) do
           content_tag(:span, class: ["select-wrap", ("has-error" if has_error?(method))]) do
-            select_without_maily(method, choices, options, html_options)
+            super(method, choices, options, html_options)
           end
         end
       end
-      alias_method_chain :select, :maily
 
-      def check_box_with_maily(method, options = {}, checked_value = "1", unchecked_value = "0")
+      def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
         form_group_builder(method, options.merge(hide_label: true)) do
           content_tag(:div, class: "checkbox") do
             label method do
-              concat(content_tag(:span, check_box_without_maily(method, options, checked_value, unchecked_value), class: "checkbox-wrap"))
+              concat(content_tag(:span, super(method, options, checked_value, unchecked_value), class: "checkbox-wrap"))
               concat(object.class.human_attribute_name(method))
             end
           end
         end
       end
-      alias_method_chain :check_box, :maily
 
-      def radio_button_with_maily(method, options = {}, checked_value = "1", unchecked_value = "0")
+      def radio_button(method, options = {}, checked_value = "1", unchecked_value = "0")
         form_group_builder(method, options.merge(hide_label: true)) do
           content_tag(:div, class: "radio-wrap") do
             label method do
-              concat(content_tag(:span, check_box_without_maily(method, options, checked_value, unchecked_value), class: "radio-btn"))
+              concat(content_tag(:span, super(method, options, checked_value, unchecked_value), class: "radio-btn"))
               concat(object.class.human_attribute_name(method))
             end
           end
         end
       end
-      alias_method_chain :radio_button, :maily
 
       def maily_context_select(options = {}, html_options = {})
         choices = MailyHerald.contexts.values.collect do |context|
           [@template.friendly_name(context), context.name]
         end
-        select_with_maily :context_name, choices, options, html_options
+        select :context_name, choices, options, html_options
       end
 
       def maily_mailer_select(options = {}, html_options = {})
@@ -92,23 +91,23 @@ module MailyHerald
             [mailer.name, mailer.name]
           end
         end
-        select_with_maily :mailer_name, choices, options, html_options
+        select :mailer_name, choices, options, html_options
       end
 
       def maily_list_select(options = {}, html_options = {})
         choices = MailyHerald::List.all.collect do |list|
           [@template.friendly_name(list), list.name]
         end
-        select_with_maily :list, choices, options.merge(prompt: tw("commons.please_select")), {autocomplete: "off"}.merge(html_options)
+        select :list, choices, options.merge(prompt: tw("commons.please_select")), {autocomplete: "off"}.merge(html_options)
       end
 
       def maily_kind_select(options = {}, html_options = {})
         choices = MailyHerald::Mailing.kinds.keys.map { |k| [k.humanize, k] }
-        select_with_maily :kind, choices, options.merge(prompt: tw("commons.please_select")), {autocomplete: "off"}.merge(html_options)
+        select :kind, choices, options.merge(prompt: tw("commons.please_select")), {autocomplete: "off"}.merge(html_options)
       end
 
       def maily_track_select(options = {}, html_options = {})
-        select_with_maily :track, [[true, true], [false, false]], options.merge(prompt: tw("commons.please_select")), {autocomplete: "off"}.merge(html_options)
+        select :track, [[true, true], [false, false]], options.merge(prompt: tw("commons.please_select")), {autocomplete: "off"}.merge(html_options)
       end
 
       def maily_from_field options = {}, html_options = {}
@@ -117,7 +116,7 @@ module MailyHerald
           radio2 = content_tag(:label, content_tag(:span, @template.radio_button_tag(:mailing_from, "specify", object.from.present?), class: "radio-btn") + tw("mailings.from.specify"), class: "radio")
 
           field = prepend_and_append_input(options) do
-            text_field_without_maily(:from, {class: "form-control", placeholder: tw("mailings.placeholders.from")})
+            text_field(:from, {class: "form-control", placeholder: tw("mailings.placeholders.from"), without_wrapper: true})
           end
 
           concat(content_tag(:p, radio1 + radio2)).concat(field)
@@ -132,7 +131,7 @@ module MailyHerald
           list_btn = @template.link_to_context_attributes_overview(object.list, class: "btn btn-default")
 
           field = prepend_and_append_input({append: calendar_btn + list_btn}) do
-            text_field_without_maily(:start_at, {class: "form-control", placeholder: tw("mailings.placeholders.start_at")})
+            text_field(:start_at, {class: "form-control", placeholder: tw("mailings.placeholders.start_at"), without_wrapper: true})
           end
 
           #concat(content_tag(:p, radio1 + radio2)).concat(field)
