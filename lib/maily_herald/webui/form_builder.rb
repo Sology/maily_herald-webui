@@ -55,11 +55,10 @@ module MailyHerald
       end
 
       def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
-        form_group_builder(method, options.merge(hide_label: true)) do
+        form_group_builder(method, options) do
           content_tag(:div, class: "checkbox") do
             label method do
               concat(content_tag(:span, super(method, options, checked_value, unchecked_value), class: "checkbox-wrap"))
-              concat(object.class.human_attribute_name(method))
             end
           end
         end

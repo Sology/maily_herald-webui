@@ -587,6 +587,10 @@ form, .form-horizontal
 // Modal
 .modal
   background: rgba(#634a4d, .6)
+
+.modal-open .modal
+  overflow-y: scroll
+
 .modal-dialog
   width: 800px
 
@@ -883,6 +887,13 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
 
 .templates
   margin: 20px 0
+
+  ul.nav.nav-tabs
+    i.auto-gen-template
+      position: absolute
+      top: -7px
+      right: -10px
+      z-index: 999
 
   .tab-content
     padding: 20px 0

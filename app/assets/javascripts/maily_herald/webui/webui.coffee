@@ -165,7 +165,7 @@ $.fn.disableTemplate = () ->
         if window.cm_editor
           $('.CodeMirror').addClass 'disabled'
           window.cm_editor.setOption 'readonly', 'nocursor'
-      when 'both'
+      when 'mixed'
         $('#plain_form textarea').attr 'disabled', false
         $('#html_form textarea').attr 'disabled', false
         if window.cm_editor
