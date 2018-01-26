@@ -153,6 +153,16 @@ module MailyHerald
         end
       end
 
+      def select_logs_by_status
+        options = [["Processed", :processed], ["Delivered", :delivered], ["Error", :error]]
+        options = options.insert(2, ["Skipped", :skipped]) if settings.show_skipped?
+        content_tag(:div, class: "filter filter-status") do
+          concat(content_tag(:span, class: "select-wrap") do
+            select_tag("logs_status_filter", options_for_select(options))
+          end)
+        end
+      end
+
       def setting_switcher setting
         link_to(switch_setting_path(setting), method: :post) do
           concat(icon(settings.get(setting) ? "toggle-on" : "toggle-off"))

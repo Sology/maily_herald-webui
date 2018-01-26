@@ -57,7 +57,19 @@ module MailyHerald
       containers.each do |container|
         case container
         when "logs"
-          @logs = @item.logs.merge(log_scope).processed
+          @logs = @item.logs.merge(log_scope)
+          @logs = case params[:logs_status_filter]
+                  when "processed"
+                    @logs.processed
+                  when "delivered"
+                    @logs.delivered
+                  when "skipped"
+                    @logs.skipped
+                  when "error"
+                    @logs.error
+                  else
+                    @logs.processed
+                  end
           @logs = @logs.merge(MailyHerald::Log.like_email(params[:logs_filter])) if params[:logs_filter]
           @logs = smart_listing_create(:logs, @logs, :partial => "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
 
