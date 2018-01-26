@@ -877,7 +877,24 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
   width: auto
 
 .statusbox
+  min-height: 80px
   text-align: center
+  *
+    color: #777
+  .processed-count.active
+    *
+      color: #000
+  .delivered-count.active
+    *
+      color: #3c763d
+  .skipped-count.active
+    *
+      color: #8a6d3b
+  .error-count.active
+    *
+      color: #a94442
+  .fa-2x
+    font-size: 40px
 
 .dashboard-periods
   a

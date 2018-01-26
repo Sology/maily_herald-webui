@@ -230,19 +230,23 @@ $ ->
       false
 
     target = $(e.target)
-    target.addClass("disabled")
-    target.bind "click", dummy
-    if target.find("i.fa, span.fa").length == 0
-      target.prepend("<i class='fa fa-spinner fa-spin'></i> ")
 
-    target.on "ajax:success", (e) ->
-      target.removeClass("disabled")
-      target.find("i.fa-spinner").remove()
-      target.unbind "click", dummy
+    if target.parent().hasClass("statusbox-container")
+      target.parent().html "<i class='fa fa-spinner fa-spin fa-2x'></i>"
+    else
+      target.addClass("disabled")
+      target.bind "click", dummy
+      if target.find("i.fa, span.fa").length == 0
+        target.prepend("<i class='fa fa-spinner fa-spin'></i> ")
 
-    target.on "ajax:error", (e) ->
-      target.removeClass("disabled")
-      target.addClass("error")
+      target.on "ajax:success", (e) ->
+        target.removeClass("disabled")
+        target.find("i.fa-spinner").remove()
+        target.unbind "click", dummy
+
+      target.on "ajax:error", (e) ->
+        target.removeClass("disabled")
+        target.addClass("error")
 
   $(document).on "ajax:before", "form", (e) ->
     target = $(e.target)

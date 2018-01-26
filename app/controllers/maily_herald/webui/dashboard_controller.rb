@@ -7,7 +7,10 @@ module MailyHerald
     set_menu_item :dashboard
 
 		def index
-      @period = case params[:period]
+      @chosen_period = params[:period]
+      @chosen_status = params[:filter_by_status]
+
+      @period = case @chosen_period
                 when "week"
                   1.week
                 when "6months"
@@ -19,7 +22,7 @@ module MailyHerald
                 end
       @time = Time.zone.now
 
-      smart_listing_create(:logs, logs(:processed), partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
+      smart_listing_create(:logs, chosen_logs, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
       smart_listing_create(:schedules, MailyHerald::Log.scheduled, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
 
       @total_count = log_scope.count
@@ -60,6 +63,10 @@ module MailyHerald
       period ||= @period
 
       log_scope.send(state).where("processing_at > (?)", @time - period)
+    end
+
+    def chosen_logs
+      @chosen_status && %w(processed delivered skipped error).include?(@chosen_status) ? logs(@chosen_status) : logs(:processed)
     end
 	end
 end

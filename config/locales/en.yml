@@ -249,6 +249,7 @@ en:
       dashboard:
         index:
           history: History
+        filter_logs_nav_by_period:
           week: One week
           month: One month
           6months: Six months
