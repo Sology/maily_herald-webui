@@ -163,6 +163,8 @@ en:
           conditions_unmet: Conditions unmet
           not_processable: Not processable
           not_in_scope: Entity not in context scope
+        opens: Opens
+        delivery_attempts: Delivery attempts
       ad_hoc_mailings:
         new:
           label: Add new Ad Hoc Mailing

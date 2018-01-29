@@ -33,23 +33,87 @@ module MailyHerald
         actions
       end
 
+      def display_opens_for log
+        keys = log.opens.list.first.keys.reverse
+        content_tag(:table, class: "table table-striped") do
+          concat(content_tag(:thead) do
+            concat(content_tag(:tr) do
+              keys.each do |k|
+                concat(content_tag(:th, k.to_s.capitalize.gsub("_", " "), class: k == :user_agent ? "" : "col-sm-3"))
+              end
+            end)
+          end)
+          concat(content_tag(:thead) do
+            concat(content_tag(:tbody) do
+              log.opens.list.each do |o|
+                concat(content_tag(:tr) do
+                  keys.each do |k|
+                    concat(content_tag(:td, o[k].is_a?(Time) ? o[k].in_time_zone.strftime("%Y-%m-%d %H:%M") : o[k]))
+                  end
+                end)
+              end
+            end)
+          end)
+        end
+      end
+
+      def display_delivery_attempts_for log
+        keys = log.delivery_attempts.list.first.keys
+        content_tag(:table, class: "table table-striped") do
+          concat(content_tag(:thead) do
+            concat(content_tag(:tr) do
+              keys.each do |k|
+                concat(content_tag(:th, k.to_s.capitalize.gsub("_", " "), class: k == :date_at ? "col-sm-3" : ""))
+              end
+            end)
+          end)
+          concat(content_tag(:thead) do
+            concat(content_tag(:tbody) do
+              log.delivery_attempts.list.each do |o|
+                concat(content_tag(:tr) do
+                  keys.each do |k|
+                    concat(content_tag(:td, o[k].is_a?(Time) ? o[k].in_time_zone.strftime("%Y-%m-%d %H:%M") : o[k].to_s.truncate(150)))
+                  end
+                end)
+              end
+            end)
+          end)
+        end
+      end
+
+      def display_opens_icon_for log
+        content_tag(:span, class: "label label-info") do
+          concat(icon(:eye))
+          concat("&nbsp;".html_safe)
+          concat(log.opens.list.count)
+        end if log.opens.list.count > 0
+      end
+
+      def display_delivery_attempts_icon_for log
+        content_tag(:span, class: "label label-warning") do
+          concat(icon(:exclamation))
+          concat("&nbsp;".html_safe)
+          concat(log.delivery_attempts.list.count)
+        end if log.delivery_attempts.list.count > 0
+      end
+
       def display_log_status log, for_modal = false
         case log.status
         when :delivered
-          content_tag(:span, icon(:check, tw("logs.status.delivered")), class: "text-success")
+          content_tag(:span, icon(:check, tw("logs.status.delivered")), class: "log-status text-success").concat(display_opens_icon_for(log)).concat(display_delivery_attempts_icon_for(log))
         when :skipped
-          content_tag(:span, icon(:times, tw("logs.status.skipped")), class: "text-warning")
+          content_tag(:span, icon(:times, tw("logs.status.skipped")), class: "log-status text-warning").concat(display_delivery_attempts_icon_for(log))
         when :error
           if for_modal
-            content_tag(:span, class: "text-danger") do
+            content_tag(:span, class: "log-status text-danger") do
               concat(icon(:exclamation, tw("logs.status.error")))
               concat(content_tag(:a, icon(:refresh, tw("label_retry")), href: retry_log_path(log), data: {method: :post, remote: true}, class: "btn-retry"))
             end
           else
-            content_tag(:span, icon(:exclamation, tw("logs.status.error")), class: "text-danger")
+            content_tag(:span, icon(:exclamation, tw("logs.status.error")), class: "log-status text-danger").concat(display_delivery_attempts_icon_for(log))
           end
         when :scheduled
-          content_tag(:span, icon(:"clock-o", tw("logs.status.scheduled")), class: "text-muted")
+          content_tag(:span, icon(:"clock-o", tw("logs.status.scheduled")), class: "log-status text-muted")
         end
       end
 

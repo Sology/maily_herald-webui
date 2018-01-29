@@ -12,6 +12,13 @@
     %dt= tw("logs.state")
     %dd= display_log_status @log, true
 
+    - if @log.delivered? && @log.opens.list.any?
+      %dt= tw("logs.opens")
+      %dd.opens-list= display_opens_for @log
+    - if (@log.delivered? || @log.error?) && @log.delivery_attempts.list.any?
+      %dt= tw("logs.delivery_attempts")
+      %dd.delivery-attempts-list= display_delivery_attempts_for @log
+
   - if @log.scheduled?
     %br
     .dl-horizontal
