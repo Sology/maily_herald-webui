@@ -148,37 +148,49 @@ $.fn.historyGraph = () ->
       graph.series[2]["data"] = delivered
       graph.update()
 
-$.fn.disableTemplate = () ->
+$.fn.mailingFormHandler = () ->
   $('#item_kind').on 'change', ->
+    track_checkbox = $('span.track-checkbox input')[1]
     switch @value
       when 'html'
-        $('#plain_form textarea').attr 'disabled', 'disabled'
-        $('#html_form textarea').attr 'disabled', false
-        if window.cm_editor
-          $('.CodeMirror').removeClass 'disabled'
-          window.cm_editor.setOption 'readonly', false
-        else
-          $(document).codemirror()
+        if track_checkbox
+          $(track_checkbox).attr 'disabled', false
+        $('span.track-checkbox').removeClass 'hide'
+        $('span.track-warning').addClass 'hide'
+
+        $('.template-inputs .nav-tabs a:last').addClass 'hide'
+        $('.template-inputs .nav-tabs a:first').removeClass 'hide'
+        $('#plain_form').addClass 'hide'
+        $('#html_form').removeClass 'hide'
+        $('.template-inputs .nav-tabs a:first').tab('show')
       when 'plain'
-        $('#plain_form textarea').attr 'disabled', false
-        $('#html_form textarea').attr 'disabled', 'disabled'
-        if window.cm_editor
-          $('.CodeMirror').addClass 'disabled'
-          window.cm_editor.setOption 'readonly', 'nocursor'
+        if track_checkbox
+          $(track_checkbox).attr 'disabled', 'disabled'
+        $('span.track-checkbox').addClass 'hide'
+        $('span.track-warning').removeClass 'hide'
+
+        $('.template-inputs .nav-tabs a:first').addClass 'hide'
+        $('.template-inputs .nav-tabs a:last').removeClass 'hide'
+        $('#html_form').addClass 'hide'
+        $('#plain_form').removeClass 'hide'
+        $('.template-inputs .nav-tabs a:last').tab('show')
       when 'mixed'
-        $('#plain_form textarea').attr 'disabled', false
-        $('#html_form textarea').attr 'disabled', false
-        if window.cm_editor
-          $('.CodeMirror').removeClass 'disabled'
-          window.cm_editor.setOption 'readonly', false
-        else
-          $(document).codemirror()
+        if track_checkbox
+          $(track_checkbox).attr 'disabled', false
+        $('span.track-checkbox').removeClass 'hide'
+        $('span.track-warning').addClass 'hide'
+
+        $('.template-inputs .nav-tabs a:first').removeClass 'hide'
+        $('.template-inputs .nav-tabs a:last').removeClass 'hide'
+        $('#plain_form').removeClass 'hide'
+        $('#html_form').removeClass 'hide'
+        $('.template-inputs .nav-tabs a:first').tab('show')
 
 $.fn.codemirror = () ->
   if $('.CodeMirror').length == 0
     textarea = $('#html_form textarea')
 
-    if textarea.length > 0 && textarea.attr('disabled') != 'disabled'
+    if textarea.length > 0# && textarea.attr('disabled') != 'disabled'
       interval = setInterval((->
         if CodeMirror.modes.css and CodeMirror.modes.xml and CodeMirror.modes.javascript
           cm_editor = CodeMirror.fromTextArea textarea[0],
@@ -261,7 +273,7 @@ $ ->
   $(".history-graph").historyGraph()
 
   $(document).codemirror()
-  $(document).disableTemplate()
+  $(document).mailingFormHandler()
 
   $(document).on "click", ".btn-retry", (e) ->
     $('#modal-generic').modal('hide')

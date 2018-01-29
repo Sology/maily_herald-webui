@@ -58,7 +58,8 @@ module MailyHerald
         form_group_builder(method, options) do
           content_tag(:div, class: "checkbox") do
             label method do
-              concat(content_tag(:span, super(method, options, checked_value, unchecked_value), class: "checkbox-wrap"))
+              concat(content_tag(:span, super(method, options, checked_value, unchecked_value), class: "#{method.to_s}-checkbox checkbox-wrap"))
+              concat(content_tag(:span, tw("commons.track_only_for"), class: "track-warning label label-warning hide")) if options[:track]
             end
           end
         end
