@@ -6,26 +6,17 @@ module MailyHerald
           {
             delivered: {}.to_json,
             skipped: {}.to_json,
-            failed: {}.to_json
+            error: {}.to_json
           }.tap do |h|
-            case @chosen_status
-            when "processed"
-              h[:delivered] = @delivered.to_json
-              h[:skipped] = @skipped.to_json
-              h[:failed] = @failed.to_json
-            when "delivered"
-              h[:delivered] = @delivered.to_json
-            when "skipped"
-              h[:skipped] = @skipped.to_json
-            when "error"
-              h[:failed] = @failed.to_json
-            end
+            h[:delivered] = @delivered.to_json
+            h[:skipped] = @skipped.to_json
+            h[:error] = @error.to_json
             h
           end
         else
           h = {
             delivered: @delivered.to_json,
-            failed: @failed.to_json,
+            error: @error.to_json
           }
           h[:skipped] = @skipped.to_json if settings.show_skipped?
           h

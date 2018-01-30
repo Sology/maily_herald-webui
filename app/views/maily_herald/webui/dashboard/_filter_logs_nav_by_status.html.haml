@@ -2,4 +2,4 @@
 = summarized_status_link :delivered, @delivered_count, tw("logs.status.delivered"), settings.show_skipped? ? "col-sm-3" : "col-sm-4"
 - if settings.show_skipped?
   = summarized_status_link :skipped, @skipped_count, tw("logs.status.skipped"), "col-sm-3"
-= summarized_status_link :error, @failed_count, tw("logs.status.failed"), settings.show_skipped? ? "col-sm-3" : "col-sm-4"
+= summarized_status_link :error, @error_count, tw("logs.status.failed"), settings.show_skipped? ? "col-sm-3" : "col-sm-4"

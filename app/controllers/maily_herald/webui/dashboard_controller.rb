@@ -25,41 +25,20 @@ module MailyHerald
       smart_listing_create(:logs, chosen_logs, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "desc"})
       smart_listing_create(:schedules, MailyHerald::Log.scheduled, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
 
-      days = @period / 1.day
+      @days = @period / 1.day
       @delivered = {}
-      @failed = {}
+      @error = {}
       @skipped = {}
-
-      for i in 0..days
-        @delivered[(@time - i.days).strftime("%Y-%m-%d")] = 0
-        @failed[(@time - i.days).strftime("%Y-%m-%d")] = 0
-        @skipped[(@time - i.days).strftime("%Y-%m-%d")] = 0
-      end
 
       case @chosen_status
       when "processed"
         get_all_counted_logs
       when "delivered"
-        @delivered_count = logs(:delivered).count
-
-        logs(:delivered).each do |l|
-          @delivered[l.processing_at.strftime("%Y-%m-%d")] ||= 0
-          @delivered[l.processing_at.strftime("%Y-%m-%d")] += 1
-        end
+        get_counted_logs_for :delivered
       when "skipped"
-        @skipped_count = logs(:skipped).count
-
-        logs(:skipped).each do |l|
-          @skipped[l.processing_at.strftime("%Y-%m-%d")] ||= 0
-          @skipped[l.processing_at.strftime("%Y-%m-%d")] += 1
-        end
+        get_counted_logs_for :skipped
       when "error"
-        @failed_count = logs(:error).count
-
-        logs(:error).each do |l|
-          @failed[l.processing_at.strftime("%Y-%m-%d")] ||= 0
-          @failed[l.processing_at.strftime("%Y-%m-%d")] += 1
-        end
+        get_counted_logs_for :error
       when nil
         get_all_counted_logs
       end
@@ -78,24 +57,23 @@ module MailyHerald
     end
 
     def get_all_counted_logs
-        @total_count = log_scope.count
-        @processed_count = logs(:processed).count
-        @delivered_count = logs(:delivered).count
-        @skipped_count = logs(:skipped).count
-        @failed_count = logs(:error).count
+      @processed_count = logs(:processed).count
+      get_counted_logs_for :delivered
+      get_counted_logs_for :skipped
+      get_counted_logs_for :error
+    end
 
-        logs(:delivered).each do |l|
-          @delivered[l.processing_at.strftime("%Y-%m-%d")] ||= 0
-          @delivered[l.processing_at.strftime("%Y-%m-%d")] += 1
-        end
-        logs(:error).each do |l|
-          @failed[l.processing_at.strftime("%Y-%m-%d")] ||= 0
-          @failed[l.processing_at.strftime("%Y-%m-%d")] += 1
-        end
-        logs(:skipped).each do |l|
-          @skipped[l.processing_at.strftime("%Y-%m-%d")] ||= 0
-          @skipped[l.processing_at.strftime("%Y-%m-%d")] += 1
-        end
+    def get_counted_logs_for state
+      count = instance_variable_set("@#{state}_count", logs(state).count)
+      count_grouped = instance_variable_get("@#{state}")
+      (0..@days).each { |i| count_grouped[(@time - i.days).strftime("%Y-%m-%d")] = 0 }
+
+      count = logs(:delivered).count
+
+      logs(state).each do |l|
+        count_grouped[l.processing_at.strftime("%Y-%m-%d")] ||= 0
+        count_grouped[l.processing_at.strftime("%Y-%m-%d")] += 1
+      end
     end
 	end
 end

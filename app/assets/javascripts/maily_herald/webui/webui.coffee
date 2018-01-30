@@ -100,7 +100,7 @@ $.fn.historyGraph = () ->
 
     delivered = createSeries(container.data("delivered"))
     skipped = createSeries(container.data("skipped"))
-    failed = createSeries(container.data("failed"))
+    error = createSeries(container.data("error"))
 
     if !container.data("graph")
       graph = new Rickshaw.Graph(
@@ -117,7 +117,7 @@ $.fn.historyGraph = () ->
           }
           {
             color: "#a94442"
-            data: failed
+            data: error
             name: "Failed"
           }
           {
@@ -144,7 +144,7 @@ $.fn.historyGraph = () ->
     else
       graph = container.data("graph")
       graph.series[0]["data"] = skipped
-      graph.series[1]["data"] = failed
+      graph.series[1]["data"] = error
       graph.series[2]["data"] = delivered
       graph.update()
 
