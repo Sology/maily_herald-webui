@@ -35,7 +35,7 @@ module MailyHerald
       def summarized_status_link status, count, text, wrapper_class
         content_tag(:a, href: root_path(period: @chosen_period, filter_by_status: status), class: ["#{status.to_s}-count", ("active" if @chosen_status == status.to_s || !@chosen_status && status == :processed)], data: {remote: true}) do
           content_tag(:div, class: wrapper_class) do
-            concat(content_tag(:strong, count))
+            concat(content_tag(:strong, count ? count : tw("smart_listing.actions.show")))
             concat("<br/>".html_safe)
             concat(content_tag(:span, text))
           end
