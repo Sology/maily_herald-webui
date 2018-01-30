@@ -956,6 +956,17 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6
       min-height: 38px
 
 .template-inputs
+  .nav-tabs
+    a
+      visibility: visible
+      &.hid
+        visibility: hidden
+
+  #html_form, #plain_form
+    visibility: visible
+    &.hid
+      visibility: hidden
+
   .form-group
     label
       display: none

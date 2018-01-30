@@ -158,10 +158,10 @@ $.fn.mailingFormHandler = () ->
         $('span.track-checkbox').removeClass 'hide'
         $('span.track-warning').addClass 'hide'
 
-        $('.template-inputs .nav-tabs a:last').addClass 'hide'
+        $('.template-inputs .nav-tabs a:last').addClass 'hid'
         $('.template-inputs .nav-tabs a:first').removeClass 'hide'
-        $('#plain_form').addClass 'hide'
-        $('#html_form').removeClass 'hide'
+        $('#plain_form').addClass 'hid'
+        $('#html_form').removeClass 'hid'
         $('.template-inputs .nav-tabs a:first').tab('show')
       when 'plain'
         if track_checkbox
@@ -170,9 +170,9 @@ $.fn.mailingFormHandler = () ->
         $('span.track-warning').removeClass 'hide'
 
         $('.template-inputs .nav-tabs a:first').addClass 'hide'
-        $('.template-inputs .nav-tabs a:last').removeClass 'hide'
-        $('#html_form').addClass 'hide'
-        $('#plain_form').removeClass 'hide'
+        $('.template-inputs .nav-tabs a:last').removeClass 'hid'
+        $('#html_form').addClass 'hid'
+        $('#plain_form').removeClass 'hid'
         $('.template-inputs .nav-tabs a:last').tab('show')
       when 'mixed'
         if track_checkbox
@@ -181,9 +181,9 @@ $.fn.mailingFormHandler = () ->
         $('span.track-warning').addClass 'hide'
 
         $('.template-inputs .nav-tabs a:first').removeClass 'hide'
-        $('.template-inputs .nav-tabs a:last').removeClass 'hide'
-        $('#plain_form').removeClass 'hide'
-        $('#html_form').removeClass 'hide'
+        $('.template-inputs .nav-tabs a:last').removeClass 'hid'
+        $('#plain_form').removeClass 'hid'
+        $('#html_form').removeClass 'hid'
         $('.template-inputs .nav-tabs a:first').tab('show')
 
 $.fn.codemirror = () ->
