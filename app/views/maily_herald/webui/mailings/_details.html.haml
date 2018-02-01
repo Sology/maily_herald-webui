@@ -25,8 +25,9 @@
   %dt= tw(:label_list)
   %dd= link_to friendly_name(@item.list), list_path(@item.list)
 
-  %dt= tw("attributes.kind")
-  %dd= @item.kind
+  - if @item.mailer_name == :generic
+    %dt= tw("attributes.kind")
+    %dd= @item.kind
 
   %dt
     = tw("attributes.track")
