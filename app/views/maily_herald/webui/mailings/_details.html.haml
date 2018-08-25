@@ -17,10 +17,11 @@
     = display_help_icon :mailer_name, scope: "mailings"
   %dd= display_mailing_mailer @item.mailer_name
 
-  %dt
-    = @item.class.human_attribute_name(:from)
-    = display_help_icon "from", scope: "mailings"
-  %dd= display_mailing_from @item
+  - unless @item.locked?
+    %dt
+      = @item.class.human_attribute_name(:from)
+      = display_help_icon "from", scope: "mailings"
+    %dd= display_mailing_from @item
 
   %dt= tw(:label_list)
   %dd= link_to friendly_name(@item.list), list_path(@item.list)
