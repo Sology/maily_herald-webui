@@ -3,7 +3,11 @@ module MailyHerald
     def switch_setting
       settings.toggle params[:setting]
 
-      redirect_to :back
+      if Rails::VERSION::MAJOR >= 5
+        redirect_back(fallback_location: root_path)
+      else
+        redirect_to :back
+      end
     end
 
     private

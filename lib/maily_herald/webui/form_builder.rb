@@ -7,18 +7,14 @@ module MailyHerald
 
       delegate :content_tag, :capture, :concat, :t, :tw, to: :@template
 
-      def initialize(object_name, object, template, options, proc = nil)
+      def initialize(object_name, object, template, options)
         @layout = options[:layout]
         @label_col = options[:label_col] || default_label_col
         @control_col = options[:control_col] || default_control_col
         @inline_errors = options[:inline_errors] != false
         @help_scope = options[:help_scope]
 
-        if Rails::VERSION::MAJOR >= 4.2
-          super
-        else
-          super object_name, object, template, options
-        end
+        super
       end
 
       def prepend_and_append_input(options, &block)
