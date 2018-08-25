@@ -30,6 +30,12 @@
         = display_help_icon :in_scope, scope: "lists"
       %dd= display_list_scope_status @log.mailing.list, @log.entity
 
+  - if @log.delivered? && @log.mailing.track && @preview.html?
+    %br
+    .dl-horizontal
+      %dt= tw("attributes.opens")
+      %dd= @log.opens.count
+
 - if @log.error?
   .alert.alert-danger= tw("logs.infos.error")
   - if @log.data[:msg]

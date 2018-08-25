@@ -95,6 +95,7 @@ en:
         subject: Subject
         kind: Kind
         track: Track
+        opens: Opens
       settings:
         expert_mode: Expert mode
         show_skipped: Show skipped schedules
