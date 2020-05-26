@@ -11,7 +11,7 @@ module MailyHerald
       before_action :set_time_zone
 
       def settings
-        Settings.new(cookies)
+        MailyHerald::Webui::Settings.new(cookies)
       end
 
       def log_scope
