@@ -149,6 +149,7 @@ en:
           original_processing: "Original processing was scheduled for %{date}."
           last_skipped: "Last delivery attempt was on %{date}. The reason of skipping was: %{reason}."
         status:
+          opened: Opened
           delivered: Delivered
           error: Error
           failed: Failed

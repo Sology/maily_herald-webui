@@ -98,6 +98,7 @@ $.fn.historyGraph = () ->
   $(this).each ->
     container = $(this)
 
+    opened = createSeries(container.data("opened"))
     delivered = createSeries(container.data("delivered"))
     skipped = createSeries(container.data("skipped"))
     error = createSeries(container.data("error"))
@@ -125,6 +126,11 @@ $.fn.historyGraph = () ->
             data: delivered
             name: "Delivered"
           }
+          {
+            color: "#5bc0de"
+            data: opened
+            name: "Opened"
+          }
         ]
       )
       x_axis = new Rickshaw.Graph.Axis.Time(graph: graph)
@@ -146,6 +152,7 @@ $.fn.historyGraph = () ->
       graph.series[0]["data"] = skipped
       graph.series[1]["data"] = error
       graph.series[2]["data"] = delivered
+      graph.series[3]["data"] = opened
       graph.update()
 
 $.fn.mailingFormHandler = () ->

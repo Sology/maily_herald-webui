@@ -10,6 +10,8 @@
   = link_to object.mailing.title, webui_mailing_path(object.mailing)
 %td
   - case object.status
+  - when :opened
+    %span.glyphicon.glyphicon-eye{title: "Opened"}
   - when :delivered
     %span.glyphicon.glyphicon-ok{title: "Delivered"}
   - when :skipped

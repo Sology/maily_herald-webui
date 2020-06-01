@@ -26,6 +26,7 @@ module MailyHerald
       smart_listing_create(:schedules, MailyHerald::Log.scheduled, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
 
       @days = @period / 1.day
+      @opened = {}
       @delivered = {}
       @error = {}
       @skipped = {}
@@ -33,6 +34,8 @@ module MailyHerald
       case @chosen_status
       when "processed"
         get_all_counted_logs
+      when "opened"
+        get_counted_logs_for :opened
       when "delivered"
         get_counted_logs_for :delivered
       when "skipped"
@@ -53,11 +56,12 @@ module MailyHerald
     end
 
     def chosen_logs
-      @chosen_status && %w(processed delivered skipped error).include?(@chosen_status) ? logs(@chosen_status) : logs(:processed)
+      @chosen_status && %w(processed opened delivered skipped error).include?(@chosen_status) ? logs(@chosen_status) : logs(:processed)
     end
 
     def get_all_counted_logs
       @processed_count = logs(:processed).count
+      get_counted_logs_for :opened
       get_counted_logs_for :delivered
       get_counted_logs_for :skipped
       get_counted_logs_for :error

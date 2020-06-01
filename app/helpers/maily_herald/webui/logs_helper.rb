@@ -99,6 +99,8 @@ module MailyHerald
 
       def display_log_status log, for_modal = false
         case log.status
+        when :opened
+          content_tag(:span, icon(:eye, tw("logs.status.opened")), class: "log-status text-opened").concat(display_opens_icon_for(log)).concat(display_delivery_attempts_icon_for(log))
         when :delivered
           content_tag(:span, icon(:check, tw("logs.status.delivered")), class: "log-status text-success").concat(display_opens_icon_for(log)).concat(display_delivery_attempts_icon_for(log))
         when :skipped

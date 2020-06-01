@@ -154,7 +154,7 @@ module MailyHerald
       end
 
       def select_logs_by_status
-        options = [["Processed", :processed], ["Delivered", :delivered], ["Error", :error]]
+        options = [["Processed", :processed], ["Delivered", :delivered], ["Opened", :opened], ["Error", :error]]
         options = options.insert(2, ["Skipped", :skipped]) if settings.show_skipped?
         content_tag(:div, class: "filter filter-status") do
           concat(content_tag(:span, class: "select-wrap") do
