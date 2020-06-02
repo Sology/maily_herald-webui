@@ -61,6 +61,8 @@ module MailyHerald
           @logs = case params[:logs_status_filter]
                   when "processed"
                     @logs.processed
+                  when "clicked"
+                    @logs.clicked
                   when "opened"
                     @logs.opened
                   when "delivered"

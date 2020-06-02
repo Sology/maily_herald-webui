@@ -12,6 +12,9 @@
     %dt= tw("logs.state")
     %dd= display_log_status @log, true
 
+    - if @log.delivered? && @log.clicks.list.any?
+      %dt= tw("logs.clicks")
+      %dd.clicks-list= display_clicks_for @log
     - if @log.delivered? && @log.opens.list.any?
       %dt= tw("logs.opens")
       %dd.opens-list= display_opens_for @log

@@ -98,6 +98,7 @@ $.fn.historyGraph = () ->
   $(this).each ->
     container = $(this)
 
+    clicked = createSeries(container.data("clicked"))
     opened = createSeries(container.data("opened"))
     delivered = createSeries(container.data("delivered"))
     skipped = createSeries(container.data("skipped"))
@@ -130,6 +131,11 @@ $.fn.historyGraph = () ->
             color: "#5bc0de"
             data: opened
             name: "Opened"
+          }
+          {
+            color: "#625bde"
+            data: clicked
+            name: "Clicked"
           }
         ]
       )

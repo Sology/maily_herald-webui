@@ -1,6 +1,7 @@
-= summarized_status_link :processed, @processed_count, tw("logs.status.processed"), settings.show_skipped? ? "col-sm-2" : "col-sm-3"
-= summarized_status_link :delivered, @delivered_count, tw("logs.status.delivered"), settings.show_skipped? ? "col-sm-2" : "col-sm-3"
-= summarized_status_link :opened, @opened_count, tw("logs.status.opened"), settings.show_skipped? ? "col-sm-2" : "col-sm-3"
+= summarized_status_link :processed, @processed_count, tw("logs.status.processed"), "col-sm-2"
+= summarized_status_link :delivered, @delivered_count, tw("logs.status.delivered"), "col-sm-2"
+= summarized_status_link :opened, @opened_count, tw("logs.status.opened"), "col-sm-2"
+= summarized_status_link :clicked, @clicked_count, tw("logs.status.clicked"), "col-sm-2"
 - if settings.show_skipped?
   = summarized_status_link :skipped, @skipped_count, tw("logs.status.skipped"), "col-sm-2"
-= summarized_status_link :error, @error_count, tw("logs.status.failed"), settings.show_skipped? ? "col-sm-2" : "col-sm-3"
+= summarized_status_link :error, @error_count, tw("logs.status.failed"), "col-sm-2"

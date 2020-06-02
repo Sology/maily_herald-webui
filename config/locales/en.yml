@@ -96,6 +96,7 @@ en:
         kind: Kind
         track: Track
         opens: Opens
+        clicks: Clicks
       settings:
         expert_mode: Expert mode
         show_skipped: Show skipped schedules
@@ -149,6 +150,7 @@ en:
           original_processing: "Original processing was scheduled for %{date}."
           last_skipped: "Last delivery attempt was on %{date}. The reason of skipping was: %{reason}."
         status:
+          clicked: Clicked
           opened: Opened
           delivered: Delivered
           error: Error
@@ -166,6 +168,7 @@ en:
           conditions_unmet: Conditions unmet
           not_processable: Not processable
           not_in_scope: Entity not in context scope
+        clicks: Clicks
         opens: Opens
         delivery_attempts: Delivery attempts
       ad_hoc_mailings:

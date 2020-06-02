@@ -33,6 +33,30 @@ module MailyHerald
         actions
       end
 
+      def display_clicks_for log
+        keys = log.clicks.list.first.keys.reverse
+        content_tag(:table, class: "table table-striped") do
+          concat(content_tag(:thead) do
+            concat(content_tag(:tr) do
+              keys.each do |k|
+                concat(content_tag(:th, k.to_s.capitalize.gsub("_", " "), class: k == :user_agent ? "" : "col-sm-3"))
+              end
+            end)
+          end)
+          concat(content_tag(:thead) do
+            concat(content_tag(:tbody) do
+              log.clicks.list.each do |o|
+                concat(content_tag(:tr) do
+                  keys.each do |k|
+                    concat(content_tag(:td, o[k].is_a?(Time) ? o[k].in_time_zone.strftime("%Y-%m-%d %H:%M") : o[k]))
+                  end
+                end)
+              end
+            end)
+          end)
+        end
+      end
+
       def display_opens_for log
         keys = log.opens.list.first.keys.reverse
         content_tag(:table, class: "table table-striped") do
@@ -81,6 +105,14 @@ module MailyHerald
         end
       end
 
+      def display_clicks_icon_for log
+        content_tag(:span, class: "label label-info") do
+          concat(icon('hand-o-up'))
+          concat("&nbsp;".html_safe)
+          concat(log.clicks.list.count)
+        end if log.clicks.list.count > 0
+      end
+
       def display_opens_icon_for log
         content_tag(:span, class: "label label-info") do
           concat(icon(:eye))
@@ -99,10 +131,12 @@ module MailyHerald
 
       def display_log_status log, for_modal = false
         case log.status
+        when :clicked
+          content_tag(:span, icon('hand-o-up', tw("logs.status.clicked")), class: "log-status text-clicked").concat(display_clicks_icon_for(log)).concat(display_opens_icon_for(log)).concat(display_delivery_attempts_icon_for(log))
         when :opened
           content_tag(:span, icon(:eye, tw("logs.status.opened")), class: "log-status text-opened").concat(display_opens_icon_for(log)).concat(display_delivery_attempts_icon_for(log))
         when :delivered
-          content_tag(:span, icon(:check, tw("logs.status.delivered")), class: "log-status text-success").concat(display_opens_icon_for(log)).concat(display_delivery_attempts_icon_for(log))
+          content_tag(:span, icon(:check, tw("logs.status.delivered")), class: "log-status text-success").concat(display_delivery_attempts_icon_for(log))
         when :skipped
           content_tag(:span, icon(:times, tw("logs.status.skipped")), class: "log-status text-warning").concat(display_delivery_attempts_icon_for(log))
         when :error

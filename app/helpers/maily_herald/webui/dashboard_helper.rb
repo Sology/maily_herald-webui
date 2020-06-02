@@ -4,11 +4,13 @@ module MailyHerald
       def history_graph_data
         if @chosen_status
           {
+            clicked: {}.to_json,
             opened: {}.to_json,
             delivered: {}.to_json,
             skipped: {}.to_json,
             error: {}.to_json
           }.tap do |h|
+            h[:clicked] = @clicked.to_json
             h[:opened] = @opened.to_json
             h[:delivered] = @delivered.to_json
             h[:skipped] = @skipped.to_json
@@ -17,6 +19,7 @@ module MailyHerald
           end
         else
           h = {
+            clicked: @clicked.to_json,
             opened: @opened.to_json,
             delivered: @delivered.to_json,
             error: @error.to_json
