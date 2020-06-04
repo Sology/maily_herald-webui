@@ -1,5 +1,9 @@
 = render partial: "header"
 
+- if @item.pending?
+  .alert.alert-info= tw("mailings.infos.pending")
+- if @item.completed?
+  .alert.alert-info= tw("mailings.infos.completed")
 - if @item.disabled?
   .alert.alert-warning= tw("mailings.infos.disabled")
 - elsif @item.archived?
