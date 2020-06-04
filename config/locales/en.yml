@@ -65,6 +65,8 @@ en:
         positive: "Yes"
         negative: "No"
         enabled: Enabled
+        pending: Scheduled
+        completed: Completed
         disabled: Disabled
         archived: Archived
         archive: Archive
@@ -216,7 +218,7 @@ en:
         infos:
           non_generic_mailer: This mailing uses Rails Mailer %{mailer} which means you can edit it only by coding. <br />In order to edit its template via this UI, choose %{generic_mailer}.
           pending: This mailing has been scheduled and will be delivered soon or at the scheduled time. You can cancel it by disabling it using menu above.
-          completed: This mailing has being delivered or has been delivered. You can send it again using menu above.
+          completed: This mailing is being delivered or has been delivered. You can send it again using menu above.
           disabled: This mailing is disabled and won't be delivered to entities. You can enable it using menu above.
           archived: This mailing is archived and won't be delivered to entities. You can bring it back using menu above.
         placeholders:

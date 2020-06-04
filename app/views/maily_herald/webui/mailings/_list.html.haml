@@ -15,7 +15,7 @@
           %td= link_to_mailing mailing
           - if @sequence
             %td= distance_of_time_in_words(mailing.absolute_delay)
-          %td= display_dispatch_state mailing
+          %td= display_dispatch_state_extra_detailed mailing
           %td= link_to friendly_name(mailing.list), list_path(mailing.list)
           %td= display_mailing_mailer mailing.mailer_name
           %td.actions
