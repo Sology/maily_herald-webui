@@ -76,11 +76,8 @@ module MailyHerald
       count_grouped = instance_variable_get("@#{state}")
       (0..@days).each { |i| count_grouped[(@time - i.days).strftime("%Y-%m-%d")] = 0 }
 
-      count = logs(:delivered).count
-
-      logs(state).each do |l|
-        count_grouped[l.processing_at.strftime("%Y-%m-%d")] ||= 0
-        count_grouped[l.processing_at.strftime("%Y-%m-%d")] += 1
+      logs(state).group('processing_at::date').count.each do |date, count|
+        count_grouped[date.strftime("%Y-%m-%d")] = count
       end
     end
 	end
