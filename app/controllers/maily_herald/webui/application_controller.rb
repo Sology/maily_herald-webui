@@ -8,10 +8,8 @@ module MailyHerald
       helper SmartListing::Helper
       helper_method :settings
 
-      before_action :set_time_zone
-
       def settings
-        Settings.new(cookies)
+        MailyHerald::Webui::Settings.new(cookies)
       end
 
       def log_scope
@@ -20,10 +18,6 @@ module MailyHerald
         else
           MailyHerald::Log.not_skipped
         end
-      end
-
-      def set_time_zone
-        Time.zone = cookies["currentTimeZone"] || "UTC"
       end
     end
   end

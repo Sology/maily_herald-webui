@@ -24,9 +24,9 @@ module MailyHerald
         render_containers ["schedules"]
         render_update
       else
-        @item.schedule_delivery_to_all
+        @item.pend!
 
-        render_containers ["schedules"]
+        render_containers ["details"]
         render_update
       end
     end

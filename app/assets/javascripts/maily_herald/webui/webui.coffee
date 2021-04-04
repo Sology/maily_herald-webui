@@ -98,6 +98,8 @@ $.fn.historyGraph = () ->
   $(this).each ->
     container = $(this)
 
+    clicked = createSeries(container.data("clicked"))
+    opened = createSeries(container.data("opened"))
     delivered = createSeries(container.data("delivered"))
     skipped = createSeries(container.data("skipped"))
     error = createSeries(container.data("error"))
@@ -125,6 +127,16 @@ $.fn.historyGraph = () ->
             data: delivered
             name: "Delivered"
           }
+          {
+            color: "#5bc0de"
+            data: opened
+            name: "Opened"
+          }
+          {
+            color: "#625bde"
+            data: clicked
+            name: "Clicked"
+          }
         ]
       )
       x_axis = new Rickshaw.Graph.Axis.Time(graph: graph)
@@ -146,6 +158,7 @@ $.fn.historyGraph = () ->
       graph.series[0]["data"] = skipped
       graph.series[1]["data"] = error
       graph.series[2]["data"] = delivered
+      graph.series[3]["data"] = opened
       graph.update()
 
 $.fn.mailingFormHandler = () ->
@@ -204,8 +217,6 @@ $.fn.codemirror = () ->
 $ ->
   SmartListing.config.merge()
 
-  document.cookie = "currentTimeZone=" + Intl.DateTimeFormat().resolvedOptions().timeZone
-  
   $(document).on "click", ".resource-editable button.cancel", ->
     $(this).closest(".resource-editable").editable("cancel")
     false

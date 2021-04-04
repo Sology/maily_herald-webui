@@ -65,6 +65,8 @@ en:
         positive: "Yes"
         negative: "No"
         enabled: Enabled
+        pending: Scheduled
+        completed: Completed
         disabled: Disabled
         archived: Archived
         archive: Archive
@@ -96,6 +98,7 @@ en:
         kind: Kind
         track: Track
         opens: Opens
+        clicks: Clicks
       settings:
         expert_mode: Expert mode
         show_skipped: Show skipped schedules
@@ -149,6 +152,8 @@ en:
           original_processing: "Original processing was scheduled for %{date}."
           last_skipped: "Last delivery attempt was on %{date}. The reason of skipping was: %{reason}."
         status:
+          clicked: Clicked
+          opened: Opened
           delivered: Delivered
           error: Error
           failed: Failed
@@ -165,6 +170,7 @@ en:
           conditions_unmet: Conditions unmet
           not_processable: Not processable
           not_in_scope: Entity not in context scope
+        clicks: Clicks
         opens: Opens
         delivery_attempts: Delivery attempts
       ad_hoc_mailings:
@@ -211,6 +217,8 @@ en:
           disable_confirm: Are you sure you want to disable this Mailing?
         infos:
           non_generic_mailer: This mailing uses Rails Mailer %{mailer} which means you can edit it only by coding. <br />In order to edit its template via this UI, choose %{generic_mailer}.
+          pending: This mailing has been scheduled and will be delivered soon or at the scheduled time. You can cancel it by disabling it using menu above.
+          completed: This mailing is being delivered or has been delivered. You can send it again using menu above.
           disabled: This mailing is disabled and won't be delivered to entities. You can enable it using menu above.
           archived: This mailing is archived and won't be delivered to entities. You can bring it back using menu above.
         placeholders:

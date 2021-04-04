@@ -5,6 +5,8 @@ $(".period-<%= params[:period] || "month" %>").addClass("active");
 <%= smart_listing_update(:schedules) %>
 
 $(".history-graph").data("delivered", <%= history_graph_data[:delivered].html_safe %>);
+$(".history-graph").data("opened", <%= history_graph_data[:opened].html_safe %>);
+$(".history-graph").data("clicked", <%= history_graph_data[:clicked].html_safe %>);
 $(".history-graph").data("error", <%= history_graph_data[:error].html_safe %>);
 <% if settings.show_skipped? %>
   $(".history-graph").data("skipped", <%= history_graph_data[:skipped].html_safe %>);

@@ -26,6 +26,8 @@ module MailyHerald
       smart_listing_create(:schedules, MailyHerald::Log.scheduled, partial: "maily_herald/webui/logs/items", default_sort: {processing_at: "asc"})
 
       @days = @period / 1.day
+      @clicked = {}
+      @opened = {}
       @delivered = {}
       @error = {}
       @skipped = {}
@@ -33,6 +35,10 @@ module MailyHerald
       case @chosen_status
       when "processed"
         get_all_counted_logs
+      when "clicked"
+        get_counted_logs_for :clicked
+      when "opened"
+        get_counted_logs_for :opened
       when "delivered"
         get_counted_logs_for :delivered
       when "skipped"
@@ -53,11 +59,13 @@ module MailyHerald
     end
 
     def chosen_logs
-      @chosen_status && %w(processed delivered skipped error).include?(@chosen_status) ? logs(@chosen_status) : logs(:processed)
+      @chosen_status && %w(processed clicked opened delivered skipped error).include?(@chosen_status) ? logs(@chosen_status) : logs(:processed)
     end
 
     def get_all_counted_logs
       @processed_count = logs(:processed).count
+      get_counted_logs_for :clicked
+      get_counted_logs_for :opened
       get_counted_logs_for :delivered
       get_counted_logs_for :skipped
       get_counted_logs_for :error
@@ -68,11 +76,8 @@ module MailyHerald
       count_grouped = instance_variable_get("@#{state}")
       (0..@days).each { |i| count_grouped[(@time - i.days).strftime("%Y-%m-%d")] = 0 }
 
-      count = logs(:delivered).count
-
-      logs(state).each do |l|
-        count_grouped[l.processing_at.strftime("%Y-%m-%d")] ||= 0
-        count_grouped[l.processing_at.strftime("%Y-%m-%d")] += 1
+      logs(state).group('processing_at::date').count.each do |date, count|
+        count_grouped[date.strftime("%Y-%m-%d")] = count
       end
     end
 	end

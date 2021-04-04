@@ -15,6 +15,7 @@ gemspec
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
+gem 'browser-timezone-rails', '~> 1.1'
 
 gem 'maily_herald', path: '../maily_herald'
 
